@@ -1,0 +1,104 @@
+/* assets/css/app.css */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer components {
+  .status-bar {
+    @apply fixed top-0 left-0 right-0 z-50 
+           py-4 px-8 text-sm text-gray-600 bg-white border-b border-gray-100;
+  }
+
+  .status-bar span {
+    @apply text-gray-500 text-sm font-normal;
+  }
+
+  .main-container {
+    @apply max-w-6xl mx-auto;
+  }
+
+  .content-area {
+    @apply mt-15vh;
+  }
+
+  /* Typography */
+  .main-heading {
+    @apply text-4xl font-normal text-gray-900 mb-8 opacity-0;
+    animation: fadeIn 0.5s ease-out 2.5s forwards;
+  }
+
+  .sub-heading {
+    @apply text-xl font-normal text-gray-500 max-w-2xl opacity-0;
+    animation: fadeInUp 0.5s ease-out 0.5s forwards;
+  }
+
+  /* Navigation */
+  .nav-links {
+    @apply fixed right-8 top-64 opacity-0;
+    animation: fadeIn 0.5s ease-out 3s forwards;
+  }
+
+  .nav-links a {
+    @apply block text-gray-500 text-sm font-normal py-1.5 
+           transition-colors duration-200 hover:text-gray-900;
+  }
+
+  /* Menu Button */
+  .menu-button {
+    @apply hidden text-sm font-normal text-gray-500 
+           hover:text-gray-900 transition-colors duration-200;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .typed-text {
+    opacity: 0;
+  }
+
+  .typed-text.visible {
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .status-bar {
+      @apply flex-col items-start p-4;
+    }
+
+    .name-location {
+      @apply w-full flex justify-between items-center mb-2;
+    }
+
+    .menu-button {
+      @apply block;
+    }
+
+    .nav-links:not(.menu-overlay .nav-links) {
+      @apply hidden;
+    }
+
+    .main-heading {
+      @apply text-2xl;
+    }
+
+    .sub-heading {
+      @apply text-lg;
+    }
+  }
+}

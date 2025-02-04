@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --burnt-orange: rgb(211, 84, 0);
+            --navy-blue: rgb(44, 62, 80);
+            --dark-gray: rgb(44, 60, 60);
+            --background: #ffffff;
+            --text: #232323;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: var(--text);
+            background: var(--background);
+            font-size: 1.125rem;
+            overflow-x: hidden;
+        }
+        
+        .status-bar {
+            padding: 0.75rem 2rem;
+            background: #f5f5f5;
+            font-size: 0.875rem;
+            color: #666;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .status-bar > * {
+            opacity: 0;
+        }
+        
+        .time-location {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 4rem;
+        }
+        
+        .intro-section {
+            padding: 4rem 0;
+        }
+        
+        .intro-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            opacity: 0;
+        }
+        
+        .intro-content p {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 45ch;
+            opacity: 0;
+        }
+        
+        .nav-links {
+            padding-top: 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding-right: 2rem;
+            opacity: 0;
+        }
+        
+        .nav-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--burnt-orange);
+        }
+
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .status-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem 2rem;
+            }
+
+            .name-location {
+                order: -1;
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 0.5rem;
+                width: 100%;
+            }
+
+            .time-location {
+                width: 100%;
+            }
+
+            .time-location #location {
+                display: none;
+            }
+
+            #mobile-location {
+                display: inline;
+            }
+
+            .menu-button {
+                display: block;
+                margin-left: auto;
+            }
+
+            .nav-links:not(.menu-overlay .nav-links) {
+                display: none;
+            }
+
+            .intro-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .intro-content p {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="status-bar">
+        <div class="time-location">
+            <span id="datetime">Loading...</span>
+            <span id="location">Your Location</span>
+        </div>
+        <div class="name-location">
+            <span class="name">Your Name</span>
+            <span id="mobile-location" style="display: none;">Your Location</span>
+            <button class="menu-button">Menu</button>
+        </div>
+    </div>
+    
+    <main>
+        <div class="container">
+            <section class="intro-section">
+                <div class="intro-content">
+                    <h1></h1>
+                    <p>UX Designer and Front-end Developer focused on creating intuitive, user-centered solutions that drive business growth.</p>
+                </div>
+            </section>
+            
+            <nav class="nav-links">
+                <a href="#work">View Work</a>
+                <a href="#process">My Process</a>
+                <a href="#contact">Get in Touch</a>
+                <a href="#about">About Me</a>
+            </nav>
+        </div>
+    </main>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            };
+            document.getElementById('datetime').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+
+        // Animation sequence
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainText = "I help companies build exceptional digital experiences through thoughtful design.";
+            const h1Element = document.querySelector('.intro-content h1');
+            let currentText = "";
+            let currentIndex = 0;
+
+            // Header animations
+            gsap.to('.time-location', {
+                opacity: 1,
+                duration: 1,
+                delay: 0.5
+            });
+
+            gsap.to('.name-location', {
+                opacity: 1,
+                duration: 1,
+                delay: 1
+            });
+
+            // Subheading animation
+            gsap.to('.intro-content p', {
+                opacity: 1,
+                duration: 1,
+                delay: 1.5
+            });
+
+            // Typing animation
+            function typeText() {
+                if (currentIndex < mainText.length) {
+                    currentText += mainText[currentIndex];
+                    h1Element.textContent = currentText;
+                    currentIndex++;
+                    setTimeout(typeText, 50);
+                } else {
+                    // Show navigation after typing is complete
+                    gsap.to('.nav-links', {
+                        opacity: 1,
+                        duration: 1
+                    });
+                }
+            }
+
+            // Start typing after a delay
+            setTimeout(() => {
+                h1Element.style.opacity = 1;
+                typeText();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
