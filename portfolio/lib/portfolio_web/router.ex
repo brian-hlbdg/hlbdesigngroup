@@ -17,7 +17,11 @@ defmodule PortfolioWeb.Router do
   scope "/", PortfolioWeb do
     pipe_through :browser
 
-    live "/", HomeLive, :index  # This sets HomeLive as the root page
+    live "/", HomeLive, :index
+    live "/work", WorkLive, :index
+    live "/process", ProcessLive, :index
+    live "/contact", ContactLive, :index
+    live "/about", AboutLive, :index  # This sets HomeLive as the root page
   end
 
   # Other scopes may use custom stacks.

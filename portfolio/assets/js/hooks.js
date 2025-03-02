@@ -5,16 +5,16 @@ const Hooks = {
       this.timer = setInterval(() => {
         const now = new Date();
         const options = { 
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
           day: 'numeric',
-          hour: '2-digit',
+          hour: '2-digit', 
           minute: '2-digit',
           second: '2-digit',
           hour12: true
         };
-        this.el.textContent = now.toLocaleDateString('en-US', options) + " San Francisco, CA";
+        this.el.textContent = now.toLocaleDateString('en-US', options) + " Chicago, IL";
       }, 1000);
     },
     destroyed() {
@@ -24,22 +24,42 @@ const Hooks = {
   
   TypeWriter: {
     mounted() {
-      const text = this.el.textContent.trim();
-      this.el.textContent = '';
-      this.el.classList.add('typed-text');
-      
-      const type = (i = 0) => {
-        if (i < text.length) {
-          requestAnimationFrame(() => {
-            this.el.textContent += text.charAt(i);
-            if (i === 0) this.el.classList.add('visible');
-            type(i + 1);
-          });
+      const mainText = this.el.textContent.trim(); // Get text from the element
+      this.el.textContent = ''; // Clear existing text
+      let currentText = "";
+      let currentIndex = 0;
+
+      // Typing animation
+      const typeText = () => {
+        if (currentIndex < mainText.length) {
+          currentText += mainText[currentIndex];
+          this.el.textContent = currentText;
+          currentIndex++;
+          setTimeout(typeText, 50);
+        } else {
+          // Fade in navigation after typing is complete
+          const navLinks = document.getElementById('main-nav');
+          if (navLinks) {
+            navLinks.style.opacity = "1";
+            navLinks.style.transition = "opacity 1s ease";
+          }
         }
       };
 
-      // Start typing after initial animations
-      setTimeout(() => type(), 2000);
+      // Start typing after a delay
+      setTimeout(() => {
+        this.el.style.opacity = "1";
+        typeText();
+      }, 2000);
+    }
+  },
+  
+  FadeIn: {
+    mounted() {
+      setTimeout(() => {
+        this.el.style.opacity = "1";
+        this.el.style.transition = "opacity 1s ease";
+      }, this.el.id === 'intro-text' ? 1500 : 500);
     }
   }
 };
