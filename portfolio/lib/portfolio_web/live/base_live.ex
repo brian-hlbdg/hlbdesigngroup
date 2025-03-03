@@ -1,6 +1,5 @@
-# lib/portfolio_web/live/base_live.ex
 defmodule PortfolioWeb.BaseLive do
-  defmacro __using__(opts) do
+  defmacro __using__(_opts) do
     quote do
       use PortfolioWeb, :live_view
       import PortfolioWeb.NavComponent

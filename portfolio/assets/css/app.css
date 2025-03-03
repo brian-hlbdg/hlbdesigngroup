@@ -271,3 +271,77 @@ button[phx-click="toggle_menu"]:hover {
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
+
+/* Hobbies section styles */
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+/* Category buttons transitions */
+button[phx-click="select_category"] {
+  transition: all 0.3s ease;
+}
+
+button[phx-click="select_category"]:hover {
+  transform: translateY(-2px);
+}
+
+/* Image grid hover effects */
+#category-content .overflow-hidden {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#category-content .overflow-hidden:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Caption styling */
+#category-content .p-3 {
+  transition: background-color 0.3s ease;
+}
+
+#category-content .overflow-hidden:hover .p-3 {
+  background-color: #f9fafb;
+}
+
+/* Make category selector scrollable on mobile */
+@media (max-width: 640px) {
+  .flex.flex-wrap.overflow-x-auto.space-x-4 {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .flex.flex-wrap.overflow-x-auto.space-x-4::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+}
+
+/* Improve image grid on mobile */
+@media (max-width: 768px) {
+  #category-content .grid.grid-cols-1.md\:grid-cols-2 > div {
+    margin-bottom: 1.5rem;
+  }
+  
+  #category-content img {
+    height: 200px;
+  }
+}
+
+/* Animation for category content changes */
+#category-content {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

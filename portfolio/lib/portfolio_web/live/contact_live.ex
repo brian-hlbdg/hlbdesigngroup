@@ -1,4 +1,4 @@
-# lib/portfolio_web/live/contact_live.ex
+# lib/portfolio_web/live/contact_live.ex - Fixed version
 defmodule PortfolioWeb.ContactLive do
   use PortfolioWeb.BaseLive
   alias Phoenix.LiveView.JS
@@ -189,9 +189,10 @@ defmodule PortfolioWeb.ContactLive do
     """
   end
 
-  def handle_event("submit_form", params, socket) do
+  def handle_event("submit_form", _params, socket) do
     # In a real app, you would process form data here, perhaps sending an email
     # or storing the inquiry in a database
+    # Changed 'params' to '_params' to fix the warning
 
     # For demonstration purposes, we'll simulate a successful submission
     # In a real app, you would add proper validation and error handling

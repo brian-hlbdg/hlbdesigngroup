@@ -8,7 +8,7 @@ defmodule PortfolioWeb.Router do
     plug :put_root_layout, html: {PortfolioWeb.Layouts, :root}
     plug :put_layout, {PortfolioWeb.Layouts, :app}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers# Add this line
+    plug :put_secure_browser_headers
   end
 
   pipeline :api do
@@ -24,7 +24,8 @@ defmodule PortfolioWeb.Router do
     live "/contact", ContactLive, :index
     live "/about", AboutLive, :index
     live "/projects", ProjectLive, :index
-    live "/projects/:id", ProjectDetailLive, :show  # This sets HomeLive as the root page
+    live "/projects/:id", ProjectDetailLive, :show
+    live "/hobbies", HobbiesLive, :index
   end
 
   # Other scopes may use custom stacks.

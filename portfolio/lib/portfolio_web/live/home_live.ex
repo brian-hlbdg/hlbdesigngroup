@@ -47,13 +47,13 @@ defmodule PortfolioWeb.HomeLive do
             <span class="material-icons text-lg">insights</span>
             <span>Process</span>
           </.link>
+          <.link navigate={~p"/hobbies"} class="text-xs text-gray-500 flex flex-col items-center">
+            <span class="material-icons text-lg">camera_alt</span>
+            <span>Hobbies</span>
+          </.link>
           <.link navigate={~p"/about"} class="text-xs text-gray-500 flex flex-col items-center">
             <span class="material-icons text-lg">person</span>
             <span>About</span>
-          </.link>
-          <.link navigate={~p"/contact"} class="text-xs text-gray-500 flex flex-col items-center">
-            <span class="material-icons text-lg">mail</span>
-            <span>Contact</span>
           </.link>
         </nav>
       </div>

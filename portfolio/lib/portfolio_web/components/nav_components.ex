@@ -10,6 +10,7 @@ defmodule PortfolioWeb.NavComponent do
         <.link navigate={~p"/projects"} class={nav_link_class(@active == "work")}>Work</.link>
         <.link navigate={~p"/process"} class={nav_link_class(@active == "process")}>Process</.link>
         <.link navigate={~p"/about"} class={nav_link_class(@active == "about")}>About</.link>
+        <.link navigate={~p"/hobbies"} class={nav_link_class(@active == "hobbies")}>Hobbies</.link>
         <.link navigate={~p"/contact"} class={nav_link_class(@active == "contact")}>Contact</.link>
       </nav>
     </div>
@@ -29,6 +30,7 @@ defmodule PortfolioWeb.NavComponent do
         <.link navigate={~p"/projects"} class={mobile_link_class(@active == "work")} phx-click="toggle_menu">Work</.link>
         <.link navigate={~p"/process"} class={mobile_link_class(@active == "process")} phx-click="toggle_menu">Process</.link>
         <.link navigate={~p"/about"} class={mobile_link_class(@active == "about")} phx-click="toggle_menu">About</.link>
+        <.link navigate={~p"/hobbies"} class={mobile_link_class(@active == "hobbies")} phx-click="toggle_menu">Hobbies</.link>
         <.link navigate={~p"/contact"} class={mobile_link_class(@active == "contact")} phx-click="toggle_menu">Contact</.link>
       </nav>
     </div>
