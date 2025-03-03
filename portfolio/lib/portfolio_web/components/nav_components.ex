@@ -4,8 +4,8 @@ defmodule PortfolioWeb.NavComponent do
 
   def main_nav(assigns) do
     ~H"""
-    <div class="w-full md:w-48 pt-12 md:pt-24">
-      <nav id="main-nav" class="flex md:flex-col space-y-0 md:space-y-4 space-x-4 md:space-x-0 mt-8 md:mt-0 opacity-100">
+    <div class="w-full md:w-48 pt-12 md:pt-24 always-visible-nav">
+      <nav id="main-nav" class="flex md:flex-col space-y-0 md:space-y-4 space-x-4 md:space-x-0 mt-8 md:mt-0">
         <.link navigate={~p"/"} class={nav_link_class(@active == "home")}>Home</.link>
         <.link navigate={~p"/projects"} class={nav_link_class(@active == "work")}>Work</.link>
         <.link navigate={~p"/process"} class={nav_link_class(@active == "process")}>Process</.link>

@@ -180,7 +180,10 @@ defmodule PortfolioWeb.ContactLive do
             </div>
           </div>
 
-          <.main_nav active={@active} />
+          <!-- Always show on desktop (adding visible-always-nav class) -->
+          <div class="w-full md:w-48 pt-12 md:pt-24 visible-always-nav">
+            <.main_nav active={@active} />
+          </div>
         </div>
       </main>
 

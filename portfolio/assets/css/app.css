@@ -345,3 +345,52 @@ button[phx-click="select_category"]:hover {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Fix for MacBook Pro navigation display */
+@media screen and (min-width: 1024px) {
+  /* Make navigation always visible on larger screens */
+  #main-nav {
+    display: flex !important;
+    opacity: 1 !important;
+  }
+  
+  /* Adjust the width for MacBook Pro screens specifically */
+  .md\:w-48 {
+    width: 12rem !important; /* Ensure adequate width */
+    display: block !important;
+  }
+  
+  /* Ensure proper visibility */
+  .hidden.md\:block {
+    display: block !important;
+  }
+}
+
+/* Specific fixes for MacBook Pro 13" and similar screens */
+@media screen and (min-width: 1280px) and (max-width: 1440px) {
+  .md\:max-w-\[75\%\] {
+    max-width: 70% !important; /* Give a bit more space to content */
+  }
+  
+  .lg\:max-w-\[80\%\] {
+    max-width: 75% !important; /* Adjust for better layout */
+  }
+}
+
+/* General fixes for consistent navigation */
+.main_nav, #main-nav {
+  opacity: 1 !important;
+  transition: none !important; /* Prevent any fading */
+}
+
+/* Ensure the navigation is visible in the right column */
+.w-full.md\:w-48.pt-12.md\:pt-24 {
+  display: block !important;
+}
+
+/* Override any potential conflicts */
+@media screen and (min-width: 768px) {
+  .md\:flex-row > .hidden.md\:block {
+    display: block !important;
+  }
+}
