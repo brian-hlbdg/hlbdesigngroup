@@ -36,14 +36,14 @@ defmodule PortfolioWeb.WorkLive do
     <div class="min-h-screen">
       <div class="status-bar">
         <div id="time-display" phx-hook="UpdateTime">
-          <%= @current_time %> San Francisco, CA
+          <%= @current_time %> Chicago, IL
         </div>
         <div>
-          Your Name
+          Brian H.
         </div>
       </div>
 
-      <div class="main-content">
+      <div id="page-container" phx-hook="PageTransition" class="main-content">
         <div class="mb-16">
           <h1 class="heading-large mb-12">Selected Work</h1>
 
@@ -80,4 +80,15 @@ defmodule PortfolioWeb.WorkLive do
     </div>
     """
   end
+
+  def handle_event("toggle_menu", _, socket) do
+    {:noreply, assign(socket, show_menu: !socket.assigns.show_menu)}
+  end
+
+  # Then add the missing event handler:
+  def handle_event("store_scroll", %{"path" => path, "position" => position}, socket) do
+    scroll_positions = Map.put(socket.assigns.scroll_positions, path, position)
+    {:noreply, assign(socket, scroll_positions: scroll_positions)}
+  end
+
 end

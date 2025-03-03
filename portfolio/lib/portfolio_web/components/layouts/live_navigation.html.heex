@@ -1,0 +1,37 @@
+<div class="fixed-header flex justify-between items-center py-3 px-8 border-b border-gray-100">
+  <div class="flex gap-4">
+    <span id="time-display" phx-hook="UpdateTime">
+      <%= @current_time %> San Francisco, CA
+    </span>
+  </div>
+  <div class="flex gap-4 items-center">
+    <.link navigate={~p"/"} class="text-gray-600 hover:text-[rgb(211,84,0)] transition-colors">Your Name</.link>
+    <span class="hidden sm:inline-block">San Francisco, CA</span>
+    <button class="md:hidden bg-transparent border-0 cursor-pointer p-2 text-sm text-gray-600" phx-click="toggle_menu">
+      Menu
+    </button>
+  </div>
+</div>
+
+<div id="main-content" class="main-content-wrapper">
+  <div id="page-container" phx-hook="PageTransition" class="page-transition-container">
+    <%= @inner_content %>
+  </div>
+</div>
+
+<div id="scroll-tracker" phx-hook="ScrollPosition"></div>
+
+<%= if @show_menu do %>
+  <div class="fixed inset-0 bg-white z-50 mt-12 flex items-center justify-center">
+    <button class="absolute top-8 right-8 text-gray-600 text-sm" phx-click="toggle_menu">
+      Close
+    </button>
+    <nav class="flex flex-col items-center space-y-6">
+      <.link navigate={~p"/"} class="text-gray-600 text-xl" phx-click="toggle_menu">Home</.link>
+      <.link navigate={~p"/projects"} class="text-gray-600 text-xl" phx-click="toggle_menu">Work</.link>
+      <.link navigate={~p"/process"} class="text-gray-600 text-xl" phx-click="toggle_menu">Process</.link>
+      <.link navigate={~p"/about"} class="text-gray-600 text-xl" phx-click="toggle_menu">About</.link>
+      <.link navigate={~p"/contact"} class="text-gray-600 text-xl" phx-click="toggle_menu">Contact</.link>
+    </nav>
+  </div>
+<% end %>

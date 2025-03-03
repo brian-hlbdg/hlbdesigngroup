@@ -9,6 +9,8 @@ defmodule PortfolioWeb.Layouts do
   `use PortfolioWeb, :live_view`.
   """
   use PortfolioWeb, :html
+  import PortfolioWeb.HeaderComponent
+  import PortfolioWeb.NavComponent
 
   embed_templates "layouts/*"
 end

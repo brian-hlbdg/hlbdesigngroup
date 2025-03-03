@@ -14,11 +14,51 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'primary': 'rgb(211,84,0)',
+        'primary-dark': 'rgb(180,70,0)',
         brand: "#FD4F00",
-      }
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.8s ease-out forwards',
+        slideInRight: 'slideInRight 0.5s ease-out forwards',
+        slideInLeft: 'slideInLeft 0.5s ease-out forwards',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: 0, transform: 'translateY(10px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
+        },
+        slideInRight: {
+          '0%': { opacity: 0, transform: 'translateX(-20px)' },
+          '100%': { opacity: 1, transform: 'translateX(0)' },
+        },
+        slideInLeft: {
+          '0%': { opacity: 0, transform: 'translateX(20px)' },
+          '100%': { opacity: 1, transform: 'translateX(0)' },
+        },
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            h1: {
+              fontWeight: 700,
+            },
+            h2: {
+              fontWeight: 300,
+            },
+            a: {
+              textDecoration: 'none',
+              '&:hover': {
+                color: 'rgb(211,84,0)',
+              },
+            },
+          },
+        },
+      },  
     },
   },
   plugins: [
+    require('@tailwindcss/typography'),
     require("@tailwindcss/forms"),
     // Allows prefixing tailwind classes with LiveView classes to add rules
     // only when LiveView classes are applied, for example:

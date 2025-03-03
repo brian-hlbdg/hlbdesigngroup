@@ -6,8 +6,9 @@ defmodule PortfolioWeb.Router do
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, html: {PortfolioWeb.Layouts, :root}
+    plug :put_layout, {PortfolioWeb.Layouts, :app}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug :put_secure_browser_headers# Add this line
   end
 
   pipeline :api do
@@ -21,7 +22,9 @@ defmodule PortfolioWeb.Router do
     live "/work", WorkLive, :index
     live "/process", ProcessLive, :index
     live "/contact", ContactLive, :index
-    live "/about", AboutLive, :index  # This sets HomeLive as the root page
+    live "/about", AboutLive, :index
+    live "/projects", ProjectLive, :index
+    live "/projects/:id", ProjectDetailLive, :show  # This sets HomeLive as the root page
   end
 
   # Other scopes may use custom stacks.

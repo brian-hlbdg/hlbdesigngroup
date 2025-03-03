@@ -9,11 +9,11 @@ defmodule PortfolioWeb.Components.StatusBarComponent do
         <span id="datetime" phx-hook="UpdateTime">
           <%= Calendar.strftime(DateTime.utc_now(), "%A, %B %d, %Y %I:%M:%S %p") %>
         </span>
-        <span id="location">San Francisco, CA</span>
+        <span id="location">Chicago, IL</span>
       </div>
       <div class="name-location">
-        <span class="name">Your Name</span>
-        <span id="mobile-location">San Francisco, CA</span>
+        <span class="name">Brian H.</span>
+        <span id="mobile-location">Chicago, IL</span>
         <button class="menu-button" phx-click="toggle_menu" phx-target={@myself}>Menu</button>
       </div>
     </div>
