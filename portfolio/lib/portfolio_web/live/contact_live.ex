@@ -7,73 +7,71 @@ defmodule PortfolioWeb.ContactLive do
     {:ok,
       socket
       |> mount_common("contact")
-      |> assign(:page_title, "Contact | Brian Hall")
+      |> assign(:page_title, "Contact")
       |> assign(:form, to_form(%{"name" => "", "email" => "", "message" => "", "project_type" => ""}))
       |> assign(:form_submitted, false)
       |> assign(:form_error, false)
-      |> assign(:loading, false)
     }
   end
 
   def render(assigns) do
     ~H"""
-    <div id="page-container" phx-hook="PageTransition" class="min-h-screen bg-white">
+    <div id="page-container" phx-hook="PageTransition" class="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       <main>
         <div class="w-full mx-auto px-8 md:px-12 pt-16 flex flex-col md:flex-row">
           <div class="flex-1 md:pr-8 lg:pr-12 pt-12 md:max-w-[75%] lg:max-w-[80%]">
             <div>
-              <h1 id="contact-heading" class="text-4xl md:text-5xl font-bold leading-tight mb-8" phx-hook="FadeIn">
+              <h1 id="contact-heading" class="text-4xl md:text-5xl font-bold leading-tight mb-8 text-gray-900 dark:text-white transition-colors" phx-hook="FadeIn">
                 Let's Connect
               </h1>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
                 <div id="contact-info" phx-hook="FadeIn">
-                  <p class="text-xl text-gray-600 mb-6">
+                  <p class="text-xl text-gray-600 dark:text-gray-300 mb-6 transition-colors">
                     Have a project in mind or just want to say hello? I'd love to hear from you.
                   </p>
-                  <p class="text-gray-600 mb-10">
+                  <p class="text-gray-600 dark:text-gray-300 mb-10 transition-colors">
                     Fill out the form or reach out directly through one of the channels below. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
                   </p>
 
                   <div class="space-y-6">
                     <div class="flex items-start">
-                      <div class="w-10 h-10 flex items-center justify-center mr-4 rounded-full bg-primary bg-opacity-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <div class="w-8 h-8 flex items-center justify-center mr-4 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary dark:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                       </div>
                       <div>
-                        <h3 class="text-lg font-medium mb-1">Email</h3>
-                        <a href="mailto:brian.HLBDG@outlook.com" class="text-gray-600 hover:text-primary transition-colors">
-                          brian.HLBDG@outlook.com
-                        </a>
+                        <h3 class="text-lg font-medium mb-1 text-gray-900 dark:text-white transition-colors">Email</h3>
+                        <a href="mailto:brian.HLBDG@outlook.com" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors">brian.HLBDG@outlook.com</a>
                       </div>
                     </div>
 
                     <div class="flex items-start">
-                      <div class="w-10 h-10 flex items-center justify-center mr-4 rounded-full bg-primary bg-opacity-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <div class="w-8 h-8 flex items-center justify-center mr-4 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary dark:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                       </div>
                       <div>
-                        <h3 class="text-lg font-medium mb-1">Location</h3>
-                        <p class="text-gray-600">Chicago, IL</p>
+                        <h3 class="text-lg font-medium mb-1 text-gray-900 dark:text-white transition-colors">Location</h3>
+                        <p class="text-gray-600 dark:text-gray-300 transition-colors">Chicago, IL</p>
                       </div>
                     </div>
 
                     <div class="flex items-start">
-                      <div class="w-10 h-10 flex items-center justify-center mr-4 rounded-full bg-primary bg-opacity-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <div class="w-8 h-8 flex items-center justify-center mr-4 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary dark:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                         </svg>
                       </div>
                       <div>
-                        <h3 class="text-lg font-medium mb-1">Connect</h3>
+                        <h3 class="text-lg font-medium mb-1 text-gray-900 dark:text-white transition-colors">Social</h3>
                         <div class="flex space-x-4">
-                          <a href="https://linkedin.com/in/hlbdg/" target="_blank" rel="noopener" class="text-gray-600 hover:text-primary transition-colors">LinkedIn</a>
-                          <a href="https://hlbdesigngroup.com" target="_blank" rel="noopener" class="text-gray-600 hover:text-primary transition-colors">Portfolio</a>
+                          <a href="https://linkedin.com/in/hlbdg/" target="_blank" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors">LinkedIn</a>
+                          <a href="https://dribbble.com/" target="_blank" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors">Dribbble</a>
+                          <a href="https://github.com/" target="_blank" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors">GitHub</a>
                         </div>
                       </div>
                     </div>
@@ -82,59 +80,59 @@ defmodule PortfolioWeb.ContactLive do
 
                 <div id="contact-form" phx-hook="FadeIn">
                   <%= if @form_submitted do %>
-                    <div class="p-6 bg-green-50 rounded-md mb-4 animate-fadeIn">
-                      <h3 class="text-lg font-medium text-green-800 mb-2">Message sent successfully!</h3>
-                      <p class="text-green-700 mb-4">
+                    <div class="p-6 bg-green-50 dark:bg-green-900 rounded-sm mb-4 transition-colors">
+                      <h3 class="text-lg font-medium text-green-800 dark:text-green-100 mb-2 transition-colors">Message sent successfully!</h3>
+                      <p class="text-green-700 dark:text-green-200 transition-colors">
                         Thank you for reaching out. I'll get back to you as soon as possible.
                       </p>
-                      <button
-                        phx-click="reset_form"
-                        class="text-primary hover:text-primary-dark transition-colors inline-flex items-center">
-                        Send another message
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                      </button>
                     </div>
+                    <button
+                      phx-click="reset_form"
+                      class="text-primary dark:text-primary hover:text-primary-dark dark:hover:text-primary-dark transition-colors inline-flex items-center">
+                      Send another message
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                    </button>
                   <% else %>
                     <%= if @form_error do %>
-                      <div class="p-6 bg-red-50 rounded-md mb-4 animate-fadeIn">
-                        <h3 class="text-lg font-medium text-red-800 mb-2">Oops! Something went wrong.</h3>
-                        <p class="text-red-700 mb-4">
-                          Please try again or contact me directly via email.
+                      <div class="p-6 bg-red-50 dark:bg-red-900 rounded-sm mb-4 transition-colors">
+                        <h3 class="text-lg font-medium text-red-800 dark:text-red-100 mb-2 transition-colors">Oops! Something went wrong.</h3>
+                        <p class="text-red-700 dark:text-red-200 transition-colors">
+                          There was an error sending your message. Please try again or contact me directly via email.
                         </p>
                       </div>
                     <% end %>
 
                     <.form for={@form} phx-submit="submit_form" class="space-y-6" phx-hook="FormValidation">
                       <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 transition-colors">Name</label>
                         <input
                           type="text"
                           id="name"
                           name="name"
-                          placeholder="Your name"
+                          placeholder="Brian H."
                           required
-                          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary outline-none transition-colors" />
+                          class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-sm focus:ring-primary dark:focus:ring-primary focus:border-primary dark:focus:border-primary outline-none transition-colors" />
                       </div>
 
                       <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 transition-colors">Email</label>
                         <input
                           type="email"
                           id="email"
                           name="email"
                           placeholder="Your email address"
                           required
-                          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary outline-none transition-colors" />
+                          class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-sm focus:ring-primary dark:focus:ring-primary focus:border-primary dark:focus:border-primary outline-none transition-colors" />
                       </div>
 
                       <div>
-                        <label for="project_type" class="block text-sm font-medium text-gray-700 mb-1">Project Type</label>
+                        <label for="project_type" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 transition-colors">Project Type</label>
                         <select
                           id="project_type"
                           name="project_type"
-                          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary outline-none transition-colors">
+                          class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-sm focus:ring-primary dark:focus:ring-primary focus:border-primary dark:focus:border-primary outline-none transition-colors">
                           <option value="">Select a project type</option>
                           <option value="ux_design">UX Design</option>
                           <option value="ui_design">UI Design</option>
@@ -145,33 +143,24 @@ defmodule PortfolioWeb.ContactLive do
                       </div>
 
                       <div>
-                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                        <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 transition-colors">Message</label>
                         <textarea
                           id="message"
                           name="message"
                           rows="5"
                           placeholder="Tell me about your project or inquiry"
                           required
-                          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary outline-none transition-colors"></textarea>
+                          class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-sm focus:ring-primary dark:focus:ring-primary focus:border-primary dark:focus:border-primary outline-none transition-colors"></textarea>
                       </div>
 
                       <div>
                         <button
                           type="submit"
-                          disabled={@loading}
-                          class="px-6 py-3 bg-primary text-white hover:bg-primary-dark transition-colors rounded-md flex items-center">
-                          <%= if @loading do %>
-                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            Sending...
-                          <% else %>
-                            Send Message
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                            </svg>
-                          <% end %>
+                          class="px-6 py-3 bg-primary hover:bg-primary-dark dark:bg-primary dark:hover:bg-primary-dark text-white transition-colors rounded-sm flex items-center">
+                          Send Message
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                          </svg>
                         </button>
                       </div>
                     </.form>
@@ -179,39 +168,14 @@ defmodule PortfolioWeb.ContactLive do
                 </div>
               </div>
 
-              <div id="availability" class="mt-16 pt-12 border-t border-gray-200" phx-hook="FadeIn">
-                <h2 class="text-2xl font-light mb-6">Current Availability</h2>
-                <p class="text-gray-600 mb-4">
-                  I'm currently available for new projects and opportunities.
+              <div id="availability" class="mt-16 pt-12 border-t border-gray-200 dark:border-gray-700 transition-colors" phx-hook="FadeIn">
+                <h2 class="text-2xl font-light mb-6 text-gray-800 dark:text-gray-200 transition-colors">Current Availability</h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-4 transition-colors">
+                  I'm currently taking on new projects starting <span class="font-medium">August 2025</span>.
                 </p>
-                <p class="text-gray-600">
-                  I typically work with clients on a project basis, but I'm also open to discussing part-time or full-time possibilities for the right opportunity. Feel free to reach out, and we can discuss your specific needs.
+                <p class="text-gray-600 dark:text-gray-300 transition-colors">
+                  I typically work with clients on a project basis, but I'm also open to discussing part-time collaboration for the right opportunity. Feel free to reach out, and we can discuss your specific needs.
                 </p>
-              </div>
-
-              <div id="resume-download" class="mt-16 pt-6 border-t border-gray-100" phx-hook="FadeIn">
-                <div class="flex items-start">
-                  <div class="flex-shrink-0 mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 class="text-lg font-medium mb-2">Resume</h3>
-                    <p class="text-gray-600 mb-4">Download my resume for a detailed overview of my experience, skills, and education.</p>
-                    <a
-                      href="/resume.pdf"
-                      target="_blank"
-                      rel="noopener"
-                      class="inline-flex items-center text-primary hover:text-primary-dark transition-colors"
-                    >
-                      Download Resume (PDF)
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                      </svg>
-                    </a>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -225,26 +189,22 @@ defmodule PortfolioWeb.ContactLive do
     """
   end
 
-  def handle_event("submit_form", params, socket) do
-    # In a real app, you would send an email or store contact info
-    # For demonstration, we're simulating the process with a delay
+  def handle_event("submit_form", _params, socket) do
+    # In a real app, you would process form data here, perhaps sending an email
+    # or storing the inquiry in a database
 
-    # First set loading state
-    socket = assign(socket, loading: true)
+    # Simulate a delay for form processing
+    Process.sleep(1000)
 
-    # Simulate network delay (in a real app, this would be an actual email send)
-    Process.sleep(1500)
-
-    # For demo purposes, we'll simulate success most of the time
+    # For demo purposes - random success/error to demonstrate both states
+    # In a real app, this would be based on actual success/failure of form processing
     form_success = :rand.uniform(10) > 2
 
-    # Return appropriate response
-    {:noreply,
-      socket
-      |> assign(loading: false)
-      |> assign(form_submitted: form_success)
-      |> assign(form_error: !form_success)
-    }
+    if form_success do
+      {:noreply, assign(socket, form_submitted: true, form_error: false)}
+    else
+      {:noreply, assign(socket, form_submitted: false, form_error: true)}
+    end
   end
 
   def handle_event("reset_form", _, socket) do
