@@ -6,22 +6,21 @@ defmodule PortfolioWeb.HomeLive do
     {:ok,
       socket
       |> mount_common("home")
-      |> assign(:page_title, "Brian Hall | UX Designer & Front-end Developer")
+      |> assign(:page_title, "Brian H. - Portfolio")
     }
   end
 
   def render(assigns) do
     ~H"""
-    <div id="page-container" phx-hook="PageTransition" class="min-h-screen bg-white max-w-full overflow-hidden">
-      <main>
+    <div id="home-page-container" phx-hook="PageTransition" class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 max-w-full overflow-hidden transition-colors duration-300">
+      <main class="flex-1 overflow-hidden pb-0">
         <div class="w-full mx-auto px-8 md:px-12 pt-16 flex flex-col md:flex-row">
-          <div class="flex-1 md:pr-8 lg:pr-12 pt-12 md:max-w-[75%] lg:max-w-[80%]">
+          <div class="flex-1 md:pr-8 lg:pr-12 pt-12 md:max-w-[75%] lg:max-w-[80%] border-none">
             <div>
-              <h1 id="main-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8" phx-hook="TypeWriter">
+              <h1 id="main-heading" class="text-4xl md:text-5xl font-bold leading-tight mb-8 text-gray-900 dark:text-white" phx-hook="FadeIn">
                 I help companies build exceptional digital experiences through thoughtful design.
               </h1>
-
-              <p id="intro-text" class="text-xl md:text-2xl text-gray-600 max-w-prose mt-8 mb-12 animate-fade-in">
+              <p id="intro-text" class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-prose mt-8" phx-hook="TypeWriter">
                 UX Designer and Front-end Developer focused on creating intuitive,
                 user-centered solutions that drive business growth.
               </p>
@@ -68,6 +67,8 @@ defmodule PortfolioWeb.HomeLive do
           </div>
         </div>
       </main>
+
+
 
       <.mobile_menu active={@active} show_menu={@show_menu} />
     </div>

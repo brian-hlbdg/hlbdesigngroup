@@ -1,35 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" class="[scrollbar-gutter:stable]">
+<html lang="en" class="[scrollbar-gutter:stable] h-full">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title suffix=" · UX Designer & Developer">
-      <%= assigns[:page_title] || "Brian Hall" %>
+    <.live_title suffix=" · Brian's Portfolio">
+      <%= assigns[:page_title] || "Portfolio" %>
     </.live_title>
-    <meta name="description" content="UX Designer and Front-end Developer focused on creating intuitive, user-centered solutions that drive business growth." />
-    <meta name="author" content="Brian Hall" />
-    
-    <!-- Preconnect to font providers -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Google Fonts: Inter for text, Material Icons for icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    
-    <!-- Stylesheets and Scripts -->
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
-    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>
-    
-    <!-- Add class to body once JS loads -->
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    </script>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        document.documentElement.classList.add('js-loaded');
-      });
+      // Check for dark mode preference
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
     </script>
   </head>
-  <body class="bg-white antialiased">
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased h-full">
     <%= @inner_content %>
   </body>
 </html>

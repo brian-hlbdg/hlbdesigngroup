@@ -4,72 +4,54 @@ import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 import Hooks from "./hooks"
 
-// Configure topbar for nice loading indicator
+let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
+let liveSocket = new LiveSocket("/live", Socket, {
+  params: {
+    _csrf_token: csrfToken,
+    // Send initial theme to LiveView on connect
+    theme: localStorage.theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+  },
+  hooks: Hooks
+})
+
+// Connect if there are any LiveViews on the page
+liveSocket.connect()
+
+// Show progress bar on live navigation and form submits
 topbar.config({
   barColors: {
-    0: "rgba(211, 84, 0, 0.7)", // Primary color with transparency
-    ".3": "rgba(211, 84, 0, 0.8)",
-    ".5": "rgba(211, 84, 0, 0.9)",
-    ".7": "rgba(211, 84, 0, 1)"
-  }, 
-  shadowColor: "rgba(0, 0, 0, .3)",
-  className: 'topbar'
-});
+    0: "#29d"
+  },
+  shadowColor: "rgba(0, 0, 0, .3)"
+})
 
-// Session storage for persistence between page loads
-const getStoredTheme = () => localStorage.getItem('theme') || 'light';
-const setStoredTheme = theme => localStorage.setItem('theme', theme);
+window.addEventListener("phx:page-loading-start", _info => topbar.show(300))
+window.addEventListener("phx:page-loading-stop", _info => topbar.hide())
 
-// Handle theme toggling
-const setupTheme = () => {
-  const theme = getStoredTheme();
-  document.documentElement.classList.toggle('dark', theme === 'dark');
-  
-  // Setup theme toggle if it exists
-  const themeToggle = document.getElementById('theme-toggle');
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const newTheme = getStoredTheme() === 'dark' ? 'light' : 'dark';
-      setStoredTheme(newTheme);
-      document.documentElement.classList.toggle('dark', newTheme === 'dark');
-    });
-  }
-};
-
-// Initialize LiveSocket with all our hooks and configurations
-let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-let liveSocket = new LiveSocket("/live", Socket, {
-  params: {_csrf_token: csrfToken},
-  hooks: Hooks,
-  dom: {
-    onBeforeElUpdated(from, to) {
-      // Keep classes that might be added by Alpine or other libraries
-      if (from._x_dataStack) {
-        window.Alpine.clone(from, to);
-      }
+// Listen for system color scheme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+  if (!localStorage.theme) { // Only update if user hasn't manually set a preference
+    if (event.matches) {
+      document.documentElement.classList.add('dark')
+      liveSocket.sendInfo({ theme: 'dark' })
+    } else {
+      document.documentElement.classList.remove('dark')
+      liveSocket.sendInfo({ theme: 'light' })
     }
   }
 })
 
-// Page transition effects
-window.addEventListener("phx:page-loading-start", () => topbar.show(300));
-window.addEventListener("phx:page-loading-stop", () => {
-  topbar.hide();
-  setupTheme();
-  
-  // Trigger animations for elements that should animate on page load
-  document.querySelectorAll('.animate-on-load').forEach(el => {
-    el.classList.add('animate-fadeIn');
-  });
-});
+// Handle theme toggle event from server
+window.addEventListener("toggle-theme", (e) => {
+  const theme = e.detail.theme
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark')
+    localStorage.theme = 'dark'
+  } else {
+    document.documentElement.classList.remove('dark')
+    localStorage.theme = 'light'
+  }
+})
 
-// Initialize when document loads
-document.addEventListener("DOMContentLoaded", () => {
-  setupTheme();
-});
-
-// Connect if there are any LiveViews on the page
-liveSocket.connect();
-
-// Make LiveSocket available for debugging and latency simulation
-window.liveSocket = liveSocket;
+// Expose liveSocket on window for web console debug logs and latency simulation:
+window.liveSocket = liveSocket
