@@ -1,6 +1,57 @@
 // assets/js/hooks.js
+import { getInitialTheme, applyTheme, toggleTheme } from './theme';
 
 const Hooks = {
+  // ThemeToggle hook excerpt for hooks.js
+  ThemeToggle: {
+    mounted() {
+      // Get current theme
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      this.updateToggleUI(currentTheme);
+      
+      // Handle click to toggle theme
+      this.el.addEventListener('click', () => {
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        // Important: apply to HTML root element
+        const htmlRoot = document.documentElement;
+        if (newTheme === 'dark') {
+          htmlRoot.classList.add('dark');
+        } else {
+          htmlRoot.classList.remove('dark');
+        }
+        
+        // Store preference
+        localStorage.setItem('theme', newTheme);
+        
+        // Update toggle UI
+        this.updateToggleUI(newTheme);
+        
+        // Log for debugging
+        console.log('Theme toggled to:', newTheme, htmlRoot.classList.contains('dark'));
+        
+        // Notify the server about theme change (for persisting user preference later)
+        this.pushEvent('theme-changed', { theme: newTheme });
+      });
+    },
+    
+    updateToggleUI(theme) {
+      // Update toggle icon/appearance based on current theme
+      const darkIcon = this.el.querySelector('.dark-icon');
+      const lightIcon = this.el.querySelector('.light-icon');
+      
+      if (theme === 'dark') {
+        darkIcon.classList.remove('hidden');
+        lightIcon.classList.add('hidden');
+      } else {
+        darkIcon.classList.add('hidden');
+        lightIcon.classList.remove('hidden');
+      }
+    }
+  },
+  
+  // Existing hooks with minor improvements
   UpdateTime: {
     mounted() {
       this.timer = setInterval(() => {
@@ -15,7 +66,7 @@ const Hooks = {
           second: '2-digit',
           hour12: true
         };
-        this.el.textContent = now.toLocaleDateString('en-US', options);
+        this.el.textContent = now.toLocaleDateString('en-US', options) + " Chicago, IL";
       }, 1000);
     },
     destroyed() {
@@ -25,68 +76,70 @@ const Hooks = {
   
   TypeWriter: {
     mounted() {
-      // Store the original text content
-      const mainText = this.el.textContent.trim();
-      // Set the initial opacity to ensure it's visible even before animation
-      this.el.style.opacity = "1";
+      const mainText = this.el.textContent.trim(); // Get text from the element
+      this.el.textContent = ''; // Clear existing text
+      let currentText = "";
+      let currentIndex = 0;
       
-      // Only do the typewriter effect if not already done (to prevent issues with menu toggle)
-      if (!this.el.dataset.typewriterDone) {
-        this.el.textContent = ''; // Clear existing text
-        let currentText = "";
-        let currentIndex = 0;
-        
-        // Typing animation
-        const typeText = () => {
-          if (currentIndex < mainText.length) {
-            currentText += mainText[currentIndex];
-            this.el.textContent = currentText;
-            currentIndex++;
-            setTimeout(typeText, 50);
-          } else {
-            // Mark as done to prevent restart on menu toggle
-            this.el.dataset.typewriterDone = "true";
-            
-            // Fade in navigation after typing is complete
-            const navLinks = document.getElementById('main-nav');
-            if (navLinks) {
-              navLinks.style.opacity = "1";
-              navLinks.style.transition = "opacity 1s ease";
-            }
+      // Typing animation
+      const typeText = () => {
+        if (currentIndex < mainText.length) {
+          currentText += mainText[currentIndex];
+          this.el.textContent = currentText;
+          currentIndex++;
+          setTimeout(typeText, 50);
+        } else {
+          // Fade in navigation after typing is complete
+          const navLinks = document.getElementById('main-nav');
+          if (navLinks) {
+            navLinks.style.opacity = "1";
+            navLinks.style.transition = "opacity 1s ease";
           }
-        };
-        
-        // Start typing after a delay
-        setTimeout(() => {
-          typeText();
-        }, 500);
-      }
+        }
+      };
+      
+      // Start typing after a delay
+      setTimeout(() => {
+        this.el.style.opacity = "1";
+        typeText();
+      }, 1000); // Reduced delay for better UX
     }
   },
   
   FadeIn: {
     mounted() {
-      // Ensure this element is always visible
-      this.el.style.opacity = "1";
+      // Use dataset to customize delay
+      const delay = this.el.dataset.delay || (this.el.id === 'intro-text' ? 1500 : 500);
       
-      // Only do the animation if not already done
-      if (!this.el.dataset.fadeInDone) {
-        // Use dataset to customize delay
-        const delay = this.el.dataset.delay || 500;
-        
-        // Set initial state
-        this.el.style.opacity = "0";
-        this.el.style.transform = "translateY(10px)";
-        
-        setTimeout(() => {
-          this.el.style.opacity = "1";
-          this.el.style.transition = "opacity 0.8s ease, transform 0.8s ease";
-          this.el.style.transform = "translateY(0)";
-          
-          // Mark as done to prevent restart on menu toggle
-          this.el.dataset.fadeInDone = "true";
-        }, delay);
-      }
+      setTimeout(() => {
+        this.el.style.opacity = "1";
+        this.el.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+        this.el.style.transform = "translateY(0)";
+      }, delay);
+      
+      // Set initial state (helps with Safari)
+      this.el.style.opacity = "0";
+      this.el.style.transform = "translateY(10px)";
+    }
+  },
+  
+  // Enhanced and new hooks for all pages
+  ImageHover: {
+    mounted() {
+      this.el.addEventListener('mouseenter', () => {
+        const img = this.el.querySelector('img');
+        if (img) {
+          img.style.transform = 'scale(1.05)';
+          img.style.transition = 'transform 0.6s ease';
+        }
+      });
+      
+      this.el.addEventListener('mouseleave', () => {
+        const img = this.el.querySelector('img');
+        if (img) {
+          img.style.transform = 'scale(1)';
+        }
+      });
     }
   },
   
@@ -120,25 +173,7 @@ const Hooks = {
     }
   },
   
-  ImageHover: {
-    mounted() {
-      this.el.addEventListener('mouseenter', () => {
-        const img = this.el.querySelector('img');
-        if (img) {
-          img.style.transform = 'scale(1.05)';
-          img.style.transition = 'transform 0.6s ease';
-        }
-      });
-      
-      this.el.addEventListener('mouseleave', () => {
-        const img = this.el.querySelector('img');
-        if (img) {
-          img.style.transform = 'scale(1)';
-        }
-      });
-    }
-  },
-  
+  // Form validation hook
   FormValidation: {
     mounted() {
       const form = this.el;
@@ -157,7 +192,7 @@ const Hooks = {
             if (!document.getElementById(errorId)) {
               const errorMsg = document.createElement('p');
               errorMsg.id = errorId;
-              errorMsg.className = 'text-red-500 text-xs mt-1';
+              errorMsg.className = 'text-red-500 text-xs mt-1 dark:text-red-400';
               errorMsg.innerText = 'This field is required';
               field.parentNode.appendChild(errorMsg);
             }
@@ -209,7 +244,7 @@ const Hooks = {
             if (!document.getElementById(errorId)) {
               const errorMsg = document.createElement('p');
               errorMsg.id = errorId;
-              errorMsg.className = 'text-red-500 text-xs mt-1';
+              errorMsg.className = 'text-red-500 text-xs mt-1 dark:text-red-400';
               errorMsg.innerText = 'Please enter a valid email address';
               emailField.parentNode.appendChild(errorMsg);
             }
@@ -224,42 +259,51 @@ const Hooks = {
       }
     }
   },
-  
+
   PageTransition: {
     mounted() {
-      // Set initial state
       this.el.style.opacity = "0";
+      this.el.style.transition = "opacity 0.3s ease";
+      // Store scroll position when leaving this page
+      this.pushEvent("store_scroll", { 
+        path: window.location.pathname, 
+        position: window.scrollY
+      });
       
-      // Show the element with a fade-in effect
+      // Initialize with the "enter" animation
+      this.el.classList.add('page-transition');
+      this.el.classList.add('page-transition-enter');
+      
+      // After a small delay, trigger the active state
       setTimeout(() => {
+        this.el.classList.add('page-transition-enter-active');
+        this.el.classList.remove('page-transition-enter');
         this.el.style.opacity = "1";
-        this.el.style.transition = "opacity 0.3s ease";
       }, 50);
       
-      // Store scroll position when navigating away
-      window.addEventListener('beforeunload', this.handleBeforeUnload = () => {
-        this.pushEvent("store_scroll", { 
-          path: window.location.pathname, 
-          position: window.scrollY 
-        });
-      });
+      // Save reference to this element for cleanup
+      this.pageElement = this.el;
       
-      // When LiveView navigates away
+      // Add listener for LiveView navigation
       window.addEventListener('phx:page-loading-start', this.handlePageLoadingStart = () => {
-        // Add exit animation class
+        // Exit animation
+        this.pageElement.classList.add('page-transition-exit');
+        this.pageElement.classList.remove('page-transition-enter-active');
         this.el.style.opacity = "0";
+        
+        setTimeout(() => {
+          this.pageElement.classList.add('page-transition-exit-active');
+        }, 50);
       });
       
-      // Cleanup handles to prevent memory leaks
-      this.handleEvent("restore_scroll", ({path, position}) => {
-        if (path === window.location.pathname) {
-          window.scrollTo(0, position);
-        }
+      // Restore scroll position when coming to this page
+      this.handleEvent("restore_scroll", ({position}) => {
+        window.scrollTo(0, position);
       });
     },
     
     destroyed() {
-      window.removeEventListener('beforeunload', this.handleBeforeUnload);
+      // Clean up event listener when the element is removed
       window.removeEventListener('phx:page-loading-start', this.handlePageLoadingStart);
     }
   },
@@ -267,19 +311,27 @@ const Hooks = {
   ScrollPosition: {
     mounted() {
       // This hook is for tracking scroll positions across pages
-      const path = window.location.pathname;
+      let path = window.location.pathname;
       
-      // Use lodash's debounce to avoid too many events
-      this.saveScrollPosition = debounce(() => {
+      // Custom debounce implementation to avoid Lodash dependency
+      let debounce = (fn, delay) => {
+        let timer = null;
+        return function(...args) {
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            fn.apply(this, args);
+            timer = null;
+          }, delay);
+        };
+      };
+      
+      // Store scroll position on scroll
+      window.addEventListener('scroll', this.handleScroll = debounce(() => {
         this.pushEvent("store_scroll", { 
           path: path, 
           position: window.scrollY 
         });
-      }, 100);
-      
-      window.addEventListener('scroll', this.handleScroll = () => {
-        this.saveScrollPosition();
-      });
+      }, 100));
     },
     
     destroyed() {
@@ -287,45 +339,39 @@ const Hooks = {
     }
   },
   
-  // Add the mobile menu hook
-  MobileMenu: {
+  // Process page navigation
+  ProcessNavigation: {
     mounted() {
-      // Make sure clicking the toggle button works correctly
-      const toggleButtons = document.querySelectorAll('button[phx-click="toggle_menu"]');
-      toggleButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-          // The actual toggle is handled by the LiveView event
-        });
-      });
+      const buttons = this.el.querySelectorAll('button');
+      const sections = document.querySelectorAll('.process-step');
       
-      // Add event listener for the Escape key to close menu
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          const menu = document.querySelector('.fixed.inset-0.bg-white.z-50');
-          if (menu) {
-            // Find and click the toggle button to close the menu
-            const closeButton = menu.querySelector('button[phx-click="toggle_menu"]');
-            if (closeButton) {
-              closeButton.click();
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          const stepId = button.dataset.step;
+          
+          // Update active button
+          buttons.forEach(btn => {
+            if (btn.dataset.step === stepId) {
+              btn.classList.add('text-primary', 'dark:text-primary-dark');
+              btn.classList.remove('text-gray-600', 'dark:text-gray-400');
+            } else {
+              btn.classList.remove('text-primary', 'dark:text-primary-dark');
+              btn.classList.add('text-gray-600', 'dark:text-gray-400');
             }
-          }
-        }
+          });
+          
+          // Show active section
+          sections.forEach(section => {
+            if (section.id === `step-${stepId}`) {
+              section.classList.remove('hidden');
+            } else {
+              section.classList.add('hidden');
+            }
+          });
+        });
       });
     }
   }
 };
-
-// Simple debounce function (used for scroll events)
-function debounce(func, wait) {
-  let timeout;
-  return function() {
-    const context = this;
-    const args = arguments;
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      func.apply(context, args);
-    }, wait);
-  };
-}
 
 export default Hooks;

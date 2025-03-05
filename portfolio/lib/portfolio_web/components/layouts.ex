@@ -10,7 +10,6 @@ defmodule PortfolioWeb.Layouts do
   """
   use PortfolioWeb, :html
   import PortfolioWeb.HeaderComponent
-  import PortfolioWeb.NavComponent
 
   embed_templates "layouts/*"
 end

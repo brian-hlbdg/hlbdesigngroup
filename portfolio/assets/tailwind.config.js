@@ -6,6 +6,8 @@ const fs = require("fs")
 const path = require("path")
 
 module.exports = {
+  // Enable dark mode with class strategy
+  darkMode: 'class',
   content: [
     "./js/**/*.js",
     "../lib/portfolio_web.ex",
@@ -15,8 +17,19 @@ module.exports = {
     extend: {
       colors: {
         'primary': 'rgb(211,84,0)',
-        'primary-dark': 'rgb(180,70,0)',
+        'primary-dark': 'rgb(230,126,34)',  // Brighter shade for dark mode
+        'secondary': 'rgb(52,152,219)',
+        'secondary-dark': 'rgb(41,128,185)',
         brand: "#FD4F00",
+      },
+      backgroundColor: {
+        dark: '#121212',
+        'dark-surface': '#1E1E1E',
+        'dark-card': '#2D2D2D',
+      },
+      textColor: {
+        'dark-primary': '#E1E1E1',
+        'dark-secondary': '#A0A0A0',
       },
       animation: {
         fadeIn: 'fadeIn 0.8s ease-out forwards',
@@ -50,6 +63,33 @@ module.exports = {
               textDecoration: 'none',
               '&:hover': {
                 color: 'rgb(211,84,0)',
+              },
+            },
+          },
+        },
+        // Dark mode typography variant
+        dark: {
+          css: {
+            color: '#E1E1E1',
+            h1: {
+              color: '#FFFFFF',
+            },
+            h2: {
+              color: '#FFFFFF',
+            },
+            h3: {
+              color: '#FFFFFF',
+            },
+            h4: {
+              color: '#FFFFFF',
+            },
+            strong: {
+              color: '#FFFFFF',
+            },
+            a: {
+              color: 'rgb(230,126,34)',
+              '&:hover': {
+                color: 'rgb(243,156,18)',
               },
             },
           },

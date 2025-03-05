@@ -4,7 +4,7 @@ defmodule PortfolioWeb.NavComponent do
 
   def main_nav(assigns) do
     ~H"""
-    <div class="w-full md:w-48 pt-12 md:pt-24 always-visible-nav">
+    <div class="w-full md:w-48 pt-12 md:pt-24">
       <nav id="main-nav" class="flex md:flex-col space-y-0 md:space-y-4 space-x-4 md:space-x-0 mt-8 md:mt-0">
         <.link navigate={~p"/"} class={nav_link_class(@active == "home")}>Home</.link>
         <.link navigate={~p"/projects"} class={nav_link_class(@active == "work")}>Work</.link>
@@ -19,9 +19,9 @@ defmodule PortfolioWeb.NavComponent do
 
   def mobile_menu(assigns) do
     ~H"""
-    <div class={"fixed inset-0 bg-white z-50 mt-12 flex items-center justify-center " <> if @show_menu, do: "block", else: "hidden"}>
+    <div class={"fixed inset-0 bg-white dark:bg-dark z-50 mt-14 flex items-center justify-center " <> if @show_menu, do: "block", else: "hidden"}>
       <button
-        class="absolute top-8 right-8 text-gray-600 text-sm hover:text-[rgb(211,84,0)]"
+        class="absolute top-8 right-8 text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary-dark"
         phx-click="toggle_menu">
         Close
       </button>
@@ -37,9 +37,9 @@ defmodule PortfolioWeb.NavComponent do
     """
   end
 
-  defp nav_link_class(true), do: "text-[rgb(211,84,0)] text-sm font-medium"
-  defp nav_link_class(false), do: "text-gray-600 text-sm hover:text-[rgb(211,84,0)] transition-colors"
+  defp nav_link_class(true), do: "text-primary dark:text-primary-dark text-sm font-medium"
+  defp nav_link_class(false), do: "text-gray-600 text-sm hover:text-primary dark:text-gray-400 dark:hover:text-primary-dark transition-colors"
 
-  defp mobile_link_class(true), do: "text-[rgb(211,84,0)] text-xl font-medium"
-  defp mobile_link_class(false), do: "text-gray-600 text-xl hover:text-[rgb(211,84,0)]"
+  defp mobile_link_class(true), do: "text-primary dark:text-primary-dark text-xl font-medium"
+  defp mobile_link_class(false), do: "text-gray-600 text-xl dark:text-gray-400 hover:text-primary dark:hover:text-primary-dark"
 end

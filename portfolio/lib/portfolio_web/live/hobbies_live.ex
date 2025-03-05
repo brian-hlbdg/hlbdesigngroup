@@ -130,16 +130,16 @@ defmodule PortfolioWeb.HobbiesLive do
 
   def render(assigns) do
     ~H"""
-    <div id="page-container" phx-hook="PageTransition" class="min-h-screen bg-white">
+    <div id="page-container" phx-hook="PageTransition" class="min-h-screen bg-white dark:bg-dark">
       <main>
         <div class="w-full mx-auto px-8 md:px-12 pt-16 flex flex-col md:flex-row">
           <div class="flex-1 md:pr-8 lg:pr-12 pt-12 md:max-w-[75%] lg:max-w-[80%]">
             <div>
-              <h1 id="hobbies-heading" class="text-4xl md:text-5xl font-bold leading-tight mb-8" phx-hook="FadeIn">
+              <h1 id="hobbies-heading" class="text-4xl md:text-5xl font-bold leading-tight mb-8 text-gray-900 dark:text-white" phx-hook="FadeIn">
                 Hobbies & Interests
               </h1>
 
-              <p id="hobbies-intro" class="text-xl text-gray-600 max-w-prose mb-12" phx-hook="FadeIn">
+              <p id="hobbies-intro" class="text-xl text-gray-600 dark:text-gray-300 max-w-prose mb-12" phx-hook="FadeIn">
                 Beyond design and development, these are some of the things that inspire me and bring balance to my life.
                 Exploring new places, capturing interesting perspectives, and finding beauty in everyday moments all
                 contribute to my creative approach to design.
@@ -152,16 +152,16 @@ defmodule PortfolioWeb.HobbiesLive do
                     phx-value-id={category.id}
                     class={"px-5 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap " <>
                       if @selected_category.id == category.id,
-                      do: "bg-[rgb(211,84,0)] text-white",
-                      else: "bg-gray-100 text-gray-600 hover:bg-gray-200"}>
+                      do: "bg-primary dark:bg-primary-dark text-white",
+                      else: "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"}>
                     <%= category.title %>
                   </button>
                 <% end %>
               </div>
 
               <div id="category-content" phx-hook="FadeIn">
-                <h2 class="text-2xl font-light mb-4"><%= @selected_category.title %></h2>
-                <p class="text-gray-600 mb-8"><%= @selected_category.description %></p>
+                <h2 class="text-2xl font-light mb-4 dark:text-gray-100"><%= @selected_category.title %></h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-8"><%= @selected_category.description %></p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <%= for {image, i} <- Enum.with_index(@selected_category.images) do %>
@@ -171,16 +171,16 @@ defmodule PortfolioWeb.HobbiesLive do
                         alt={image.alt}
                         class="w-full h-64 object-cover"
                       />
-                      <div class="p-3 bg-gray-50">
-                        <p class="text-sm text-gray-600"><%= image.caption %></p>
+                      <div class="p-3 bg-gray-50 dark:bg-gray-800">
+                        <p class="text-sm text-gray-600 dark:text-gray-300"><%= image.caption %></p>
                       </div>
                     </div>
                   <% end %>
                 </div>
 
-                <div id="category-description" class="mt-12 pt-8 border-t border-gray-200">
-                  <h3 class="text-xl font-medium mb-4">Why <%= String.downcase(@selected_category.title) %> matters to me</h3>
-                  <p class="text-gray-600 mb-4">
+                <div id="category-description" class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+                  <h3 class="text-xl font-medium mb-4 dark:text-white">Why <%= String.downcase(@selected_category.title) %> matters to me</h3>
+                  <p class="text-gray-600 dark:text-gray-300 mb-4">
                     <%= case @selected_category.id do %>
                       <% "photography" -> %>
                         Photography helps me slow down and appreciate the details that often go unnoticed in our fast-paced world.
@@ -210,7 +210,7 @@ defmodule PortfolioWeb.HobbiesLive do
           </div>
 
           <!-- Always show on desktop (adding visible-always-nav class) -->
-          <div class="w-full md:w-48 pt-12 md:pt-24 visible-always-nav">
+          <div class="w-full md:w-48 pt-12 md:pt-24">
             <.main_nav active={@active} />
           </div>
         </div>

@@ -1,3 +1,4 @@
+# lib/portfolio_web/live/base_live.ex
 defmodule PortfolioWeb.BaseLive do
   defmacro __using__(_opts) do
     quote do
@@ -11,12 +12,26 @@ defmodule PortfolioWeb.BaseLive do
         |> assign(:show_menu, false)
         |> assign(:active, page_name)
         |> assign(:scroll_positions, %{})
+        |> assign(:theme, get_theme_from_session())
+      end
+
+      # Get theme from session or default to system preference
+      defp get_theme_from_session do
+        # In a real app, this would come from the user's session
+        # For now, we'll default to "light"
+        "light"
       end
 
       # Common event handlers for all LiveViews
       def handle_event("toggle_menu", _, socket) do
         # Toggle menu visibility without re-initializing the page
         {:noreply, update(socket, :show_menu, fn show -> !show end)}
+      end
+
+      # Handle theme changes
+      def handle_event("theme-changed", %{"theme" => theme}, socket) do
+        # In a real app, you could save this to the user's session/profile
+        {:noreply, assign(socket, :theme, theme)}
       end
 
       # Handle navigation through the mobile menu
