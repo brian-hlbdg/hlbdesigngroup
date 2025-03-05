@@ -1,7 +1,34 @@
 <div id="app-container" class="min-h-screen bg-white" phx-hook="ScrollPosition">
   <.status_bar current_time={assigns[:current_time] || Calendar.strftime(DateTime.utc_now(), "%A, %B %d, %Y at %I:%M:%S %p")} />
-  <div class="pt-16 pb-8">  <!-- Added padding at the bottom -->
+  
+  <div class="pb-8">
     <.flash_group flash={@flash} />
     <%= @inner_content %>
+  </div>
+  
+  <!-- Bottom mobile navigation for small screens -->
+  <div class="w-full fixed bottom-0 md:hidden">
+    <nav class="flex justify-around py-4 bg-white border-t border-gray-200 z-40">
+      <.link navigate={~p"/"} class={"text-xs flex flex-col items-center " <> if assigns[:active] == "home", do: "text-primary", else: "text-gray-500"}>
+        <span class="material-icons text-lg">home</span>
+        <span>Home</span>
+      </.link>
+      <.link navigate={~p"/projects"} class={"text-xs flex flex-col items-center " <> if assigns[:active] == "work", do: "text-primary", else: "text-gray-500"}>
+        <span class="material-icons text-lg">work</span>
+        <span>Work</span>
+      </.link>
+      <.link navigate={~p"/process"} class={"text-xs flex flex-col items-center " <> if assigns[:active] == "process", do: "text-primary", else: "text-gray-500"}>
+        <span class="material-icons text-lg">insights</span>
+        <span>Process</span>
+      </.link>
+      <.link navigate={~p"/about"} class={"text-xs flex flex-col items-center " <> if assigns[:active] == "about", do: "text-primary", else: "text-gray-500"}>
+        <span class="material-icons text-lg">person</span>
+        <span>About</span>
+      </.link>
+      <.link navigate={~p"/contact"} class={"text-xs flex flex-col items-center " <> if assigns[:active] == "contact", do: "text-primary", else: "text-gray-500"}>
+        <span class="material-icons text-lg">mail</span>
+        <span>Contact</span>
+      </.link>
+    </nav>
   </div>
 </div>

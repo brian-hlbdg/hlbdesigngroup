@@ -3,6 +3,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+/* Base styles */
 html, body {
   overflow-x: hidden;
   width: 100%;
@@ -11,251 +12,127 @@ html, body {
   padding: 0;
 }
 
-/* Base styles for page container */
+body {
+  @apply text-gray-800 antialiased;
+}
+
+/* Layout and structure */
 .min-h-screen {
   min-height: 100vh;
   max-width: 100vw;
   overflow-x: hidden;
 }
 
-/* Header styles */
-header {
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-}
-
-/* Fix for content padding with fixed header */
 main {
-  padding-top: 57px; /* Height of the header */
+  padding-top: 57px; /* Height of header */
 }
 
-/* Page transition effects */
-#page-container, #home-page-container {
-  transition: opacity 0.3s ease;
-}
-
-/* Hide navigation initially for typewriter effect */
-#main-heading, #intro-text {
-  opacity: 1 !important; /* Force visibility with !important */
-}
-
-/* Always show navigation after initial load */
-#main-nav {
+/* Navigation styling */
+#main-nav, .fade-after-type {
   opacity: 0;
-  transition: opacity 0.8s ease;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-/* Project card hover effects */
-.project-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-.project-card img {
-  transition: transform 0.6s ease;
-}
-
-.project-card:hover img {
-  transform: scale(1.05);
+.visible-always-nav #main-nav {
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 /* Active link styling */
-nav a.text-\[rgb\(211\,84\,0\)\] {
+nav a.text-primary {
   position: relative;
 }
 
-nav a.text-\[rgb\(211\,84\,0\)\]:after {
+nav a.text-primary:after {
   content: '';
   position: absolute;
   bottom: -4px;
   left: 0;
   width: 100%;
   height: 1px;
-  background-color: rgb(211,84,0);
+  @apply bg-primary;
 }
 
-/* Animation keyframes */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Project cards and image hover effects */
+.project-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.project-card:hover {
+  transform: translateY(-5px);
+  @apply shadow-md;
 }
 
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.project-card img, .overflow-hidden img {
+  transition: transform 0.6s ease;
 }
 
-/* Form styling */
+/* Form elements */
 input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: rgb(211,84,0);
-  box-shadow: 0 0 0 1px rgb(211,84,0);
+  @apply border-primary ring-1 ring-primary;
 }
 
-/* Mobile menu styles */
-@media (max-width: 768px) {
-  .mobile-menu {
-    display: block;
-  }
-  
-  .desktop-menu {
-    display: none;
-  }
+/* Mobile menu */
+.mobile-menu-container {
+  @apply fixed inset-0 z-50 bg-white mt-12;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-/* For medium screens and up */
-@media (min-width: 769px) {
-  .mobile-menu {
-    display: none;
-  }
-  
-  .desktop-menu {
-    display: block;
-  }
+.mobile-menu-container.hidden {
+  visibility: hidden;
+  opacity: 0;
 }
 
-/* assets/css/app.css - add to your existing CSS */
-
-/* Mobile menu styles */
-.fixed.inset-0.bg-white.z-50 {
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.fixed.inset-0.bg-white.z-50 .flex.flex-col.items-center.space-y-6 {
-  height: auto;
-}
-
-.fixed.inset-0.bg-white.z-50.hidden {
-  display: none;
-}
-
-.fixed.inset-0.bg-white.z-50.block {
-  display: flex;
-}
-
-/* Improve mobile navigation at bottom */
-.w-full.fixed.bottom-0.md\:hidden {
-  z-index: 40;
-  background-color: white;
-  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* Hide the desktop navigation on mobile */
+/* Media queries */
 @media (max-width: 768px) {
   #main-nav {
-    display: none !important;
+    @apply hidden;
   }
-
-/* Make sure text in the home page is properly visible */
-@media (max-width: 768px) {
+  
+  .mobile-only {
+    @apply block;
+  }
+  
+  .desktop-only {
+    @apply hidden;
+  }
+  
+  /* Ensure text is visible on mobile */
   #main-heading, #intro-text {
     opacity: 1 !important;
     transform: none !important;
   }
 }
-  
-  /* Ensure the bottom navigation doesn't appear on mobile */
-  .md\:w-48 {
-    display: none;
-  }
-}
 
-/* Make sure button visibility stays consistent */
-button[phx-click="toggle_menu"] {
-  cursor: pointer !important;
-  transition: color 0.2s ease-in-out;
-}
-
-button[phx-click="toggle_menu"]:hover {
-  color: rgb(211,84,0);
-}
-
-/* Ensure the mobile menu stays fixed to the viewport */
-.mobile-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 50;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Fix for the navigation links in mobile menu */
-.flex.flex-col.items-center.space-y-6 a {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  transition: color 0.3s ease;
-}
-
-/* Ensure proper spacing at the bottom of screens */
-#home-page-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-#home-page-container main {
-  min-height: calc(100vh - 120px); /* Account for header and bottom nav */
-  position: relative;
-  z-index: 1;
-}
-
-/* Fix for home page margins on mobile */
-@media (max-width: 768px) {
-  .pt-12 {
-    padding-top: 2rem;
+@media (min-width: 769px) {
+  .mobile-only {
+    @apply hidden;
   }
   
-  .mb-8 {
-    margin-bottom: 1.5rem;
+  .desktop-only {
+    @apply block;
   }
 }
 
-/* For Material Icons if you're using them */
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/materialicons/v139/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+/* Animation keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Material Icons */
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -272,125 +149,24 @@ button[phx-click="toggle_menu"]:hover {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Hobbies section styles */
-.rounded-full {
-  border-radius: 9999px;
+/* Typography and color helpers */
+.text-balance {
+  text-wrap: balance;
 }
 
-.whitespace-nowrap {
-  white-space: nowrap;
+/* Utility classes */
+.animate-typing {
+  opacity: 0;
 }
 
-/* Category buttons transitions */
-button[phx-click="select_category"] {
-  transition: all 0.3s ease;
+.animate-fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
+  animation-delay: 0.8s;
 }
 
-button[phx-click="select_category"]:hover {
-  transform: translateY(-2px);
-}
-
-/* Image grid hover effects */
-#category-content .overflow-hidden {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-#category-content .overflow-hidden:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-/* Caption styling */
-#category-content .p-3 {
-  transition: background-color 0.3s ease;
-}
-
-#category-content .overflow-hidden:hover .p-3 {
-  background-color: #f9fafb;
-}
-
-/* Make category selector scrollable on mobile */
-@media (max-width: 640px) {
-  .flex.flex-wrap.overflow-x-auto.space-x-4 {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 1rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
-  }
-  
-  .flex.flex-wrap.overflow-x-auto.space-x-4::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
-  }
-}
-
-/* Improve image grid on mobile */
-@media (max-width: 768px) {
-  #category-content .grid.grid-cols-1.md\:grid-cols-2 > div {
-    margin-bottom: 1.5rem;
-  }
-  
-  #category-content img {
-    height: 200px;
-  }
-}
-
-/* Animation for category content changes */
-#category-content {
-  animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Fix for MacBook Pro navigation display */
-@media screen and (min-width: 1024px) {
-  /* Make navigation always visible on larger screens */
-  #main-nav {
-    display: flex !important;
-    opacity: 1 !important;
-  }
-  
-  /* Adjust the width for MacBook Pro screens specifically */
-  .md\:w-48 {
-    width: 12rem !important; /* Ensure adequate width */
-    display: block !important;
-  }
-  
-  /* Ensure proper visibility */
-  .hidden.md\:block {
-    display: block !important;
-  }
-}
-
-/* Specific fixes for MacBook Pro 13" and similar screens */
-@media screen and (min-width: 1280px) and (max-width: 1440px) {
-  .md\:max-w-\[75\%\] {
-    max-width: 70% !important; /* Give a bit more space to content */
-  }
-  
-  .lg\:max-w-\[80\%\] {
-    max-width: 75% !important; /* Adjust for better layout */
-  }
-}
-
-/* General fixes for consistent navigation */
-.main_nav, #main-nav {
-  opacity: 1 !important;
-  transition: none !important; /* Prevent any fading */
-}
-
-/* Ensure the navigation is visible in the right column */
-.w-full.md\:w-48.pt-12.md\:pt-24 {
-  display: block !important;
-}
-
-/* Override any potential conflicts */
-@media screen and (min-width: 768px) {
-  .md\:flex-row > .hidden.md\:block {
-    display: block !important;
-  }
+/* Make navigation fully visible once JavaScript loads */
+.js-loaded #main-nav {
+  opacity: 1;
+  transform: translateY(0);
 }
