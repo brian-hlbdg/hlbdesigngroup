@@ -13,6 +13,9 @@ module.exports = {
   ],
   darkMode: 'class', // Enable class-based dark mode
   theme: {
+    fontFamily: {
+      sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+    },
     extend: {
       colors: {
         'primary': 'rgb(211,84,0)',
@@ -42,7 +45,7 @@ module.exports = {
         DEFAULT: {
           css: {
             h1: {
-              fontWeight: 700,
+              fontWeight: 100,
             },
             h2: {
               fontWeight: 300,
