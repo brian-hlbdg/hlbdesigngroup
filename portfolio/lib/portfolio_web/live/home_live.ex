@@ -18,12 +18,23 @@ defmodule PortfolioWeb.HomeLive do
           <div class="flex-1 md:pr-8 lg:pr-12 pt-12 md:max-w-[75%] lg:max-w-[80%] border-none">
             <div>
               <h1 id="main-heading" class="text-4xl md:text-5xl font-bold leading-tight mb-8 text-gray-900 dark:text-white" phx-hook="FadeIn">
-                I help companies build exceptional digital experiences through thoughtful design.
+              UX Designer and Front-end Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth while ensuring seamless integration between design and technical implementation.
               </h1>
               <p id="intro-text" class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-prose mt-8" phx-hook="TypeWriter">
-                UX Designer and Front-end Developer focused on creating intuitive,
-                user-centered solutions that drive business growth.
+              UX Designer and Front-end Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth while ensuring seamless integration between design and technical implementation.
               </p>
+
+              <div class="mt-12 flex flex-wrap gap-4">
+                <a href="/projects" class="px-6 py-3 bg-[rgb(211,84,0)] text-white hover:bg-[rgb(180,70,0)] transition-colors rounded-sm flex items-center">
+                  View My Work
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </a>
+                <a href="/contact" class="px-6 py-3 border border-gray-300 hover:border-[rgb(211,84,0)] text-gray-800 hover:text-[rgb(211,84,0)] transition-colors rounded-sm flex items-center">
+                  Contact Me
+                </a>
+              </div>
 
               <div class="mt-12 pt-8 border-t border-gray-100 animate-fade-in">
                 <h2 class="text-2xl font-light mb-6">Featured Projects</h2>
