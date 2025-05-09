@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B. Hall | UX Designer & Frontend Developer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: 'rgb(211,84,0)',
+            'primary-dark': 'rgb(180,70,0)',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out forwards',
+            'slide-up': 'slideUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: 0 },
+              '100%': { transform: 'translateY(0)', opacity: 1 },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    /* Base styles */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* Dark mode color variables */
+    :root {
+      --color-primary-light: rgb(211,84,0);
+      --color-primary-dark: rgb(255,138,76);
+    }
+    
+    /* System dark mode detection */
+    @media (prefers-color-scheme: dark) {
+      body:not(.light-theme) {
+        color-scheme: dark;
+      }
+      
+      html:not(.light-theme) {
+        @apply dark;
+      }
+    }
+    
+    /* Dark mode styles with improved contrast */
+    .dark {
+      --bg-primary: #121212;
+      --bg-secondary: #1e1e1e;
+      --bg-tertiary: #2a2a2a;
+      --text-primary: #f3f4f6;
+      --text-secondary: #e5e7eb;
+      --text-tertiary: #d1d5db;
+      --text-muted: #9ca3af;
+      --border-color: #374151;
+      --card-bg: #1e1e1e;
+      --highlight-bg: #2e2e2e;
+      --shadow-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Apply dark mode styles */
+    .dark {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    
+    .dark .bg-white {
+      background-color: var(--bg-primary);
+    }
+    
+    .dark .bg-white\/90 {
+      background-color: rgba(18, 18, 18, 0.95);
+      backdrop-filter: blur(8px);
+    }
+    
+    .dark .bg-gray-50 {
+      background-color: var(--bg-secondary);
+    }
+    
+    .dark .bg-gray-100 {
+      background-color: var(--bg-tertiary);
+    }
+    
+    .dark .bg-orange-50 {
+      background-color: rgba(211, 84, 0, 0.15);
+    }
+    
+    .dark .text-gray-400 {
+      color: var(--text-muted);
+    }
+    
+    .dark .text-gray-500 {
+      color: var(--text-muted);
+    }
+    
+    .dark .text-gray-600 {
+      color: var(--text-secondary);
+    }
+    
+    .dark .text-gray-700 {
+      color: var(--text-primary);
+    }
+    
+    .dark .text-gray-800 {
+      color: var(--text-primary);
+    }
+    
+    .dark .border-gray-100,
+    .dark .border-gray-200 {
+      border-color: var(--border-color);
+    }
+    
+    .dark .work-item,
+    .dark .passion-card,
+    .dark .p-6.bg-gray-50, 
+    .dark .education-item, 
+    .dark .looking-forward-item, 
+    .dark .contact-item {
+      background-color: #1e293b;
+    }
+    
+    .dark .px-3.py-1.bg-gray-100 {
+      background-color: var(--highlight-bg);
+      color: var(--text-secondary);
+    }
+    
+    .dark .work-item:hover,
+    .dark .passion-card:hover {
+      box-shadow: 0 10px 25px -5px var(--shadow-color);
+    }
+    
+    .dark .social-icon {
+      color: var(--text-secondary);
+    }
+    
+    /* Make timeline elements visible in dark mode */
+    .dark .border-l.border-gray-200 {
+      border-color: var(--border-color);
+    }
+    
+    .dark .bg-white.rounded-full.border-2 {
+      background-color: var(--bg-tertiary);
+    }
+    
+    .dark .border-primary {
+      border-color: var(--color-primary-dark);
+    }
+    
+    /* Make primary color more visible in dark mode */
+    .dark .text-primary {
+      color: var(--color-primary-dark);
+    }
+    
+    .dark .hover\:text-primary:hover {
+      color: var(--color-primary-dark);
+    }
+    
+    .dark .border-b.border-primary {
+      border-color: var(--color-primary-dark);
+    }
+    
+    .dark .hover\:border-primary:hover {
+      border-color: var(--color-primary-dark);
+    }
+    
+    /* Animation delay utilities */
+    .animate-delay-100 {
+      animation-delay: 0.1s;
+    }
+    
+    .animate-delay-200 {
+      animation-delay: 0.2s;
+    }
+    
+    .animate-delay-300 {
+      animation-delay: 0.3s;
+    }
+    
+    .animate-delay-400 {
+      animation-delay: 0.4s;
+    }
+    
+    .animate-delay-500 {
+      animation-delay: 0.5s;
+    }
+    
+    /* Section fade animation */
+    .section-fade {
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    
+    .section-fade.visible {
+      opacity: 1;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Card and interactive element styles */
+    .work-item {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .work-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .social-icon {
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    
+    .social-icon:hover {
+      color: rgb(211,84,0);
+    }
+    
+    .dark .social-icon:hover {
+      color: var(--color-primary-dark);
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .image-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .passion-card {
+      transition: all 0.3s ease;
+      overflow: hidden;
+      border-radius: 0.5rem;
+    }
+
+    .passion-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .passion-card img {
+      transition: transform 0.5s ease;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .passion-card:hover img {
+      transform: scale(1.05);
+    }
+    
+    /* Theme toggle button styling */
+    .theme-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(211, 84, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    
+    .theme-toggle:hover {
+      transform: translateY(-3px);
+      background: rgb(211, 84, 0);
+    }
+    
+    .dark .theme-toggle {
+      background: rgba(255, 138, 76, 0.8);
+    }
+    
+    .dark .theme-toggle:hover {
+      background: rgb(255, 138, 76);
+    }
+    
+    .theme-toggle i {
+      color: white;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+  <div class="min-h-screen flex flex-col">
+    <!-- Header/Navigation -->
+    <header class="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100 dark:bg-gray-900/90 dark:border-gray-800">
+      <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center">
+          <span id="datetime" class="text-sm text-gray-500 dark:text-gray-400 hidden md:inline">
+            <script>
+              function updateDateTime() {
+                const now = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+                document.getElementById('datetime').textContent = now.toLocaleDateString('en-US', options);
+              }
+              setInterval(updateDateTime, 1000);
+              updateDateTime();
+            </script>
+          </span>
+          <span class="text-sm text-gray-500 dark:text-gray-400 ml-2 hidden md:inline">Chicago, IL</span>
+        </div>
+        <div class="text-sm dark:text-gray-200">Brian L. Hall</div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-24 pb-16">
+      <div class="container mx-auto px-6">
+        <!-- Hero Section -->
+        <section class="py-12 md:py-20">
+          <div class="max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-fade-in dark:text-white">
+              UX Designer &<br>
+              Frontend Developer
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl animate-fade-in animate-delay-200">
+              I help companies build exceptional digital experiences through thoughtful design and clean, efficient code.
+            </p>
+            <div class="flex flex-wrap gap-4 animate-fade-in animate-delay-300">
+              <a href="mailto:brian.HLBDG@outlook.com" class="inline-flex items-center text-primary hover:text-primary-dark dark:text-orange-400 dark:hover:text-orange-300 transition-colors">
+                <span class="border-b border-primary dark:border-orange-400">Get in touch</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+              <span class="text-gray-400 dark:text-gray-500">•</span>
+              <a href="#about" class="inline-flex items-center text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-orange-400 transition-colors">
+                <span class="border-b border-transparent hover:border-primary dark:hover:border-orange-400">About Me</span>
+              </a>
+              <span class="text-gray-400 dark:text-gray-500">•</span>
+              <a href="case_study.html" class="inline-flex items-center text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-orange-400 transition-colors">
+                <span class="border-b border-transparent hover:border-primary dark:hover:border-orange-400">Case Studies</span>
+              </a>
+              <span class="text-gray-400 dark:text-gray-500">•</span>
+              <a href="professional_experience.html" class="inline-flex items-center text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-orange-400 transition-colors">
+                <span class="border-b border-transparent hover:border-primary dark:hover:border-orange-400">Examples</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-12 section-fade scroll-mt-24">
+          <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-light mb-8 border-b border-gray-200 dark:border-gray-700 pb-2">About Me</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <div class="md:col-span-2">
+                <p class="text-gray-700 dark:text-gray-300 mb-6">
+                  Born and raised in Chicago, I've always had a deep connection to the city that shaped me. From cheering on the White Sox at Rate Field(aka Comiskey Park) to braving the cold at Soldier Field for Bears games, my Chicago roots run deep. That Midwestern work ethic and straightforward approach to problem-solving influences everything I do.
+                </p>
+                <p class="text-gray-700 dark:text-gray-300 mb-6">
+                  When I'm not designing digital experiences, you'll find me exploring the city with my camera, capturing unique perspectives of Chicago's architecture, or sending my drone up to get those impossible aerial shots that tell a different story about familiar places.
+                </p>
+                <p class="text-gray-700 dark:text-gray-300">
+                  My approach to design blends technical expertise with a human-centered mindset. I believe the best digital products not only function flawlessly but also connect with users on a meaningful level. This philosophy has guided my work across finance, logistics, e-commerce, and retail sectors.
+                </p>
+              </div>
+              <div class="md:col-span-1">
+                <img src="/images/web_image_portfolio.jpg" alt="Brian Hall" class="w-full h-auto rounded-lg shadow-md">
+              </div>
+            </div>
+            
+            <!-- Passions & Interests -->
+            <div class="mb-12">
+              <h3 class="text-xl font-medium mb-6 dark:text-white">Passions & Interests</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="passion-card bg-gray-50 dark:bg-gray-800 overflow-hidden">
+                  <div class="h-48 overflow-hidden">
+                    <img src="/images/web_chicago.jpg" alt="Photography" class="object-cover w-full h-full">
+                  </div>
+                  <div class="p-4">
+                    <h4 class="font-medium mb-1 dark:text-white">Photography</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Capturing Chicago's urban landscape and architecture through my lens</p>
+                  </div>
+                </div>
+                
+                <div class="passion-card bg-gray-50 dark:bg-gray-800 overflow-hidden">
+                  <div class="h-48 overflow-hidden">
+                    <img src="/images/drone_image.jpg" alt="Drone Flying" class="object-cover w-full h-full">
+                  </div>
+                  <div class="p-4">
+                    <h4 class="font-medium mb-1 dark:text-white">Drone Flying</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Getting a bird's-eye view of Chicago and exploring new perspectives</p>
+                  </div>
+                </div>
+                
+                <div class="passion-card bg-gray-50 dark:bg-gray-800 overflow-hidden">
+                  <div class="h-48 overflow-hidden">
+                    <img src="/images/sports_image.jpg" alt="Chicago Sports" class="object-cover w-full h-full">
+                  </div>
+                  <div class="p-4">
+                    <h4 class="font-medium mb-1 dark:text-white">Chicago Sports</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Dedicated White Sox and Bears fan through thick and thin</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Professional Journey Section -->
+        <section id="journey" class="py-12 section-fade">
+          <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-light mb-8 border-b border-gray-200 dark:border-gray-700 pb-2">My Professional Journey</h2>
+            
+            <div class="mb-10">
+              <p class="text-gray-700 dark:text-gray-300 mb-6">
+                My career has been shaped by a passion for creating intuitive digital experiences that solve real problems for users. I've had the privilege of working across various industries, from logistics and transportation to finance and retail, each opportunity adding new dimensions to my approach.
+              </p>
+              
+              <p class="text-gray-700 dark:text-gray-300 mb-6">
+                At NFI Industries, I've been bridging the gap between complex logistics systems and the people who use them. Working on Transportation Management Software has taught me the importance of simplifying complexity without losing functionality—a challenge I embrace daily. My collaboration with cross-functional teams has reinforced my belief that the best digital products emerge from diverse perspectives working together.
+              </p>
+              
+              <p class="text-gray-700 dark:text-gray-300 mb-6">
+                Prior to this, my work at Calamos Investments allowed me to hone my skills in the financial sector, where precision and clarity are paramount. Creating interfaces that make complex financial information accessible to different audiences taught me valuable lessons about designing with the end user in mind.
+              </p>
+              
+              <p class="text-gray-700 dark:text-gray-300">
+                My earlier experiences in web design at companies like GKIC and PMall built the foundation of my approach: clean, purposeful design that serves both business needs and user expectations. Each role has contributed to my understanding that effective digital experiences are those that disappear into the background, allowing users to accomplish their goals without friction.
+              </p>
+            </div>
+            
+            <!-- Timeline -->
+            <div class="relative border-l border-gray-200 dark:border-gray-700 ml-3">
+              <!-- NFI Industries -->
+              <div class="mb-12 ml-8">
+                <div class="absolute w-6 h-6 bg-white dark:bg-gray-800 rounded-full border-2 border-primary dark:border-orange-400 -left-3 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-primary dark:bg-orange-400 rounded-full"></div>
+                </div>
+                <div class="work-item p-6 rounded-lg dark:bg-gray-800">
+                  <h3 class="text-lg font-medium mb-1 dark:text-white">NFI Industries</h3>
+                  <p class="text-gray-500 dark:text-gray-400 mb-3">UX Design & Frontend Development (2017 - Present)</p>
+                  <p class="text-gray-700 dark:text-gray-300 mb-4">
+                    Leading UX design for transportation management systems, I work at the intersection of complex logistics and user-centered design. My focus has been creating intuitive interfaces for sophisticated software that makes daily operations smoother for logistics professionals.
+                  </p>
+                </div>
+              </div>
+              
+              <!-- Calamos Investments -->
+              <div class="mb-12 ml-8">
+                <div class="absolute w-6 h-6 bg-white dark:bg-gray-800 rounded-full border-2 border-gray-300 dark:border-gray-600 -left-3 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-gray-500 dark:bg-gray-400 rounded-full"></div>
+                </div>
+                <div class="work-item p-6 rounded-lg dark:bg-gray-800">
+                  <h3 class="text-lg font-medium mb-1 dark:text-white">Calamos Investments</h3>
+                  <p class="text-gray-500 dark:text-gray-400 mb-3">Web Development (2015 - 2017)</p>
+                  <p class="text-gray-700 dark:text-gray-300 mb-4">
+                    As the sole frontend developer for this investment firm, I bridged the gap between complex financial data and accessible user interfaces. My role involved translating investment strategies into compelling digital experiences that built trust with clients and stakeholders.
+                  </p>
+                </div>
+              </div>
+              
+              <!-- Earlier Career -->
+              <div class="ml-8">
+                <div class="absolute w-6 h-6 bg-white dark:bg-gray-800 rounded-full border-2 border-gray-300 dark:border-gray-600 -left-3 flex items-center justify-center">
+                  <div class="w-2 h-2 bg-gray-500 dark:bg-gray-400 rounded-full"></div>
+                </div>
+                <div class="work-item p-6 rounded-lg dark:bg-gray-800">
+                  <h3 class="text-lg font-medium mb-1 dark:text-white">Early Career</h3>
+                  <p class="text-gray-500 dark:text-gray-400 mb-3">Design & Web Management (2005 - 2015)</p>
+                  <p class="text-gray-700 dark:text-gray-300 mb-4">
+                    My foundational years were shaped by diverse roles across design, photography, and web management. At GKIC and PMall, I created compelling web designs and managed site updates while developing visual branding elements. Prior to this, my work at Slack and Company gave me experience with enterprise CMS implementations, while my role as Photography and Web Content Manager at Marist School allowed me to combine visual storytelling with technical site architecture. Throughout these positions, I developed a holistic approach that balances visual aesthetics, technical functionality, and user needs—skills that continue to influence my work today.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Education & Skills Section -->
+        <section id="skills" class="py-12 section-fade">
+          <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-light mb-8 border-b border-gray-200 dark:border-gray-700 pb-2">Education & Expertise</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+              <div>
+                <h3 class="text-lg font-medium mb-4 dark:text-white">Educational Background</h3>
+                <div class="education-item mb-6 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <h4 class="font-medium text-primary dark:text-orange-400">Human Computer Interaction</h4>
+                  <p class="text-gray-800 dark:text-white">Master of Science</p>
+                  <p class="text-gray-600 dark:text-gray-300 mt-1">DePaul University, Chicago</p>
+                  <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">2018</p>
+                  <p class="text-gray-700 dark:text-gray-300 mt-4">
+                    My graduate studies deepened my understanding of the psychology behind user behavior and the methodologies that lead to intuitive digital experiences.
+                  </p>
+                </div>
+                
+                <div class="education-item p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <h4 class="font-medium text-primary dark:text-orange-400">Design</h4>
+                  <p class="text-gray-800 dark:text-white">Bachelor of Arts</p>
+                  <p class="text-gray-600 dark:text-gray-300 mt-1">Chicago State University</p>
+                  <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">2005</p>
+                  <p class="text-gray-700 dark:text-gray-300 mt-4">
+                    My undergraduate education gave me a strong foundation in design principles, visual communication, and creative problem-solving approaches.
+                  </p>
+                </div>
+              </div>
+              
+              <div>
+                <h3 class="text-lg font-medium mb-4 dark:text-white">Core Strengths</h3>
+                <div class="space-y-6">
+                  <div>
+                    <h4 class="text-primary dark:text-orange-400 font-medium mb-2">User-Centered Design</h4>
+                    <p class="text-gray-700 dark:text-gray-300">
+                      I approach every project with a deep commitment to understanding the people who will use the product. By putting users at the center of the design process, I create experiences that feel intuitive and purposeful.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Frontend Development</h4>
+                    <p class="text-gray-700 dark:text-gray-300">
+                      My technical expertise in modern web technologies allows me to bridge the gap between design and implementation, ensuring that the user experience vision is faithfully realized in the final product.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Problem Solving</h4>
+                    <p class="text-gray-700 dark:text-gray-300">
+                      I thrive on finding elegant solutions to complex problems. By breaking down challenges into manageable components, I can address user needs while meeting business requirements.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Technical Skills -->
+            <div>
+              <h3 class="text-lg font-medium mb-4 dark:text-white">Technical Toolbox</h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <h4 class="text-gray-800 dark:text-white font-medium mb-2">Design & Frontend</h4>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Figma</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Adobe Suite</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">HTML/CSS</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">JavaScript</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Tailwind</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Bootstrap</span>
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 class="text-gray-800 dark:text-white font-medium mb-2">Technologies</h4>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">LiveView</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Phoenix</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Elixir</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">VueJS</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">NodeJS</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Docker</span>
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 class="text-gray-800 dark:text-white font-medium mb-2">Tools & Methods</h4>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">VS Code</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Git/GitHub</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">User Research</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Prototyping</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Usability Testing</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Future Goals Section -->
+        <section id="goals" class="py-12 section-fade">
+          <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-light mb-8 border-b border-gray-200 dark:border-gray-700 pb-2">Looking Forward</h2>
+            
+            <div class="mb-8">
+              <p class="text-gray-700 dark:text-gray-300 mb-6">
+                I'm passionate about creating digital experiences that make a real difference in people's lives. Looking ahead, I'm particularly interested in opportunities with:
+              </p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="looking-forward-item p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Innovation-Driven Companies</h4>
+                  <p class="text-gray-700 dark:text-gray-300">
+                    Organizations that prioritize experimentation and aren't afraid to challenge conventional thinking. I thrive in environments where innovation is valued and where design is seen as a strategic advantage.
+                  </p>
+                </div>
+                
+                <div class="looking-forward-item p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Human-Centered Teams</h4>
+                  <p class="text-gray-700 dark:text-gray-300">
+                    I'm drawn to teams that put people—both users and team members—at the center of their work. Creating positive experiences is as much about the process as it is about the end result.
+                  </p>
+                </div>
+                
+                <div class="looking-forward-item p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Impact-Focused Projects</h4>
+                  <p class="text-gray-700 dark:text-gray-300">
+                    I'm eager to work on products and services that solve meaningful problems and make a positive difference in users' daily lives, whether that's in healthcare, education, sustainability, or other impact-driven fields.
+                  </p>
+                </div>
+                
+                <div class="looking-forward-item p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Collaborative Environments</h4>
+                  <p class="text-gray-700 dark:text-gray-300">
+                    Places that value cross-functional collaboration, where diverse perspectives come together to create solutions that wouldn't be possible in silos. The best work happens when different disciplines inform each other.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="py-12 section-fade">
+          <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl font-light mb-8 border-b border-gray-200 dark:border-gray-700 pb-2">Let's Connect</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <p class="text-gray-700 dark:text-gray-300 mb-6">
+                  I'm always open to discussing new projects, creative collaborations, or opportunities to be part of something meaningful. Whether you have a question or just want to say hi, I'd love to hear from you.
+                </p>
+                
+                <div class="space-y-4 mb-8">
+                  <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center mr-4">
+                      <i class="fas fa-envelope text-primary dark:text-orange-400"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-sm text-gray-500 dark:text-gray-400">Email</h3>
+                      <a href="mailto:brian.HLBDG@outlook.com" class="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-orange-400 transition-colors">brian.HLBDG@outlook.com</a>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center mr-4">
+                      <i class="fas fa-file-pdf text-primary dark:text-orange-400"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-sm text-gray-500 dark:text-gray-400">Curriculum Vitae</h3>
+                      <a href="mailto:brian.HLBDG@outlook.com?subject=Resume Request" class="text-gray-800 dark:text-gray-200 hover:text-primary dark:hover:text-orange-400 transition-colors">Request my Resume</a>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="mb-8">
+                  <h3 class="text-lg font-medium mb-4 dark:text-white">Find Me Online</h3>
+                  <div class="flex space-x-6">
+                    <a href="https://www.linkedin.com/in/hlbdg/" target="_blank" rel="noopener noreferrer" class="social-icon">
+                      <i class="fab fa-linkedin fa-2x text-gray-600 dark:text-gray-400"></i>
+                    </a>
+                    <a href="https://www.instagram.com/hlbdg" target="_blank" rel="noopener noreferrer" class="social-icon">
+                      <i class="fab fa-instagram fa-2x text-gray-600 dark:text-gray-400"></i>
+                    </a>
+                    <a href="https://bsky.app/profile/hlbdg.bsky.social" target="_blank" rel="noopener noreferrer" class="social-icon">
+                      <i class="fas fa-cloud fa-2x text-gray-600 dark:text-gray-400"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <div class="contact-item p-6 bg-gray-50 dark:bg-gray-800 rounded-lg mb-6">
+                  <h3 class="text-lg font-medium mb-3 dark:text-white">A Chicago Native</h3>
+                  <p class="text-gray-700 dark:text-gray-300 mb-4">
+                    Based in Chicago, I'm deeply connected to this city's creative energy and industrial spirit. The city's blend of architectural innovation and Midwestern pragmatism has influenced my approach to design and problem-solving.
+                  </p>
+                  <div class="aspect-video bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
+                    <img src="/images/web_chicago_skyline.jpg" alt="Chicago skyline" class="w-full h-full object-cover">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-100 dark:border-gray-800">
+      <div class="container mx-auto px-6 text-center">
+        <p class="text-gray-500 dark:text-gray-400 text-sm">© 2025 Brian L. Hall. All rights reserved.</p>
+        <p class="text-gray-400 dark:text-gray-500 text-xs mt-2">Designed and developed by B. Hall</p>
+      </div>
+    </footer>
+  </div>
+  
+  <!-- Theme Toggle Button -->
+  <div class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+    <i class="fas fa-moon" id="theme-toggle-icon"></i>
+  </div>
+  
+  <script>
+    // Dark mode detection and toggle functionality with localStorage persistence
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check for saved theme preference in localStorage
+      const savedTheme = localStorage.getItem('theme');
+      
+      // Check system preference
+      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      // Apply theme based on saved preference or system default
+      if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
+        document.documentElement.classList.add('dark');
+        document.getElementById('theme-toggle-icon').classList.remove('fa-moon');
+        document.getElementById('theme-toggle-icon').classList.add('fa-sun');
+      }
+      
+      // Theme toggle functionality
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = document.getElementById('theme-toggle-icon');
+      
+      themeToggle.addEventListener('click', function() {
+        // Toggle dark mode class
+        document.documentElement.classList.toggle('dark');
+        
+        // Save preference to localStorage
+        if (document.documentElement.classList.contains('dark')) {
+          localStorage.setItem('theme', 'dark');
+          themeIcon.classList.remove('fa-moon');
+          themeIcon.classList.add('fa-sun');
+        } else {
+          localStorage.setItem('theme', 'light');
+          themeIcon.classList.remove('fa-sun');
+          themeIcon.classList.add('fa-moon');
+        }
+      });
+      
+      // Listen for system preference changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        // Only change if user hasn't set a preference
+        if (!localStorage.getItem('theme')) {
+          if (e.matches) {
+            document.documentElement.classList.add('dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+          } else {
+            document.documentElement.classList.remove('dark');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+          }
+        }
+      });
+      
+      // Intersection Observer for scroll animations
+      const sections = document.querySelectorAll('.section-fade');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+      });
+      
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    });
+  </script>
+</body>
+</html>

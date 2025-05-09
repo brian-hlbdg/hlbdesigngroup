@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brian Hall | Professional Experience</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: 'rgb(211,84,0)',
+            'primary-dark': 'rgb(180,70,0)',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    /* Base styles */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* Dark mode color variables */
+    :root {
+      --color-primary-light: rgb(211,84,0);
+      --color-primary-dark: rgb(255,138,76);
+    }
+    
+    /* System dark mode detection */
+    @media (prefers-color-scheme: dark) {
+      body:not(.light-theme) {
+        color-scheme: dark;
+      }
+      
+      html:not(.light-theme) {
+        @apply dark;
+      }
+    }
+    
+    /* Dark mode styles with improved contrast */
+    .dark {
+      --bg-primary: #121212;
+      --bg-secondary: #1e293b; /* Bluish dark tone */
+      --bg-tertiary: #2a3441;
+      --text-primary: #f3f4f6;
+      --text-secondary: #e5e7eb;
+      --text-tertiary: #d1d5db;
+      --text-muted: #9ca3af;
+      --border-color: #374151;
+      --card-bg: #1e293b;
+      --highlight-bg: #2e3c4d;
+      --shadow-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Apply dark mode styles */
+    .dark {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    
+    .dark .bg-white {
+      background-color: var(--bg-primary);
+    }
+    
+    .dark .bg-white\/90 {
+      background-color: rgba(18, 18, 18, 0.95);
+      backdrop-filter: blur(8px);
+    }
+    
+    .dark .bg-gray-50,
+    .dark .bg-gray-100 {
+      background-color: var(--bg-secondary);
+    }
+    
+    .dark .bg-orange-50 {
+      background-color: rgba(211, 84, 0, 0.15);
+    }
+    
+    .dark .text-gray-400 {
+      color: var(--text-muted);
+    }
+    
+    .dark .text-gray-500 {
+      color: var(--text-muted);
+    }
+    
+    .dark .text-gray-600 {
+      color: var(--text-secondary);
+    }
+    
+    .dark .text-gray-700 {
+      color: var(--text-primary);
+    }
+    
+    .dark .text-gray-800 {
+      color: var(--text-primary);
+    }
+    
+    .dark .border-gray-100,
+    .dark .border-gray-200 {
+      border-color: var(--border-color);
+    }
+    
+    /* Make primary color more visible in dark mode */
+    .dark .text-primary {
+      color: var(--color-primary-dark);
+    }
+    
+    .dark .hover\:text-primary:hover {
+      color: var(--color-primary-dark);
+    }
+    
+    /* Theme toggle button styling */
+    .theme-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(211, 84, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    
+    .theme-toggle:hover {
+      transform: translateY(-3px);
+      background: rgb(211, 84, 0);
+    }
+    
+    .dark .theme-toggle {
+      background: rgba(255, 138, 76, 0.8);
+    }
+    
+    .dark .theme-toggle:hover {
+      background: rgb(255, 138, 76);
+    }
+    
+    .theme-toggle i {
+      color: white;
+      font-size: 1.5rem;
+    }
+    
+    /* Experience card styles */
+    .experience-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .experience-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background-color: rgb(211,84,0);
+      transition: width 0.3s ease;
+    }
+    
+    .dark .experience-card::before {
+      background-color: rgb(255,138,76);
+    }
+    
+    .experience-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+    }
+    
+    .experience-card:hover::before {
+      width: 8px;
+    }
+    
+    .skill-tag {
+      transition: all 0.3s ease;
+    }
+    
+    .skill-tag:hover {
+      background-color: rgb(211,84,0);
+      color: white;
+    }
+    
+    .dark .skill-tag:hover {
+      background-color: rgb(255,138,76);
+      color: black;
+    }
+    
+    .experience-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    
+    .experience-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+  <div class="min-h-screen flex flex-col">
+    <!-- Header/Navigation -->
+    <header class="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100 dark:bg-gray-900/90 dark:border-gray-800">
+      <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center">
+          <a href="/" class="text-gray-800 dark:text-gray-200 font-medium hover:text-primary dark:hover:text-orange-400 transition-colors">
+            ← Back to Home
+          </a>
+        </div>
+        <div class="text-sm dark:text-gray-200">Brian L. Hall</div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-24 pb-16">
+      <div class="container mx-auto px-6 max-w-4xl">
+        <!-- Hero Section -->
+        <section class="py-12 experience-section" id="hero">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6 dark:text-white">
+            Professional Experience
+          </h1>
+          
+          <p class="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl">
+            Over the years, I've had the privilege of working with diverse companies across various industries. Each role has contributed to my growth as a designer and developer, building a unique skill set that combines technical expertise with creative problem-solving.
+          </p>
+          
+          <div class="flex flex-wrap gap-3 mb-12">
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400 mr-2">Filter by skill:</span>
+            <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors">UX Design</button>
+            <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors">Frontend Development</button>
+            <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors">Web Design</button>
+            <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors">Content Management</button>
+            <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors">Design Systems</button>
+          </div>
+        </section>
+
+        <!-- NFI Industries -->
+        <section class="py-8 experience-section" id="nfi">
+          <div class="experience-card bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8 pl-10 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div class="md:col-span-2">
+                <div class="flex flex-wrap items-center gap-4 mb-4">
+                  <h2 class="text-2xl font-bold dark:text-white">NFI Industries</h2>
+                  <span class="text-sm font-medium px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-primary dark:text-orange-400 rounded-full">2017 - Present</span>
+                </div>
+                
+                <h3 class="text-xl font-medium mb-3 dark:text-white">UX Designer & Frontend Developer</h3>
+                
+                <div class="mb-6">
+                  <p class="text-gray-700 dark:text-gray-300 mb-4">
+                    NFI Industries is a leading supply chain solutions provider offering logistics, distribution, and transportation services across North America. As a key member of their technology team, I've been responsible for transforming complex logistics software into intuitive, user-friendly interfaces.
+                  </p>
+                  
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Key Contributions:</h4>
+                  <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Led the UX redesign of their Transportation Management System, resulting in 45% faster onboarding and 37% reduction in user errors</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Created a comprehensive component library using LiveView and Tailwind CSS that accelerated development across multiple projects</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Collaborated with cross-functional teams to implement user-centered design processes, including regular usability testing and research</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Helped develop and implement accessibility standards across all digital products</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">UX Design</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">LiveView</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Phoenix</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Elixir</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Tailwind CSS</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Design Systems</span>
+                </div>
+              </div>
+              
+              <div>
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden">
+                  <img 
+                    src="/images/nfi-project.jpg" 
+                    alt="NFI Industries TMS Project"
+                    class="w-full h-auto object-cover"
+                  >
+                </div>
+                
+                <div class="mt-6">
+                  <a href="/case-studies/tms" class="inline-flex items-center text-primary dark:text-orange-400 hover:underline">
+                    <span>View TMS Case Study</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Calamos Investments -->
+        <section class="py-8 experience-section" id="calamos">
+          <div class="experience-card bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8 pl-10 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div class="md:col-span-2">
+                <div class="flex flex-wrap items-center gap-4 mb-4">
+                  <h2 class="text-2xl font-bold dark:text-white">Calamos Investments</h2>
+                  <span class="text-sm font-medium px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-primary dark:text-orange-400 rounded-full">2015 - 2017</span>
+                </div>
+                
+                <h3 class="text-xl font-medium mb-3 dark:text-white">Web Developer</h3>
+                
+                <div class="mb-6">
+                  <p class="text-gray-700 dark:text-gray-300 mb-4">
+                    Calamos Investments is a global investment management firm specializing in alternative investments and risk-managed strategies. As the sole frontend web developer, I was responsible for designing and implementing all user-facing websites, creating a cohesive digital presence for this respected financial firm.
+                  </p>
+                  
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Key Contributions:</h4>
+                  <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Designed and developed the main corporate website, improving user engagement by 35% and reducing bounce rates by 28%</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Created an interactive financial dashboard that made complex investment data accessible to clients, increasing client engagement with financial reports</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Collaborated with back-end developers to create Sitecore CMS templates, improving the efficiency of content updates by 60%</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Supported marketing initiatives by designing and implementing microsites and campaign landing pages with high conversion rates</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Web Development</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Sitecore CMS</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Bootstrap</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">JavaScript</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Data Visualization</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Responsive Design</span>
+                </div>
+              </div>
+              
+              <div>
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden">
+                  <img 
+                    src="/images/calamos-project.jpg" 
+                    alt="Calamos Investments Dashboard Project"
+                    class="w-full h-auto object-cover"
+                  >
+                </div>
+                
+                <div class="mt-6">
+                  <a href="/case-studies/financial-dashboard" class="inline-flex items-center text-primary dark:text-orange-400 hover:underline">
+                    <span>View Financial Dashboard Case Study</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- GKIC -->
+        <section class="py-8 experience-section" id="gkic">
+          <div class="experience-card bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8 pl-10 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div class="md:col-span-2">
+                <div class="flex flex-wrap items-center gap-4 mb-4">
+                  <h2 class="text-2xl font-bold dark:text-white">GKIC</h2>
+                  <span class="text-sm font-medium px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-primary dark:text-orange-400 rounded-full">2012 - 2014</span>
+                </div>
+                
+                <h3 class="text-xl font-medium mb-3 dark:text-white">Web Designer</h3>
+                
+                <div class="mb-6">
+                  <p class="text-gray-700 dark:text-gray-300 mb-4">
+                    GKIC (Glazer-Kennedy Insider's Circle) is a leading provider of marketing training and resources for small businesses. I joined the company during a period of significant digital transformation, taking responsibility for creating and maintaining their web presence as they expanded their online offerings.
+                  </p>
+                  
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Key Contributions:</h4>
+                  <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Created three new websites and redesigned four heavily utilized sites, including the main corporate website</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Developed wireframes, sitemaps, and mockups to provide clear direction for web projects</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Worked closely with project managers and backend developers to ensure projects remained on track and within budget</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Designed high-converting landing pages for marketing campaigns, contributing to a 25% increase in lead generation</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Web Design</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">HTML/CSS</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">WordPress</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Wireframing</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">UI Design</span>
+                  <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Marketing Design</span>
+                </div>
+              </div>
+              
+              <div>
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden">
+                  <img 
+                    src="/images/gkic-project.jpg" 
+                    alt="GKIC Website Redesign"
+                    class="w-full h-auto object-cover"
+                  >
+                </div>
+                
+                <div class="mt-6">
+                  <a href="/case-studies/gkic-redesign" class="inline-flex items-center text-primary dark:text-orange-400 hover:underline">
+                    <span>View Website Redesign Case Study</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PMall -->
+        <section class="py-8 experience-section" id="pmall">
+          <div class="experience-card bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8 pl-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div class="md:col-span-2">
+                <div class="flex flex-wrap items-center gap-4 mb-4">
+                  <h2 class="text-2xl font-bold dark:text-white">PMall</h2>
+                  <span class="text-sm font-medium px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-primary dark:text-orange-400 rounded-full">2010 - 2012</span>
+                </div>
+                
+                <h3 class="text-xl font-medium mb-3 dark:text-white">Web Designer</h3>
+                
+                <div class="mb-6">
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">
+                        PMall (PersonalizationMall) is a top 500 e-commerce retailer specializing in personalized gifts and merchandise. During a period of significant online growth, I joined their team to enhance the user experience and visual design of their e-commerce platform.
+                      </p>
+                      
+                      <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Key Contributions:</h4>
+                      <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                        <li class="flex items-start">
+                          <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span>Developed UI, wireframes, sitemaps, and screen mockups for an e-commerce platform handling millions in annual sales</span>
+                        </li>
+                        <li class="flex items-start">
+                          <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span>Redesigned the product customization interface, resulting in a 22% increase in completed orders</span>
+                        </li>
+                        <li class="flex items-start">
+                          <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span>Managed site updates and designed various online materials, including logos and branding materials</span>
+                        </li>
+                        <li class="flex items-start">
+                          <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span>Conducted user interviews and usability tests to gather insights, which informed significant UX improvements</span>
+                        </li>
+                      </ul>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2">
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">E-commerce</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">UI Design</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">User Research</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Graphic Design</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Usability Testing</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Conversion Optimization</span>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden">
+                      <img 
+                        src="/images/pmall-project.jpg" 
+                        alt="PMall E-commerce Redesign"
+                        class="w-full h-auto object-cover"
+                      >
+                    </div>
+                    
+                    <div class="mt-6">
+                      <a href="/case-studies/ecommerce-redesign" class="inline-flex items-center text-primary dark:text-orange-400 hover:underline">
+                        <span>View E-commerce Case Study</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+    
+            <!-- Earlier Career Section -->
+            <section class="py-8 experience-section" id="early-career">
+              <h2 class="text-2xl font-bold mb-6 dark:text-white">Earlier Career</h2>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Slack and Company -->
+                <div class="experience-card bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 pl-8">
+                  <div class="flex flex-wrap items-center gap-3 mb-3">
+                    <h3 class="text-xl font-medium dark:text-white">Slack and Company</h3>
+                    <span class="text-xs font-medium px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-primary dark:text-orange-400 rounded-full">2010</span>
+                  </div>
+                  
+                  <h4 class="text-gray-700 dark:text-gray-300 mb-3 font-medium">Web Designer</h4>
+                  
+                  <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm">
+                    At Slack and Company, a premier branding firm in North America, I worked with a team to implement a new CMS for National Starch and Chemical Co. using Microsoft SharePoint, gaining valuable experience in enterprise-level content management systems.
+                  </p>
+                  
+                  <div class="flex flex-wrap gap-1 mb-4">
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">SharePoint</span>
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">CMS Implementation</span>
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Web Design</span>
+                  </div>
+                </div>
+                
+                <!-- PDS -->
+                <div class="experience-card bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 pl-8">
+                  <div class="flex flex-wrap items-center gap-3 mb-3">
+                    <h3 class="text-xl font-medium dark:text-white">PDS</h3>
+                    <span class="text-xs font-medium px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-primary dark:text-orange-400 rounded-full">2009 - 2010</span>
+                  </div>
+                  
+                  <h4 class="text-gray-700 dark:text-gray-300 mb-3 font-medium">Manager of Web Services</h4>
+                  
+                  <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm">
+                    At Premier Data Solutions (PDS), I managed the creation and development of websites for both internal and external clients, overseeing all aspects of the web development process while mentoring team members and supervising both internal designers and external web programmers.
+                  </p>
+                  
+                  <div class="flex flex-wrap gap-1 mb-4">
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Team Management</span>
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Project Management</span>
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Client Relations</span>
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Web Development</span>
+                  </div>
+                </div>
+                
+                <!-- Marist School -->
+                <div class="experience-card bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 pl-8">
+                  <div class="flex flex-wrap items-center gap-3 mb-3">
+                    <h3 class="text-xl font-medium dark:text-white">Marist School</h3>
+                    <span class="text-xs font-medium px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-primary dark:text-orange-400 rounded-full">2007 - 2008</span>
+                  </div>
+                  
+                  <h4 class="text-gray-700 dark:text-gray-300 mb-3 font-medium">Photography and Web Content Manager</h4>
+                  
+                  <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm">
+                    As the Photography and Web Content Manager at Marist School in Atlanta, I led a comprehensive redesign of the school's website, streamlining the architecture to enable two-click navigation to any section. I also built and maintained a photography library for marketing needs and implemented new web content policies.
+                  </p>
+                  
+                  <div class="flex flex-wrap gap-1 mb-4">
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Information Architecture</span>
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Photography</span>
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Content Management</span>
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Training</span>
+                  </div>
+                </div>
+                
+                <!-- Magnest Street -->
+                <div class="experience-card bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 pl-8">
+                  <div class="flex flex-wrap items-center gap-3 mb-3">
+                    <h3 class="text-xl font-medium dark:text-white">Magnest Street</h3>
+                    <span class="text-xs font-medium px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-primary dark:text-orange-400 rounded-full">2005 - 2007</span>
+                  </div>
+                  
+                  <h4 class="text-gray-700 dark:text-gray-300 mb-3 font-medium">Graphic Designer</h4>
+                  
+                  <p class="text-gray-600 dark:text-gray-400 mb-4 text-sm">
+                    Initially hired as a Graphic Designer at Magnest Street, I was later promoted to assistant to the Manager of Technical Design, where I managed the implementation of web images and content for new and existing products while also implementing a new proof printing process for the Xerox IGEN.
+                  </p>
+                  
+                  <div class="flex flex-wrap gap-1 mb-4">
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Print Design</span>
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Web Graphics</span>
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Process Optimization</span>
+                    <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Technical Design</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+    
+            <!-- Skills Summary Section -->
+            <section class="py-12 mt-8 border-t border-gray-200 dark:border-gray-800 experience-section">
+              <h2 class="text-2xl font-bold mb-8 dark:text-white">Professional Growth & Skills Evolution</h2>
+              
+              <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8">
+                <p class="text-gray-700 dark:text-gray-300 mb-6">
+                  Over the course of my career, my skill set has evolved from traditional graphic design to comprehensive UX design and frontend development. This progression reflects my passion for creating exceptional digital experiences and my commitment to continuous learning.
+                </p>
+                
+                <div class="relative">
+                  <!-- Timeline Line -->
+                  <div class="absolute top-0 left-0 w-1 h-full bg-gray-200 dark:bg-gray-700 ml-3"></div>
+                  
+                  <!-- 2005-2010: Early Career -->
+                  <div class="relative pl-12 pb-8">
+                    <div class="absolute left-0 w-7 h-7 rounded-full bg-primary dark:bg-orange-400 flex items-center justify-center">
+                      <span class="text-white text-xs font-bold">1</span>
+                    </div>
+                    <h3 class="text-lg font-medium mb-2 dark:text-white">2005-2010: Foundation Years</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-3">
+                      During my early career, I developed a strong foundation in visual design principles, print production, and basic web design. I started to recognize the importance of user experience and began exploring information architecture.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Graphic Design</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Basic HTML/CSS</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Print Production</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Photography</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Content Management</span>
+                    </div>
+                  </div>
+                  
+                  <!-- 2010-2015: Growth Years -->
+                  <div class="relative pl-12 pb-8">
+                    <div class="absolute left-0 w-7 h-7 rounded-full bg-primary dark:bg-orange-400 flex items-center justify-center">
+                      <span class="text-white text-xs font-bold">2</span>
+                    </div>
+                    <h3 class="text-lg font-medium mb-2 dark:text-white">2010-2015: Technical Growth</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-3">
+                      These years marked significant growth in my technical capabilities. I focused on web design and development, learning to create responsive websites and e-commerce platforms while improving my understanding of user behavior and design psychology.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Responsive Web Design</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">JavaScript</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">E-commerce</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">UX Fundamentals</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Wireframing</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">CMS Systems</span>
+                    </div>
+                  </div>
+                  
+                  <!-- 2015-2020: UX Focus -->
+                  <div class="relative pl-12 pb-8">
+                    <div class="absolute left-0 w-7 h-7 rounded-full bg-primary dark:bg-orange-400 flex items-center justify-center">
+                      <span class="text-white text-xs font-bold">3</span>
+                    </div>
+                    <h3 class="text-lg font-medium mb-2 dark:text-white">2015-2020: UX Specialization</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-3">
+                      During this period, I formalized my UX education with a Master's in Human-Computer Interaction and focused on applying user-centered design principles to complex projects. I developed expertise in usability testing, user research, and information architecture.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">User Research</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Usability Testing</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Information Architecture</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Interaction Design</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Data Visualization</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Frontend Frameworks</span>
+                    </div>
+                  </div>
+                  
+                  <!-- 2020-Present: Integration -->
+                  <div class="relative pl-12">
+                    <div class="absolute left-0 w-7 h-7 rounded-full bg-primary dark:bg-orange-400 flex items-center justify-center">
+                      <span class="text-white text-xs font-bold">4</span>
+                    </div>
+                    <h3 class="text-lg font-medium mb-2 dark:text-white">2020-Present: Full-Stack UX</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-3">
+                      My current professional focus integrates UX design with advanced frontend development skills. I'm particularly interested in design systems, component-based architecture, and creating cohesive user experiences across complex applications.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Design Systems</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Component Architecture</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">LiveView</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Elixir/Phoenix</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Tailwind CSS</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-sm">Accessibility</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+    
+            <!-- Contact CTA Section -->
+            <section class="py-12 mt-8 border-t border-gray-200 dark:border-gray-800 experience-section">
+              <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-8 text-center">
+                <h2 class="text-2xl font-bold mb-4 dark:text-white">Interested in Working Together?</h2>
+                <p class="text-gray-700 dark:text-gray-300 mb-6 max-w-3xl mx-auto">
+                  I'm always open to discussing new projects, creative collaborations, or opportunities to be part of something meaningful. Feel free to reach out if you'd like to discuss how my skills and experience could benefit your team or project.
+                </p>
+                <a href="/contact" class="inline-flex items-center px-6 py-3 bg-primary dark:bg-orange-600 text-white rounded-md hover:bg-primary-dark dark:hover:bg-orange-700 transition-colors">
+                  <span>Get in Touch</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </a>
+              </div>
+            </section>
+          </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="py-8 border-t border-gray-200 dark:border-gray-800">
+          <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-500 dark:text-gray-400 text-sm">© 2025 Brian L. Hall. All rights reserved.</p>
+            <p class="text-gray-400 dark:text-gray-500 text-xs mt-2">Designed and developed by B. Hall</p>
+          </div>
+        </footer>
+      </div>
+      
+      <!-- Theme Toggle Button -->
+      <div class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon" id="theme-toggle-icon"></i>
+      </div>
+      
+      <script>
+        // Dark mode detection and toggle functionality with localStorage persistence
+        document.addEventListener('DOMContentLoaded', function() {
+          // Check for saved theme preference in localStorage
+          const savedTheme = localStorage.getItem('theme');
+          
+          // Check system preference
+          const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          
+          // Apply theme based on saved preference or system default
+          if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
+            document.documentElement.classList.add('dark');
+            document.getElementById('theme-toggle-icon').classList.remove('fa-moon');
+            document.getElementById('theme-toggle-icon').classList.add('fa-sun');
+          }
+          
+          // Theme toggle functionality
+          const themeToggle = document.getElementById('theme-toggle');
+          const themeIcon = document.getElementById('theme-toggle-icon');
+          
+          themeToggle.addEventListener('click', function() {
+            // Toggle dark mode class
+            document.documentElement.classList.toggle('dark');
+            
+            // Save preference to localStorage
+            if (document.documentElement.classList.contains('dark')) {
+              localStorage.setItem('theme', 'dark');
+              themeIcon.classList.remove('fa-moon');
+              themeIcon.classList.add('fa-sun');
+            } else {
+              localStorage.setItem('theme', 'light');
+              themeIcon.classList.remove('fa-sun');
+              themeIcon.classList.add('fa-moon');
+            }
+          });
+          
+          // Animate sections when scrolled into view
+          const sections = document.querySelectorAll('.experience-section');
+          
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+          });
+          
+          sections.forEach(section => {
+            observer.observe(section);
+          });
+        });
+      </script>
+    </body>
+    </html>

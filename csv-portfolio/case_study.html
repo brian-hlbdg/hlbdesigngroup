@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TMS UX Redesign Case Study | B. Hall Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: 'rgb(211,84,0)',
+            'primary-dark': 'rgb(180,70,0)',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    /* Base styles */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* Dark mode color variables */
+    :root {
+      --color-primary-light: rgb(211,84,0);
+      --color-primary-dark: rgb(255,138,76);
+    }
+    
+    /* System dark mode detection */
+    @media (prefers-color-scheme: dark) {
+      body:not(.light-theme) {
+        color-scheme: dark;
+      }
+      
+      html:not(.light-theme) {
+        @apply dark;
+      }
+    }
+    
+    /* Dark mode styles with improved contrast */
+    .dark {
+      --bg-primary: #121212;
+      --bg-secondary: #1e293b; /* Bluish dark tone */
+      --bg-tertiary: #2a3441;
+      --text-primary: #f3f4f6;
+      --text-secondary: #e5e7eb;
+      --text-tertiary: #d1d5db;
+      --text-muted: #9ca3af;
+      --border-color: #374151;
+      --card-bg: #1e293b;
+      --highlight-bg: #2e3c4d;
+      --shadow-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Apply dark mode styles */
+    .dark {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    
+    .dark .bg-white {
+      background-color: var(--bg-primary);
+    }
+    
+    .dark .bg-white\/90 {
+      background-color: rgba(18, 18, 18, 0.95);
+      backdrop-filter: blur(8px);
+    }
+    
+    .dark .bg-gray-50,
+    .dark .bg-gray-100 {
+      background-color: var(--bg-secondary);
+    }
+    
+    .dark .bg-orange-50 {
+      background-color: rgba(211, 84, 0, 0.15);
+    }
+    
+    .dark .text-gray-400 {
+      color: var(--text-muted);
+    }
+    
+    .dark .text-gray-500 {
+      color: var(--text-muted);
+    }
+    
+    .dark .text-gray-600 {
+      color: var(--text-secondary);
+    }
+    
+    .dark .text-gray-700 {
+      color: var(--text-primary);
+    }
+    
+    .dark .text-gray-800 {
+      color: var(--text-primary);
+    }
+    
+    .dark .border-gray-100,
+    .dark .border-gray-200 {
+      border-color: var(--border-color);
+    }
+    
+    /* Make primary color more visible in dark mode */
+    .dark .text-primary {
+      color: var(--color-primary-dark);
+    }
+    
+    .dark .hover\:text-primary:hover {
+      color: var(--color-primary-dark);
+    }
+    
+    /* Theme toggle button styling */
+    .theme-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(211, 84, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    
+    .theme-toggle:hover {
+      transform: translateY(-3px);
+      background: rgb(211, 84, 0);
+    }
+    
+    .dark .theme-toggle {
+      background: rgba(255, 138, 76, 0.8);
+    }
+    
+    .dark .theme-toggle:hover {
+      background: rgb(255, 138, 76);
+    }
+    
+    .theme-toggle i {
+      color: white;
+      font-size: 1.5rem;
+    }
+    
+    /* Case study specific styles */
+    .case-study-image {
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .dark .case-study-image {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.12);
+    }
+    
+    .case-study-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    
+    .case-study-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .process-step {
+      position: relative;
+      padding-left: 30px;
+    }
+    
+    .process-step::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgb(211,84,0);
+    }
+    
+    .dark .process-step::before {
+      background-color: rgb(255,138,76);
+    }
+    
+    .process-step::after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 22px;
+      bottom: -20px;
+      width: 2px;
+      background-color: rgb(229,231,235);
+    }
+    
+    .dark .process-step::after {
+      background-color: rgb(55,65,81);
+    }
+    
+    .process-step:last-child::after {
+      display: none;
+    }
+    
+    .metric-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .metric-card:hover {
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+  <div class="min-h-screen flex flex-col">
+    <!-- Header/Navigation -->
+    <header class="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100 dark:bg-gray-900/90 dark:border-gray-800">
+      <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center">
+          <a href="/" class="text-gray-800 dark:text-gray-200 font-medium hover:text-primary dark:hover:text-orange-400 transition-colors">
+            ← Back to Portfolio
+          </a>
+        </div>
+        <div class="text-sm dark:text-gray-200">Brian L. Hall</div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-24 pb-16">
+      <div class="container mx-auto px-6 max-w-4xl">
+        <!-- Hero Section -->
+        <section class="py-12 case-study-section" id="hero">
+          <div class="mb-6">
+            <span class="bg-orange-100 dark:bg-orange-900/30 text-primary dark:text-orange-400 text-xs font-medium px-3 py-1 rounded-full">UX Design Case Study</span>
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl font-bold mb-6 dark:text-white">
+            Transportation Management System Redesign
+          </h1>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div class="md:col-span-2">
+              <p class="text-xl text-gray-600 dark:text-gray-300 mb-6">
+                Redesigning a complex logistics interface to improve efficiency, reduce errors, and decrease onboarding time for transportation professionals.
+              </p>
+            </div>
+            
+            <div class="flex flex-col space-y-3">
+              <div>
+                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">CLIENT</h3>
+                <p class="text-gray-800 dark:text-white">NFI Industries</p>
+              </div>
+              <div>
+                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">MY ROLE</h3>
+                <p class="text-gray-800 dark:text-white">Lead UX Designer & Frontend Developer</p>
+              </div>
+              <div>
+                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">TIMELINE</h3>
+                <p class="text-gray-800 dark:text-white">8 months (2023)</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="rounded-lg overflow-hidden mb-12 shadow-lg">
+            <img 
+              src="/images/case-studies/tms-hero.jpg" 
+              alt="Transportation Management System interface" 
+              class="w-full h-auto"
+            >
+          </div>
+        </section>
+
+        <!-- Overview Section -->
+        <section class="py-12 border-t border-gray-200 dark:border-gray-800 case-study-section" id="overview">
+          <h2 class="text-3xl font-bold mb-8 dark:text-white">Project Overview</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+            <div>
+              <h3 class="text-xl font-medium mb-4 dark:text-white">The Challenge</h3>
+              <p class="text-gray-700 dark:text-gray-300 mb-4">
+                NFI Industries' legacy Transportation Management System (TMS) was struggling with usability issues that were impacting productivity and increasing training time for new users. The system's complexity was leading to:
+              </p>
+              <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                <li class="flex items-start">
+                  <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>High onboarding times of 8+ weeks for new dispatchers</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Frequent user errors leading to operational inefficiencies</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Inconsistent user interface across different system modules</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Limited visibility into critical logistics data</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 class="text-xl font-medium mb-4 dark:text-white">Project Goals</h3>
+              <p class="text-gray-700 dark:text-gray-300 mb-4">
+                I was tasked with leading a comprehensive UX redesign of the TMS interface with the following goals:
+              </p>
+              <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                <li class="flex items-start">
+                  <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Reduce onboarding time by at least 40%</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Decrease user errors by 30% or more</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Create a consistent UI pattern library for the entire system</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Improve overall dispatcher efficiency and satisfaction</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-lg">
+            <h3 class="text-xl font-medium mb-6 dark:text-white">My Role & Responsibilities</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <h4 class="text-primary dark:text-orange-400 font-medium mb-3">UX Research & Design</h4>
+                <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>User interviews & contextual inquiry</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Information architecture</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Wireframing & prototyping</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Usability testing</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-primary dark:text-orange-400 font-medium mb-3">Frontend Development</h4>
+                <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>LiveView component creation</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Tailwind CSS implementation</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Accessibility compliance</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Component documentation</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-primary dark:text-orange-400 font-medium mb-3">Project Leadership</h4>
+                <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Stakeholder management</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Dev team collaboration</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Design system governance</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Design workshops facilitation</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Research & Discovery Section -->
+        <section class="py-12 border-t border-gray-200 dark:border-gray-800 case-study-section" id="research">
+          <h2 class="text-3xl font-bold mb-8 dark:text-white">Research & Discovery</h2>
+          
+          <div class="mb-12">
+            <h3 class="text-xl font-medium mb-4 dark:text-white">Understanding User Needs</h3>
+            <p class="text-gray-700 dark:text-gray-300 mb-6">
+              To fully understand the challenges faced by transportation professionals, I conducted extensive user research that included:
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                <h4 class="text-lg font-medium mb-3 dark:text-white">User Interviews</h4>
+                <p class="text-gray-700 dark:text-gray-300 mb-4">
+                  I interviewed 12 dispatchers, 5 logistics managers, and 3 IT support staff to understand their workflows, pain points, and feature priorities.
+                </p>
+                <div class="text-sm text-gray-600 dark:text-gray-400 italic">
+                  "I spend too much time searching for information across different screens. If I could see all the relevant shipment data in one place, it would save me at least an hour each day." — Senior Dispatcher
+                </div>
+              </div>
+              
+              <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                <h4 class="text-lg font-medium mb-3 dark:text-white">Contextual Inquiry</h4>
+                <p class="text-gray-700 dark:text-gray-300 mb-4">
+                  I observed dispatchers in their natural work environment for 35+ hours, noting specific pain points, workarounds, and inefficiencies in their daily workflows.
+                </p>
+                <div class="text-sm text-gray-600 dark:text-gray-400 italic">
+                  Observation finding: Users were creating manual cross-references between systems because of poor data visibility in the TMS.
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg mb-8">
+              <h4 class="text-lg font-medium mb-3 dark:text-white">Usability Audit</h4>
+              <p class="text-gray-700 dark:text-gray-300 mb-6">
+                I conducted a comprehensive audit of the existing system, identifying key usability issues:
+              </p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <h5 class="text-primary dark:text-orange-400 font-medium mb-2">Navigation Issues</h5>
+                  <ul class="space-y-1 text-gray-700 dark:text-gray-300 text-sm">
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-red-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                      <span>Inconsistent menu structures</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-red-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                      <span>Excessive click depths (5+ clicks)</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-red-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                      <span>Poor information hierarchy</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h5 class="text-primary dark:text-orange-400 font-medium mb-2">UI & Data Presentation</h5>
+                  <ul class="space-y-1 text-gray-700 dark:text-gray-300 text-sm">
+                    <li class="flex items-start">
+                        <svg class="h-4 w-4 text-red-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                          <span>Cluttered table displays with excess data</span>
+                        </li>
+                        <li class="flex items-start">
+                          <svg class="h-4 w-4 text-red-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                          <span>Poor contrast and readability</span>
+                        </li>
+                        <li class="flex items-start">
+                          <svg class="h-4 w-4 text-red-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                          <span>No visual hierarchy for critical info</span>
+                        </li>
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <h5 class="text-primary dark:text-orange-400 font-medium mb-2">Workflow Issues</h5>
+                      <ul class="space-y-1 text-gray-700 dark:text-gray-300 text-sm">
+                        <li class="flex items-start">
+                          <svg class="h-4 w-4 text-red-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                          <span>Disjointed multi-step processes</span>
+                        </li>
+                        <li class="flex items-start">
+                          <svg class="h-4 w-4 text-red-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                          <span>Lack of contextual help and guidance</span>
+                        </li>
+                        <li class="flex items-start">
+                          <svg class="h-4 w-4 text-red-500 mr-1 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                          <span>Inefficient data entry requirements</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <h4 class="text-lg font-medium mb-3 dark:text-white">Key User Personas</h4>
+                    <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                      <div class="flex items-start mb-2">
+                        <div class="bg-primary dark:bg-orange-700 w-10 h-10 flex items-center justify-center rounded-full text-white font-medium mr-4">
+                          DP
+                        </div>
+                        <div>
+                          <h5 class="font-medium dark:text-white">Diana Peters</h5>
+                          <p class="text-sm text-gray-600 dark:text-gray-400">Senior Logistics Dispatcher</p>
+                        </div>
+                      </div>
+                      
+                      <div class="text-sm text-gray-700 dark:text-gray-300 mb-3">
+                        <p class="mb-2">Experienced dispatcher handling 80+ shipments daily, focused on efficiency and accuracy.</p>
+                        
+                        <div class="flex items-center mb-1">
+                          <span class="text-xs font-medium w-24">Goals:</span>
+                          <span>Optimize routes, reduce manual work</span>
+                        </div>
+                        
+                        <div class="flex items-center mb-1">
+                          <span class="text-xs font-medium w-24">Frustrations:</span>
+                          <span>System slowness, scattered information</span>
+                        </div>
+                        
+                        <div class="flex items-center">
+                          <span class="text-xs font-medium w-24">Tech comfort:</span>
+                          <span>Medium-high</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 class="text-lg font-medium mb-3 dark:text-white">User Journey Map</h4>
+                    <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg h-full flex items-center justify-center">
+                      <img 
+                        src="/images/case-studies/user-journey-map.jpg" 
+                        alt="TMS User Journey Map showing pain points"
+                        class="max-w-full max-h-full object-contain"
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-xl font-medium mb-6 dark:text-white">Key Research Insights</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <h4 class="text-primary dark:text-orange-400 font-medium mb-3">User Pain Points</h4>
+                    <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                      <li class="flex items-start">
+                        <svg class="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <span>Time spent switching between multiple screens to complete a single task</span>
+                      </li>
+                      <li class="flex items-start">
+                        <svg class="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <span>Difficulty identifying priority shipments requiring immediate attention</span>
+                      </li>
+                      <li class="flex items-start">
+                        <svg class="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <span>Lack of clear status indicators and progress tracking</span>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 class="text-primary dark:text-orange-400 font-medium mb-3">Key Opportunities</h4>
+                    <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                      <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Consolidate related information into unified displays</span>
+                      </li>
+                      <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Create clear visual hierarchy to highlight critical information</span>
+                      </li>
+                      <li class="flex items-start">
+                        <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Redesign workflows to reflect actual user mental models</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+    
+            <!-- Design Process Section -->
+            <section class="py-12 border-t border-gray-200 dark:border-gray-800 case-study-section" id="process">
+              <h2 class="text-3xl font-bold mb-8 dark:text-white">Design Process</h2>
+              
+              <div class="mb-12">
+                <p class="text-gray-700 dark:text-gray-300 mb-8">
+                  Based on our research findings, I developed a systematic approach to redesigning the TMS interface. The process was collaborative and iterative, with regular feedback from end users and stakeholders.
+                </p>
+                
+                <div class="space-y-12">
+                  <div class="process-step pl-10">
+                    <h3 class="text-xl font-medium mb-4 dark:text-white">1. Information Architecture Redesign</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+                      <div>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">
+                          I conducted a complete restructuring of the system's information architecture, focusing on logical grouping and intuitive navigation patterns. This involved:
+                        </p>
+                        <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Card sorting exercises with dispatchers</span>
+                          </li>
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Task flow analysis and optimization</span>
+                          </li>
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Navigation menu restructuring</span>
+                          </li>
+                        </ul>
+                      </div>
+                      
+                      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                        <img 
+                          src="/images/case-studies/information-architecture.jpg" 
+                          alt="Information Architecture Diagram"
+                          class="w-full h-auto rounded-md"
+                        >
+                      </div>
+                    </div>
+                    
+                    <div class="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg">
+                      <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Key Outcome</h4>
+                      <p class="text-gray-700 dark:text-gray-300">
+                        Reduced the navigation depth from 5+ clicks to a maximum of 3 clicks for any common task, and created logical groupings that matched dispatchers' mental models.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div class="process-step pl-10">
+                    <h3 class="text-xl font-medium mb-4 dark:text-white">2. Wireframing & Interface Design</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+                      <div>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">
+                          I created detailed wireframes for key screens, focusing on clarity, visual hierarchy, and efficient workflows. The design emphasized:
+                        </p>
+                        <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Clear visual hierarchy for critical information</span>
+                          </li>
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Contextual tools and actions</span>
+                          </li>
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Progressive disclosure for complex functions</span>
+                          </li>
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Streamlined data entry with smart defaults</span>
+                          </li>
+                        </ul>
+                      </div>
+                      
+                      <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 dark:bg-gray-800 p-2 rounded-lg">
+                          <img 
+                            src="/images/case-studies/wireframe-1.jpg" 
+                            alt="Dashboard Wireframe"
+                            class="w-full h-auto rounded-md"
+                          >
+                          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">Dashboard Wireframe</p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-2 rounded-lg">
+                          <img 
+                            src="/images/case-studies/wireframe-2.jpg" 
+                            alt="Shipment Detail Wireframe"
+                            class="w-full h-auto rounded-md"
+                          >
+                          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">Shipment Detail Wireframe</p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-2 rounded-lg">
+                          <img 
+                            src="/images/case-studies/wireframe-3.jpg" 
+                            alt="Route Planning Wireframe"
+                            class="w-full h-auto rounded-md"
+                          >
+                          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">Route Planning Wireframe</p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-800 p-2 rounded-lg">
+                          <img 
+                            src="/images/case-studies/wireframe-4.jpg" 
+                            alt="Exception Handling Wireframe"
+                            class="w-full h-auto rounded-md"
+                          >
+                          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">Exception Handling Wireframe</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg">
+                      <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Key Outcome</h4>
+                      <p class="text-gray-700 dark:text-gray-300">
+                        Created a unified visual language that prioritized important information and streamlined workflows, with early stakeholder feedback indicating a 50% improvement in ease of use.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div class="process-step pl-10">
+                    <h3 class="text-xl font-medium mb-4 dark:text-white">3. Interactive Prototyping & Testing</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+                      <div>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">
+                          To validate our design concepts, I created high-fidelity interactive prototypes and conducted usability testing with real users. This process involved:
+                        </p>
+                        <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Creating interactive Figma prototypes</span>
+                          </li>
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Usability testing with 8 dispatchers</span>
+                          </li>
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Task success and completion time measurements</span>
+                          </li>
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Iterative refinement based on feedback</span>
+                          </li>
+                        </ul>
+                      </div>
+                      
+                      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg flex items-center justify-center">
+                        <img 
+                          src="/images/case-studies/prototype-testing.jpg" 
+                          alt="Usability Testing Session"
+                          class="w-full h-auto rounded-md"
+                        >
+                      </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                        <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Task Completion Rate</h4>
+                        <div class="flex items-center justify-between">
+                          <div>
+                            <div class="text-3xl font-bold dark:text-white">92%</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">New Design</div>
+                          </div>
+                          <div class="text-sm">
+                            <div class="text-green-500 font-medium">+35%</div>
+                            <div class="text-gray-500 dark:text-gray-400">vs. Old System</div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                        <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Task Completion Time</h4>
+                        <div class="flex items-center justify-between">
+                          <div>
+                            <div class="text-3xl font-bold dark:text-white">-48%</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">Time Reduction</div>
+                          </div>
+                          <div class="text-sm">
+                            <div class="text-green-500 font-medium">2.1 min</div>
+                            <div class="text-gray-500 dark:text-gray-400">vs. 4.3 min</div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                        <h4 class="text-primary dark:text-orange-400 font-medium mb-2">User Satisfaction</h4>
+                        <div class="flex items-center justify-between">
+                          <div>
+                            <div class="text-3xl font-bold dark:text-white">4.7/5</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">Average Rating</div>
+                          </div>
+                          <div class="text-sm">
+                            <div class="text-green-500 font-medium">+2.2</div>
+                            <div class="text-gray-500 dark:text-gray-400">vs. Old System</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg">
+                      <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Key Outcome</h4>
+                      <p class="text-gray-700 dark:text-gray-300">
+                        Prototype testing validated our design approach and identified key refinements needed before implementation. User feedback indicated a significant improvement in both efficiency and satisfaction.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div class="process-step pl-10">
+                    <h3 class="text-xl font-medium mb-4 dark:text-white">4. Component Library & Design System</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+                      <div>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">
+                          To ensure consistency across the entire application and facilitate efficient development, I created a comprehensive component library and design system:
+                        </p>
+                        <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Standardized UI components with Figma variants</span>
+                          </li>
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Detailed usage guidelines and specifications</span>
+                          </li>
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Accessibility specifications for all components</span>
+                          </li>
+                          <li class="flex items-start">
+                            <svg class="h-4 w-4 text-primary dark:text-orange-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Responsive behavior documentation</span>
+                          </li>
+                        </ul>
+                      </div>
+                      
+                      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                        <img 
+                      src="/images/case-studies/component-library.jpg" 
+                      alt="TMS Component Library"
+                      class="w-full h-auto rounded-md"
+                    >
+                  </div>
+                </div>
+                
+                <div class="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg">
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Key Outcome</h4>
+                  <p class="text-gray-700 dark:text-gray-300">
+                    Created a comprehensive design system of 35+ components that was directly implemented by the development team using Tailwind and LiveView, ensuring visual consistency and accelerating development.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section class="py-12 border-t border-gray-200 dark:border-gray-800 case-study-section" id="solution">
+          <h2 class="text-3xl font-bold mb-8 dark:text-white">The Solution</h2>
+          
+          <div class="mb-12">
+            <p class="text-gray-700 dark:text-gray-300 mb-8">
+              The redesigned TMS interface featured several key improvements that directly addressed the pain points identified in our research.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+              <div>
+                <h3 class="text-xl font-medium mb-4 dark:text-white">1. Unified Dashboard</h3>
+                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                  <img 
+                    src="/images/case-studies/dashboard-solution.jpg" 
+                    alt="TMS Dashboard Solution"
+                    class="w-full h-auto rounded-md"
+                  >
+                </div>
+                <p class="text-gray-700 dark:text-gray-300">
+                  The new dashboard consolidated critical information into a single view, featuring dynamic status indicators, priority-based sorting, and customizable views. This gave dispatchers immediate visibility into their most important shipments.
+                </p>
+              </div>
+              
+              <div>
+                <h3 class="text-xl font-medium mb-4 dark:text-white">2. Streamlined Shipment Management</h3>
+                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                  <img 
+                    src="/images/case-studies/shipment-solution.jpg" 
+                    alt="Shipment Management Solution"
+                    class="w-full h-auto rounded-md"
+                  >
+                </div>
+                <p class="text-gray-700 dark:text-gray-300">
+                  The shipment detail view was completely redesigned to show all relevant information in a single screen, with contextual actions and smart filters. This reduced the need for multiple screens and dramatically improved efficiency.
+                </p>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+              <div>
+                <h3 class="text-xl font-medium mb-4 dark:text-white">3. Intelligent Exception Handling</h3>
+                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                  <img 
+                    src="/images/case-studies/exception-solution.jpg" 
+                    alt="Exception Handling Solution"
+                    class="w-full h-auto rounded-md"
+                  >
+                </div>
+                <p class="text-gray-700 dark:text-gray-300">
+                  A new exception handling system automatically detected and categorized issues, providing guided resolution workflows. This reduced the time and cognitive load required to handle shipment problems.
+                </p>
+              </div>
+              
+              <div>
+                <h3 class="text-xl font-medium mb-4 dark:text-white">4. Interactive Planning Tools</h3>
+                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                  <img 
+                    src="/images/case-studies/planning-solution.jpg" 
+                    alt="Planning Tools Solution"
+                    class="w-full h-auto rounded-md"
+                  >
+                </div>
+                <p class="text-gray-700 dark:text-gray-300">
+                  New drag-and-drop planning tools made route and schedule adjustments intuitive. Real-time validation prevented errors, and visual indicators highlighted optimization opportunities.
+                </p>
+              </div>
+            </div>
+            
+            <h3 class="text-xl font-medium mb-4 dark:text-white">Technical Implementation</h3>
+            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg mb-8">
+              <p class="text-gray-700 dark:text-gray-300 mb-4">
+                As the lead frontend developer on the project, I worked closely with the backend team to implement the new interface using:
+              </p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Frontend Technologies</h4>
+                  <ul class="space-y-1 text-gray-700 dark:text-gray-300">
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Phoenix LiveView for reactive UI</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Tailwind CSS for styling</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>LiveView Components for reusability</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Alpine.js for enhanced interactions</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Development Approach</h4>
+                  <ul class="space-y-1 text-gray-700 dark:text-gray-300">
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Component-first methodology</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Storybook for component testing</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Continuous integration pipeline</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Phased deployment approach</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Performance Optimizations</h4>
+                  <ul class="space-y-1 text-gray-700 dark:text-gray-300">
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Lazy loading for large datasets</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Optimized database queries</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Client-side caching for frequently accessed data</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Progressive enhancement for critical features</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <h3 class="text-xl font-medium mb-4 dark:text-white">Accessibility Considerations</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                  <li class="flex items-start">
+                    <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>WCAG 2.1 AA compliance throughout the interface</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Keyboard navigation for all interactive elements</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>High contrast mode for visually impaired users</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Screen reader optimization with ARIA attributes</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div>
+                <p class="text-gray-700 dark:text-gray-300 mb-4">
+                  While our primary user base didn't have significant accessibility needs, we prioritized accessibility to ensure the system was usable by all employees, regardless of ability.
+                </p>
+                <p class="text-gray-700 dark:text-gray-300">
+                  This forward-thinking approach also ensured compliance with accessibility regulations and prepared the platform for future expansion to external users.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="py-12 border-t border-gray-200 dark:border-gray-800 case-study-section" id="results">
+          <h2 class="text-3xl font-bold mb-8 dark:text-white">Results & Impact</h2>
+          
+          <div class="mb-12">
+            <p class="text-gray-700 dark:text-gray-300 mb-8">
+              Six months after launching the redesigned TMS interface, we conducted a comprehensive evaluation to measure impact against our initial goals.
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm metric-card">
+                <h3 class="text-primary dark:text-orange-400 font-medium mb-3">Onboarding Time</h3>
+                <div class="flex items-end justify-between">
+                  <div>
+                    <div class="text-4xl font-bold text-gray-900 dark:text-white">-45%</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Reduction</div>
+                  </div>
+                  <div class="text-sm text-green-500 font-medium">
+                    4.5 weeks
+                    <div class="text-gray-500 dark:text-gray-400 text-xs font-normal">vs. 8 weeks</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm metric-card">
+                <h3 class="text-primary dark:text-orange-400 font-medium mb-3">User Errors</h3>
+                <div class="flex items-end justify-between">
+                  <div>
+                    <div class="text-4xl font-bold text-gray-900 dark:text-white">-37%</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Reduction</div>
+                  </div>
+                  <div class="text-sm text-green-500 font-medium">
+                    65 errors
+                    <div class="text-gray-500 dark:text-gray-400 text-xs font-normal">vs. 103 errors</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm metric-card">
+                <h3 class="text-primary dark:text-orange-400 font-medium mb-3">Task Completion</h3>
+                <div class="flex items-end justify-between">
+                  <div>
+                    <div class="text-4xl font-bold text-gray-900 dark:text-white">+42%</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Increase</div>
+                  </div>
+                  <div class="text-sm text-green-500 font-medium">
+                    4.1 min
+                    <div class="text-gray-500 dark:text-gray-400 text-xs font-normal">vs. 7.1 min</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm metric-card">
+                <h3 class="text-primary dark:text-orange-400 font-medium mb-3">User Satisfaction</h3>
+                <div class="flex items-end justify-between">
+                  <div>
+                    <div class="text-4xl font-bold text-gray-900 dark:text-white">+68%</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Increase</div>
+                  </div>
+                  <div class="text-sm text-green-500 font-medium">
+                    4.8/5
+                    <div class="text-gray-500 dark:text-gray-400 text-xs font-normal">vs. 2.9/5</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              <div>
+                <h3 class="text-xl font-medium mb-4 dark:text-white">Business Impact</h3>
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                  <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span><strong>Increased throughput:</strong> Dispatchers now handle 23% more shipments per day</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span><strong>Reduced overtime:</strong> 35% reduction in dispatcher overtime hours</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span><strong>Lower support costs:</strong> 42% reduction in internal help desk tickets</span>
+                    </li>
+                    <li class="flex items-start">
+                      <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span><strong>Improved data quality:</strong> 28% reduction in data correction tasks</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div>
+                <h3 class="text-xl font-medium mb-4 dark:text-white">User Feedback</h3>
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg space-y-6">
+                  <div class="flex items-start">
+                    <svg class="h-8 w-8 text-gray-300 dark:text-gray-600 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
+                    <div>
+                      <p class="text-gray-700 dark:text-gray-300 italic mb-2">
+                        "The new system has completely transformed how I work. I can find everything I need right away, and the guided workflows have eliminated so many errors. It's like night and day compared to the old system."
+                      </p>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">— Sarah J., Senior Dispatcher</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start">
+                    <svg class="h-8 w-8 text-gray-300 dark:text-gray-600 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
+                    <div>
+                      <p class="text-gray-700 dark:text-gray-300 italic mb-2">
+                        "Our new hires are getting up to speed in half the time. The interface is so intuitive that training is much simpler, and new team members are productive much faster."
+                      </p>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">— Michael T., Training Manager</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+              <h3 class="text-xl font-medium mb-4 dark:text-white">ROI & Long-term Impact</h3>
+              <p class="text-gray-700 dark:text-gray-300 mb-6">
+                Based on the performance improvements and business impacts, the project achieved a positive return on investment within the first 7 months. The long-term benefits include:
+              </p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Scalability</h4>
+                  <p class="text-gray-700 dark:text-gray-300 text-sm">
+                    The new component-based architecture makes it easier to extend the system with new features and modules. The team can now add functionality in 40% less development time.
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Operational Excellence</h4>
+                  <p class="text-gray-700 dark:text-gray-300 text-sm">
+                    Improved efficiency and reduced errors have directly contributed to better service levels, with on-time deliveries increasing by 12% and customer satisfaction scores rising accordingly.
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 class="text-primary dark:text-orange-400 font-medium mb-2">Competitive Advantage</h4>
+                  <p class="text-gray-700 dark:text-gray-300 text-sm">
+                    The enhanced system has become a key differentiator for NFI Industries, showcasing technological innovation and commitment to operational excellence in client presentations.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Lessons Learned Section -->
+        <section class="py-12 border-t border-gray-200 dark:border-gray-800 case-study-section" id="lessons">
+          <h2 class="text-3xl font-bold mb-8 dark:text-white">Reflections & Lessons Learned</h2>
+          
+          <div class="mb-12">
+            <p class="text-gray-700 dark:text-gray-300 mb-8">
+              This project reinforced several key principles and provided valuable lessons that I've carried forward to subsequent work.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-xl font-medium mb-4 dark:text-white">What Worked Well</h3>
+                <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                  <li class="flex items-start">
+                    <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <p class="font-medium">Extensive User Research</p>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">Investing time upfront to deeply understand user needs and workflows paid off in a solution that truly addressed pain points.</p>
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <p class="font-medium">Component-Based Approach</p>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">Building a comprehensive design system accelerated development and ensured consistency across the application.</p>
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <p class="font-medium">Iterative Testing</p>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">Regular usability testing throughout the process caught issues early and validated our design decisions with real users.</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-xl font-medium mb-4 dark:text-white">Challenges & Learnings</h3>
+                <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                  <li class="flex items-start">
+                    <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <div>
+                      <p class="font-medium">Balancing Complexity vs. Simplicity</p>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">Finding the right balance between powerful functionality and intuitive simplicity was challenging. I learned to use progressive disclosure more effectively.</p>
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <div>
+                      <p class="font-medium">Data Visualization Scale</p>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">We initially underestimated the complexity of representing large datasets. In future projects, I'd allocate more time to this aspect of the design.</p>
+                    </div>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <div>
+                      <p class="font-medium">Change Management</p>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">While the new interface was objectively better, we faced initial resistance from long-time users. Earlier involvement of power users in the design process would have helped.</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-orange-50 dark:bg-orange-900/20 p-6 rounded-lg">
+            <h3 class="text-xl font-medium mb-4 text-primary dark:text-orange-400">Key Takeaways</h3>
+            <p class="text-gray-700 dark:text-gray-300 mb-6">
+              This project highlighted several principles that I now apply to all of my UX work:
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <h4 class="font-medium text-gray-800 dark:text-white mb-2">Context is Everything</h4>
+                <p class="text-gray-700 dark:text-gray-300 text-sm">
+                  Understanding the full context of use—including environment, constraints, and user goals—is essential for creating truly effective interfaces. There's no substitute for observing users in their actual working environment.
+                </p>
+              </div>
+              
+              <div>
+                <h4 class="font-medium text-gray-800 dark:text-white mb-2">Systems, Not Screens</h4>
+                <p class="text-gray-700 dark:text-gray-300 text-sm">
+                  Approaching design as a complete system rather than a collection of individual screens leads to more coherent, usable products. The component-based approach we used was key to the project's success.
+                </p>
+              </div>
+              
+              <div>
+                <h4 class="font-medium text-gray-800 dark:text-white mb-2">Measure What Matters</h4>
+                <p class="text-gray-700 dark:text-gray-300 text-sm">
+                  Clear metrics tied to business goals help drive design decisions and demonstrate value. By establishing metrics early and tracking them throughout, we were able to show the concrete impact of our work.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Next Case Study Navigation -->
+        <section class="py-12 border-t border-gray-200 dark:border-gray-800 mt-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <a href="/case-studies/financial-dashboard" class="group">
+              <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-lg transition duration-300 hover:shadow-md">
+                <div class="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                  </svg>
+                  Previous Case Study
+                </div>
+                <h3 class="text-lg font-medium text-gray-800 dark:text-white group-hover:text-primary dark:group-hover:text-orange-400 transition-colors">Investment Firm Dashboard</h3>
+                <p class="text-gray-600 dark:text-gray-300 mt-1">Financial data visualization for investment clients</p>
+              </div>
+            </a>
+            
+            <a href="/case-studies/ecommerce-redesign" class="group">
+              <div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-lg transition duration-300 hover:shadow-md text-right">
+                <div class="flex items-center justify-end text-gray-500 dark:text-gray-400 text-sm mb-2">
+                  Next Case Study
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-800 dark:text-white group-hover:text-primary dark:group-hover:text-orange-400 transition-colors">E-commerce Site Redesign</h3>
+                <p class="text-gray-600 dark:text-gray-300 mt-1">Conversion optimization for retail website</p>
+              </div>
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-200 dark:border-gray-800">
+      <div class="container mx-auto px-6 text-center">
+        <p class="text-gray-500 dark:text-gray-400 text-sm">© 2025 Brian L. Hall. All rights reserved.</p>
+        <p class="text-gray-400 dark:text-gray-500 text-xs mt-2">Designed and developed by B. Hall</p>
+      </div>
+    </footer>
+  </div>
+  
+  <!-- Theme Toggle Button -->
+  <div class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+    <i class="fas fa-moon" id="theme-toggle-icon"></i>
+  </div>
+  
+  <script>
+    // Dark mode detection and toggle functionality with localStorage persistence
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check for saved theme preference in localStorage
+      const savedTheme = localStorage.getItem('theme');
+      
+      // Check system preference
+      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      // Apply theme based on saved preference or system default
+      if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
+        document.documentElement.classList.add('dark');
+        document.getElementById('theme-toggle-icon').classList.remove('fa-moon');
+        document.getElementById('theme-toggle-icon').classList.add('fa-sun');
+      }
+      
+      // Theme toggle functionality
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = document.getElementById('theme-toggle-icon');
+      
+      themeToggle.addEventListener('click', function() {
+        // Toggle dark mode class
+        document.documentElement.classList.toggle('dark');
+        
+        // Save preference to localStorage
+        if (document.documentElement.classList.contains('dark')) {
+          localStorage.setItem('theme', 'dark');
+          themeIcon.classList.remove('fa-moon');
+          themeIcon.classList.add('fa-sun');
+        } else {
+          localStorage.setItem('theme', 'light');
+          themeIcon.classList.remove('fa-sun');
+          themeIcon.classList.add('fa-moon');
+        }
+      });
+      
+      // Animate sections when scrolled into view
+      const sections = document.querySelectorAll('.case-study-section');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+      });
+      
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    });
+  </script>
+</body>
+</html>
