@@ -1,11 +1,98 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="[scrollbar-gutter:stable]">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brian Hall | Professional Experience</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self';" />
+  
+  <!-- Prevent FOUC for Dark Mode - Only critical script kept in head -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <!-- SEO Meta Tags -->
+  <title>Brian H. - UX Designer & Frontend Developer | HLB Design Group</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Brian H. - UX Designer & Frontend Developer" />
+  <meta name="description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth. Chicago-based design professional." />
+  <meta name="keywords" content="UX Design, UI Design, Frontend Development, Phoenix LiveView, Elixir, User Experience, User Interface, Product Design, Chicago Designer" />
+  <link rel="canonical" href="https://hlbdesigngroup.com/" />
+  
+  <!-- Open Graph Meta Tags (Facebook/LinkedIn/Instagram) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+  <meta property="og:description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+  <meta property="og:image" content="https://hlbdesigngroup.com/images/og-image.jpg" />
+  <meta property="og:url" content="https://hlbdesigngroup.com/" />
+  <meta property="og:site_name" content="HLB Design Group" />
+  <meta property="og:locale" content="en_US" />
+  
+  <!-- BlueSky/Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+  <meta name="twitter:description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+  <meta name="twitter:image" content="https://hlbdesigngroup.com/images/bluesky-image.jpg" />
+  <meta name="twitter:site" content="@hlbdg" />
+  <meta name="twitter:creator" content="@hlbdg" />
+  
+  <!-- Favicon and Icons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#D35400" />
+  <meta name="msapplication-TileColor" content="#D35400" />
+  
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <!-- Font Loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- DNS Prefetch for External Resources -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+  
+  <!-- Critical CSS Inlined (for performance) -->
+  <style>
+    /* Critical styles to prevent FOUC */
+    html { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      transition: color-scheme 0.3s ease;
+    }
+    body { 
+      margin: 0; 
+      padding: 0; 
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .loading { opacity: 0; }
+    
+    /* Dark mode base styles */
+    .dark {
+      color-scheme: dark;
+    }
+    
+    /* Hide/show theme toggle icons */
+    .light-icon, .dark-icon {
+      transition: opacity 0.2s ease;
+    }
+  </style>
+  
+  <!-- Tailwind CSS CDN with inline config -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -18,200 +105,41 @@
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
           },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out forwards',
+            'slide-up': 'slideUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: 0 },
+              '100%': { transform: 'translateY(0)', opacity: 1 },
+            },
+          },
         },
       },
     }
   </script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    /* Base styles */
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-    
-    /* Dark mode color variables */
-    :root {
-      --color-primary-light: rgb(211,84,0);
-      --color-primary-dark: rgb(255,138,76);
-    }
-    
-    /* System dark mode detection */
-    @media (prefers-color-scheme: dark) {
-      body:not(.light-theme) {
-        color-scheme: dark;
-      }
-      
-      html:not(.light-theme) {
-        @apply dark;
-      }
-    }
-    
-    /* Dark mode styles with improved contrast */
-    .dark {
-      --bg-primary: #121212;
-      --bg-secondary: #1e293b; /* Bluish dark tone */
-      --bg-tertiary: #2a3441;
-      --text-primary: #f3f4f6;
-      --text-secondary: #e5e7eb;
-      --text-tertiary: #d1d5db;
-      --text-muted: #9ca3af;
-      --border-color: #374151;
-      --card-bg: #1e293b;
-      --highlight-bg: #2e3c4d;
-      --shadow-color: rgba(0, 0, 0, 0.5);
-    }
-    
-    /* Apply dark mode styles */
-    .dark {
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-    }
-    
-    .dark .bg-white {
-      background-color: var(--bg-primary);
-    }
-    
-    .dark .bg-white\/90 {
-      background-color: rgba(18, 18, 18, 0.95);
-      backdrop-filter: blur(8px);
-    }
-    
-    .dark .bg-gray-50,
-    .dark .bg-gray-100 {
-      background-color: var(--bg-secondary);
-    }
-    
-    .dark .bg-orange-50 {
-      background-color: rgba(211, 84, 0, 0.15);
-    }
-    
-    .dark .text-gray-400 {
-      color: var(--text-muted);
-    }
-    
-    .dark .text-gray-500 {
-      color: var(--text-muted);
-    }
-    
-    .dark .text-gray-600 {
-      color: var(--text-secondary);
-    }
-    
-    .dark .text-gray-700 {
-      color: var(--text-primary);
-    }
-    
-    .dark .text-gray-800 {
-      color: var(--text-primary);
-    }
-    
-    .dark .border-gray-100,
-    .dark .border-gray-200 {
-      border-color: var(--border-color);
-    }
-    
-    /* Make primary color more visible in dark mode */
-    .dark .text-primary {
-      color: var(--color-primary-dark);
-    }
-    
-    .dark .hover\:text-primary:hover {
-      color: var(--color-primary-dark);
-    }
-    
-    /* Theme toggle button styling */
-    .theme-toggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: rgba(211, 84, 0, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 100;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s ease, background 0.3s ease;
-    }
-    
-    .theme-toggle:hover {
-      transform: translateY(-3px);
-      background: rgb(211, 84, 0);
-    }
-    
-    .dark .theme-toggle {
-      background: rgba(255, 138, 76, 0.8);
-    }
-    
-    .dark .theme-toggle:hover {
-      background: rgb(255, 138, 76);
-    }
-    
-    .theme-toggle i {
-      color: white;
-      font-size: 1.5rem;
-    }
-    
-    /* Experience card styles */
-    .experience-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .experience-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 5px;
-      height: 100%;
-      background-color: rgb(211,84,0);
-      transition: width 0.3s ease;
-    }
-    
-    .dark .experience-card::before {
-      background-color: rgb(255,138,76);
-    }
-    
-    .experience-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
-    }
-    
-    .experience-card:hover::before {
-      width: 8px;
-    }
-    
-    .skill-tag {
-      transition: all 0.3s ease;
-    }
-    
-    .skill-tag:hover {
-      background-color: rgb(211,84,0);
-      color: white;
-    }
-    
-    .dark .skill-tag:hover {
-      background-color: rgb(255,138,76);
-      color: black;
-    }
-    
-    .experience-section {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    
-    .experience-section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/app.css"/>
+  
+  <!-- Preload JS (for performance) -->
+  <link rel="preload" href="assets/js/structured-data.js" as="script" />
+  <link rel="preload" href="assets/js/dark-mode.js" as="script" />
+  <link rel="preload" href="assets/js/app.js" as="script" />
+  
+  <!-- Additional Performance & Accessibility -->
+  <meta name="color-scheme" content="light dark" />
+  <meta name="format-detection" content="telephone=no" />
+  
+  <!-- iOS Safari Specific -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="HLB Design Group" />
 </head>
 <body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
   <div class="min-h-screen flex flex-col">
@@ -750,7 +678,7 @@
                 <p class="text-gray-700 dark:text-gray-300 mb-6 max-w-3xl mx-auto">
                   I'm always open to discussing new projects, creative collaborations, or opportunities to be part of something meaningful. Feel free to reach out if you'd like to discuss how my skills and experience could benefit your team or project.
                 </p>
-                <a href="/contact" class="inline-flex items-center px-6 py-3 bg-primary dark:bg-orange-600 text-white rounded-md hover:bg-primary-dark dark:hover:bg-orange-700 transition-colors">
+                <a href="mailto:brian.HLBDG@outlook.com" class="inline-flex items-center px-6 py-3 bg-primary dark:bg-orange-600 text-white rounded-md hover:bg-primary-dark dark:hover:bg-orange-700 transition-colors">
                   <span>Get in Touch</span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -758,6 +686,8 @@
                 </a>
               </div>
             </section>
+
+            
           </div>
         </main>
         
