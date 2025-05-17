@@ -1,12 +1,98 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="[scrollbar-gutter:stable]">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>B. Hall | UX Designer & Frontend Developer</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self';" />
+  
+  <!-- Prevent FOUC for Dark Mode - Only critical script kept in head -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <!-- SEO Meta Tags -->
+  <title>Brian H. - UX Designer & Frontend Developer | HLB Design Group</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Brian H. - UX Designer & Frontend Developer" />
+  <meta name="description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth. Chicago-based design professional." />
+  <meta name="keywords" content="UX Design, UI Design, Frontend Development, Phoenix LiveView, Elixir, User Experience, User Interface, Product Design, Chicago Designer" />
+  <link rel="canonical" href="https://hlbdesigngroup.com/" />
+  
+  <!-- Open Graph Meta Tags (Facebook/LinkedIn/Instagram) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+  <meta property="og:description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+  <meta property="og:image" content="https://hlbdesigngroup.com/images/og-image.jpg" />
+  <meta property="og:url" content="https://hlbdesigngroup.com/" />
+  <meta property="og:site_name" content="HLB Design Group" />
+  <meta property="og:locale" content="en_US" />
+  
+  <!-- BlueSky/Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+  <meta name="twitter:description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+  <meta name="twitter:image" content="https://hlbdesigngroup.com/images/bluesky-image.jpg" />
+  <meta name="twitter:site" content="@hlbdg" />
+  <meta name="twitter:creator" content="@hlbdg" />
+  
+  <!-- Favicon and Icons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#D35400" />
+  <meta name="msapplication-TileColor" content="#D35400" />
+  
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <!-- Font Loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
+  
+  <!-- DNS Prefetch for External Resources -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+  
+  <!-- Critical CSS Inlined (for performance) -->
+  <style>
+    /* Critical styles to prevent FOUC */
+    html { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      transition: color-scheme 0.3s ease;
+    }
+    body { 
+      margin: 0; 
+      padding: 0; 
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .loading { opacity: 0; }
+    
+    /* Dark mode base styles */
+    .dark {
+      color-scheme: dark;
+    }
+    
+    /* Hide/show theme toggle icons */
+    .light-icon, .dark-icon {
+      transition: opacity 0.2s ease;
+    }
+  </style>
+  
+  <!-- Tailwind CSS CDN with inline config -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -37,279 +123,23 @@
       },
     }
   </script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    /* Base styles */
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-    
-    /* Dark mode color variables */
-    :root {
-      --color-primary-light: rgb(211,84,0);
-      --color-primary-dark: rgb(255,138,76);
-    }
-    
-    /* System dark mode detection */
-    @media (prefers-color-scheme: dark) {
-      body:not(.light-theme) {
-        color-scheme: dark;
-      }
-      
-      html:not(.light-theme) {
-        @apply dark;
-      }
-    }
-    
-    /* Dark mode styles with improved contrast */
-    .dark {
-      --bg-primary: #121212;
-      --bg-secondary: #1e1e1e;
-      --bg-tertiary: #2a2a2a;
-      --text-primary: #f3f4f6;
-      --text-secondary: #e5e7eb;
-      --text-tertiary: #d1d5db;
-      --text-muted: #9ca3af;
-      --border-color: #374151;
-      --card-bg: #1e1e1e;
-      --highlight-bg: #2e2e2e;
-      --shadow-color: rgba(0, 0, 0, 0.5);
-    }
-    
-    /* Apply dark mode styles */
-    .dark {
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-    }
-    
-    .dark .bg-white {
-      background-color: var(--bg-primary);
-    }
-    
-    .dark .bg-white\/90 {
-      background-color: rgba(18, 18, 18, 0.95);
-      backdrop-filter: blur(8px);
-    }
-    
-    .dark .bg-gray-50 {
-      background-color: var(--bg-secondary);
-    }
-    
-    .dark .bg-gray-100 {
-      background-color: var(--bg-tertiary);
-    }
-    
-    .dark .bg-orange-50 {
-      background-color: rgba(211, 84, 0, 0.15);
-    }
-    
-    .dark .text-gray-400 {
-      color: var(--text-muted);
-    }
-    
-    .dark .text-gray-500 {
-      color: var(--text-muted);
-    }
-    
-    .dark .text-gray-600 {
-      color: var(--text-secondary);
-    }
-    
-    .dark .text-gray-700 {
-      color: var(--text-primary);
-    }
-    
-    .dark .text-gray-800 {
-      color: var(--text-primary);
-    }
-    
-    .dark .border-gray-100,
-    .dark .border-gray-200 {
-      border-color: var(--border-color);
-    }
-    
-    .dark .work-item,
-    .dark .passion-card,
-    .dark .p-6.bg-gray-50, 
-    .dark .education-item, 
-    .dark .looking-forward-item, 
-    .dark .contact-item {
-      background-color: #1e293b;
-    }
-    
-    .dark .px-3.py-1.bg-gray-100 {
-      background-color: var(--highlight-bg);
-      color: var(--text-secondary);
-    }
-    
-    .dark .work-item:hover,
-    .dark .passion-card:hover {
-      box-shadow: 0 10px 25px -5px var(--shadow-color);
-    }
-    
-    .dark .social-icon {
-      color: var(--text-secondary);
-    }
-    
-    /* Make timeline elements visible in dark mode */
-    .dark .border-l.border-gray-200 {
-      border-color: var(--border-color);
-    }
-    
-    .dark .bg-white.rounded-full.border-2 {
-      background-color: var(--bg-tertiary);
-    }
-    
-    .dark .border-primary {
-      border-color: var(--color-primary-dark);
-    }
-    
-    /* Make primary color more visible in dark mode */
-    .dark .text-primary {
-      color: var(--color-primary-dark);
-    }
-    
-    .dark .hover\:text-primary:hover {
-      color: var(--color-primary-dark);
-    }
-    
-    .dark .border-b.border-primary {
-      border-color: var(--color-primary-dark);
-    }
-    
-    .dark .hover\:border-primary:hover {
-      border-color: var(--color-primary-dark);
-    }
-    
-    /* Animation delay utilities */
-    .animate-delay-100 {
-      animation-delay: 0.1s;
-    }
-    
-    .animate-delay-200 {
-      animation-delay: 0.2s;
-    }
-    
-    .animate-delay-300 {
-      animation-delay: 0.3s;
-    }
-    
-    .animate-delay-400 {
-      animation-delay: 0.4s;
-    }
-    
-    .animate-delay-500 {
-      animation-delay: 0.5s;
-    }
-    
-    /* Section fade animation */
-    .section-fade {
-      opacity: 0;
-      animation: fadeIn 0.8s ease-out forwards;
-    }
-    
-    .section-fade.visible {
-      opacity: 1;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    /* Card and interactive element styles */
-    .work-item {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .work-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-    }
-    
-    .social-icon {
-      transition: transform 0.3s ease, color 0.3s ease;
-    }
-    
-    .social-icon:hover {
-      color: rgb(211,84,0);
-    }
-    
-    .dark .social-icon:hover {
-      color: var(--color-primary-dark);
-    }
-
-    .image-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-
-    @media (max-width: 768px) {
-      .image-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .passion-card {
-      transition: all 0.3s ease;
-      overflow: hidden;
-      border-radius: 0.5rem;
-    }
-
-    .passion-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-    }
-
-    .passion-card img {
-      transition: transform 0.5s ease;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .passion-card:hover img {
-      transform: scale(1.05);
-    }
-    
-    /* Theme toggle button styling */
-    .theme-toggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: rgba(211, 84, 0, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 100;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s ease, background 0.3s ease;
-    }
-    
-    .theme-toggle:hover {
-      transform: translateY(-3px);
-      background: rgb(211, 84, 0);
-    }
-    
-    .dark .theme-toggle {
-      background: rgba(255, 138, 76, 0.8);
-    }
-    
-    .dark .theme-toggle:hover {
-      background: rgb(255, 138, 76);
-    }
-    
-    .theme-toggle i {
-      color: white;
-      font-size: 1.5rem;
-    }
-  </style>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/app.css"/>
+  
+  <!-- Preload JS (for performance) -->
+  <link rel="preload" href="assets/js/structured-data.js" as="script" />
+  <link rel="preload" href="assets/js/dark-mode.js" as="script" />
+  <link rel="preload" href="assets/js/app.js" as="script" />
+  
+  <!-- Additional Performance & Accessibility -->
+  <meta name="color-scheme" content="light dark" />
+  <meta name="format-detection" content="telephone=no" />
+  
+  <!-- iOS Safari Specific -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="HLB Design Group" />
 </head>
 <body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
   <div class="min-h-screen flex flex-col">
@@ -388,7 +218,7 @@
                 </p>
               </div>
               <div class="md:col-span-1">
-                <img src="/images/web_image_portfolio.jpg" alt="Brian Hall" class="w-full h-auto rounded-lg shadow-md">
+                <img src="/csv-portfolio/images/web_image_portfolio.jpg" alt="Brian Hall" class="w-full h-auto rounded-lg shadow-md">
               </div>
             </div>
             
@@ -398,7 +228,7 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 <div class="passion-card bg-gray-50 dark:bg-gray-800 overflow-hidden">
                   <div class="h-48 overflow-hidden">
-                    <img src="/images/web_chicago.jpg" alt="Photography" class="object-cover w-full h-full">
+                    <img src="/csv-portfolio/images/web_chicago.jpg" alt="Photography" class="object-cover w-full h-full">
                   </div>
                   <div class="p-4">
                     <h4 class="font-medium mb-1 dark:text-white">Photography</h4>
@@ -408,7 +238,7 @@
                 
                 <div class="passion-card bg-gray-50 dark:bg-gray-800 overflow-hidden">
                   <div class="h-48 overflow-hidden">
-                    <img src="/images/drone_image.jpg" alt="Drone Flying" class="object-cover w-full h-full">
+                    <img src="/csv-portfolio/images/drone_image.jpg" alt="Drone Flying" class="object-cover w-full h-full">
                   </div>
                   <div class="p-4">
                     <h4 class="font-medium mb-1 dark:text-white">Drone Flying</h4>
@@ -418,7 +248,7 @@
                 
                 <div class="passion-card bg-gray-50 dark:bg-gray-800 overflow-hidden">
                   <div class="h-48 overflow-hidden">
-                    <img src="/images/sports_image.jpg" alt="Chicago Sports" class="object-cover w-full h-full">
+                    <img src="/csv-portfolio/images/sports_image.jpg" alt="Chicago Sports" class="object-cover w-full h-full">
                   </div>
                   <div class="p-4">
                     <h4 class="font-medium mb-1 dark:text-white">Chicago Sports</h4>
@@ -698,7 +528,7 @@
                     Based in Chicago, I'm deeply connected to this city's creative energy and industrial spirit. The city's blend of architectural innovation and Midwestern pragmatism has influenced my approach to design and problem-solving.
                   </p>
                   <div class="aspect-video bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
-                    <img src="/images/web_chicago_skyline.jpg" alt="Chicago skyline" class="w-full h-full object-cover">
+                    <img src="/csv-portfolio/images/web_chicago_skyline.jpg" alt="Chicago skyline" class="w-full h-full object-cover">
                   </div>
                 </div>
               </div>
@@ -716,83 +546,21 @@
       </div>
     </footer>
   </div>
+  <script src="assets/js/structured-data.js"></script>
+  <script src="assets/js/animations.js"></script>
+  <script src="assets/js/dark-mode.js"></script>
+  <script src="assets/js/app.js"></script>
   
   <!-- Theme Toggle Button -->
   <div class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-    <i class="fas fa-moon" id="theme-toggle-icon"></i>
+    <button 
+      data-theme-toggle 
+      class="p-2 rounded-md transition-colors"
+      aria-label="Toggle dark mode">
+        <span class="light-icon"><i class="fas fa-moon" id="theme-toggle-icon"></i></span>
+        <span class="dark-icon" style="display: none;"><i class="fas fa-sun" id="theme-toggle-icon"></i></span>
+    </button>
   </div>
   
-  <script>
-    // Dark mode detection and toggle functionality with localStorage persistence
-    document.addEventListener('DOMContentLoaded', function() {
-      // Check for saved theme preference in localStorage
-      const savedTheme = localStorage.getItem('theme');
-      
-      // Check system preference
-      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      
-      // Apply theme based on saved preference or system default
-      if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
-        document.documentElement.classList.add('dark');
-        document.getElementById('theme-toggle-icon').classList.remove('fa-moon');
-        document.getElementById('theme-toggle-icon').classList.add('fa-sun');
-      }
-      
-      // Theme toggle functionality
-      const themeToggle = document.getElementById('theme-toggle');
-      const themeIcon = document.getElementById('theme-toggle-icon');
-      
-      themeToggle.addEventListener('click', function() {
-        // Toggle dark mode class
-        document.documentElement.classList.toggle('dark');
-        
-        // Save preference to localStorage
-        if (document.documentElement.classList.contains('dark')) {
-          localStorage.setItem('theme', 'dark');
-          themeIcon.classList.remove('fa-moon');
-          themeIcon.classList.add('fa-sun');
-        } else {
-          localStorage.setItem('theme', 'light');
-          themeIcon.classList.remove('fa-sun');
-          themeIcon.classList.add('fa-moon');
-        }
-      });
-      
-      // Listen for system preference changes
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        // Only change if user hasn't set a preference
-        if (!localStorage.getItem('theme')) {
-          if (e.matches) {
-            document.documentElement.classList.add('dark');
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-          } else {
-            document.documentElement.classList.remove('dark');
-            themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-moon');
-          }
-        }
-      });
-      
-      // Intersection Observer for scroll animations
-      const sections = document.querySelectorAll('.section-fade');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-      });
-      
-      sections.forEach(section => {
-        observer.observe(section);
-      });
-    });
-  </script>
 </body>
 </html>
