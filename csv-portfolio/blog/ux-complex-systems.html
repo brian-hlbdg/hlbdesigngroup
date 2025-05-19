@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en" class="[scrollbar-gutter:stable]">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self';" />
+  
+  <!-- Prevent FOUC for Dark Mode - Only critical script kept in head -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <!-- SEO Meta Tags -->
+  <title>Brian H. - UX Designer & Frontend Developer | HLB Design Group</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Brian H. - UX Designer & Frontend Developer" />
+  <meta name="description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth. Chicago-based design professional." />
+  <meta name="keywords" content="UX Design, UI Design, Frontend Development, Phoenix LiveView, Elixir, User Experience, User Interface, Product Design, Chicago Designer" />
+  <link rel="canonical" href="https://hlbdesigngroup.com/" />
+  
+  <!-- Open Graph Meta Tags (Facebook/LinkedIn/Instagram) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+  <meta property="og:description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+  <meta property="og:image" content="https://hlbdesigngroup.com/images/og-image.jpg" />
+  <meta property="og:url" content="https://hlbdesigngroup.com/" />
+  <meta property="og:site_name" content="HLB Design Group" />
+  <meta property="og:locale" content="en_US" />
+  
+  <!-- BlueSky/Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+  <meta name="twitter:description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+  <meta name="twitter:image" content="https://hlbdesigngroup.com/images/bluesky-image.jpg" />
+  <meta name="twitter:site" content="@hlbdg" />
+  <meta name="twitter:creator" content="@hlbdg" />
+  
+  <!-- Favicon and Icons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#D35400" />
+  <meta name="msapplication-TileColor" content="#D35400" />
+  
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <!-- Font Loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- DNS Prefetch for External Resources -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+  
+  <!-- Critical CSS Inlined (for performance) -->
+  <style>
+    /* Critical styles to prevent FOUC */
+    html { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      transition: color-scheme 0.3s ease;
+    }
+    body { 
+      margin: 0; 
+      padding: 0; 
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .loading { opacity: 0; }
+    
+    /* Dark mode base styles */
+    .dark {
+      color-scheme: dark;
+    }
+    
+    /* Hide/show theme toggle icons */
+    .light-icon, .dark-icon {
+      transition: opacity 0.2s ease;
+    }
+  </style>
+  
+  <!-- Tailwind CSS CDN with inline config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: 'rgb(211,84,0)',
+            'primary-dark': 'rgb(180,70,0)',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out forwards',
+            'slide-up': 'slideUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: 0 },
+              '100%': { transform: 'translateY(0)', opacity: 1 },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/app.css"/>
+  
+  <!-- Preload JS (for performance) -->
+  <link rel="preload" href="assets/js/structured-data.js" as="script" />
+  <link rel="preload" href="assets/js/dark-mode.js" as="script" />
+  <link rel="preload" href="assets/js/app.js" as="script" />
+  
+  <!-- Additional Performance & Accessibility -->
+  <meta name="color-scheme" content="light dark" />
+  <meta name="format-detection" content="telephone=no" />
+  
+  <!-- iOS Safari Specific -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="HLB Design Group" />
+</head>
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased h-full">
+    <!-- Simplified Header with Back button and theme toggle -->
+    <header class="w-full px-8 md:px-12 pt-4 pb-2 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 fixed top-0 z-40 backdrop-blur-sm">
+      <div class="flex justify-between items-center">
+        <div>
+          <a href="/" class="text-sm text-gray-600 dark:text-gray-400 hover:text-[rgb(211,84,0)] transition-colors group inline-flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Portfolio
+          </a>
+        </div>
+        <div class="flex items-center">
+          <button
+            id="theme-toggle"
+            class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-[rgb(211,84,0)] transition-colors">
+            <span class="dark-icon hidden dark:inline material-icons text-base">light_mode</span>
+            <span class="light-icon dark:hidden material-icons text-base">dark_mode</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div id="page-container" class="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <main>
+        <div class="w-full mx-auto px-8 md:px-12 pt-16">
+          <div class="max-w-4xl mx-auto">
+            <div class="mt-12">
+              <!-- Article Header -->
+              <div class="mb-6">
+                <a href="/blog" class="text-sm text-gray-600 dark:text-gray-400 hover:text-[rgb(211,84,0)] transition-colors group inline-flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  Back to Blog
+                </a>
+              </div>
+
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span class="text-xs px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full transition-colors">UX Design</span>
+                <span class="text-xs px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full transition-colors">Systems Design</span>
+              </div>
+
+              <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4 text-gray-900 dark:text-white transition-colors">
+                UX Principles for Complex Systems
+              </h1>
+
+              <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-8">
+                <span>May 1, 2025</span>
+                <span class="mx-2">•</span>
+                <span>6 min read</span>
+              </div>
+
+              <!-- Featured Image -->
+              <div class="mb-12 shadow-sm">
+                <img 
+                  src="/images/blog/ux-complex-systems.jpg" 
+                  alt="UX Principles for Complex Systems" 
+                  class="w-full h-auto rounded-sm"
+                />
+              </div>
+
+              <!-- Article Content - Using your existing text styles with some margin tweaks -->
+              <div class="max-w-none text-gray-800 dark:text-gray-200 transition-colors">
+                <p class="text-xl mb-8 text-gray-700 dark:text-gray-300">
+                  Designing intuitive interfaces for complex systems requires a different approach than consumer applications. This article explores key principles for simplifying complexity while maintaining power and flexibility.
+                </p>
+
+                <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-900 dark:text-white">The Challenge of Complexity</h2>
+                <p class="mb-4 text-gray-700 dark:text-gray-300">
+                  Complex systems - whether they're enterprise software, data analytics platforms, or specialized tools - present unique challenges for UX designers. Unlike consumer apps that can focus on doing one thing well, these systems often need to support a wide range of user goals, technical capabilities, and use cases.
+                </p>
+
+                <p class="mb-6 text-gray-700 dark:text-gray-300">
+                  The default approach is often to expose every feature and option, resulting in overwhelming interfaces that may be comprehensive but are far from usable. The alternative - oversimplifying - risks stripping away power users' ability to accomplish sophisticated tasks.
+                </p>
+
+                <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-900 dark:text-white">Key Principles for Complex UX</h2>
+
+                <h3 class="text-xl font-medium mt-6 mb-3 text-gray-900 dark:text-white">1. Progressive Disclosure</h3>
+                <p class="mb-4 text-gray-700 dark:text-gray-300">
+                  Perhaps the most powerful pattern for complex systems is progressive disclosure: presenting only the most common options upfront while making advanced functionality available on demand. This creates a gentler learning curve while still supporting expert-level work.
+                </p>
+                <p class="mb-2 text-gray-700 dark:text-gray-300">
+                  Implementation options include:
+                </p>
+                <ul class="list-disc pl-8 mb-6 text-gray-700 dark:text-gray-300">
+                  <li class="mb-1">Primary/secondary navigation patterns</li>
+                  <li class="mb-1">"Advanced settings" sections</li>
+                  <li class="mb-1">Configuration panels that expand on demand</li>
+                  <li>Contextual tools that appear based on selection or mode</li>
+                </ul>
+
+                <h3 class="text-xl font-medium mt-6 mb-3 text-gray-900 dark:text-white">2. Focus on User Workflows</h3>
+                <p class="mb-4 text-gray-700 dark:text-gray-300">
+                  Complex systems should be organized around how users actually work rather than around system architecture. Start by identifying the key workflows that deliver value, then design the interface to make those paths clear and efficient.
+                </p>
+                <p class="mb-2 text-gray-700 dark:text-gray-300">
+                  This often means:
+                </p>
+                <ul class="list-disc pl-8 mb-6 text-gray-700 dark:text-gray-300">
+                  <li class="mb-1">Highlighting frequent tasks and entry points</li>
+                  <li class="mb-1">Creating dedicated spaces for different modes or phases of work</li>
+                  <li class="mb-1">Optimizing for efficiency in repetitive operations</li>
+                  <li>Supporting flexible workflows rather than forcing rigid steps</li>
+                </ul>
+
+                <div class="my-8 shadow-sm">
+                  <img 
+                    src="/images/blog/workflow-diagram.jpg" 
+                    alt="Workflow diagram showing user paths through a complex system" 
+                    class="w-full h-auto rounded-sm"
+                  />
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mt-2 text-center">
+                    A workflow diagram maps common user paths through a complex system
+                  </p>
+                </div>
+
+                <h3 class="text-xl font-medium mt-6 mb-3 text-gray-900 dark:text-white">3. Consistent Patterns and Mental Models</h3>
+                <p class="mb-4 text-gray-700 dark:text-gray-300">
+                  Consistency becomes even more critical in complex interfaces. When users can rely on consistent patterns, they can transfer learning from one part of the system to another, reducing cognitive load.
+                </p>
+                <p class="mb-2 text-gray-700 dark:text-gray-300">
+                  Focus on:
+                </p>
+                <ul class="list-disc pl-8 mb-6 text-gray-700 dark:text-gray-300">
+                  <li class="mb-1">Establishing clear, reusable interaction patterns</li>
+                  <li class="mb-1">Maintaining visual consistency across all modules</li>
+                  <li class="mb-1">Using familiar mental models where possible</li>
+                  <li>Being predictable about where to find controls and information</li>
+                </ul>
+
+                <h3 class="text-xl font-medium mt-6 mb-3 text-gray-900 dark:text-white">4. Powerful Defaults with Easy Customization</h3>
+                <p class="mb-4 text-gray-700 dark:text-gray-300">
+                  Start with sensible defaults that work for most users, but make customization accessible. This reduces initial complexity while supporting power users who need to tailor the system to their needs.
+                </p>
+                <p class="mb-2 text-gray-700 dark:text-gray-300">
+                  Effective approaches include:
+                </p>
+                <ul class="list-disc pl-8 mb-6 text-gray-700 dark:text-gray-300">
+                  <li class="mb-1">Preset configurations with the ability to modify</li>
+                  <li class="mb-1">User-specific settings and preferences</li>
+                  <li class="mb-1">Customizable dashboards and workspaces</li>
+                  <li>Templates as starting points for complex setups</li>
+                </ul>
+
+                <h3 class="text-xl font-medium mt-6 mb-3 text-gray-900 dark:text-white">5. Contextual Help and Guidance</h3>
+                <p class="mb-4 text-gray-700 dark:text-gray-300">
+                  Even with the best interface design, complex systems require some learning. Embedding help and guidance directly in the interface can significantly improve usability.
+                </p>
+                <p class="mb-2 text-gray-700 dark:text-gray-300">
+                  Consider incorporating:
+                </p>
+                <ul class="list-disc pl-8 mb-6 text-gray-700 dark:text-gray-300">
+                  <li class="mb-1">Inline explanations and tooltips</li>
+                  <li class="mb-1">Interactive onboarding for key features</li>
+                  <li class="mb-1">Contextual documentation accessible from the interface</li>
+                  <li>Examples and templates that demonstrate best practices</li>
+                </ul>
+
+                <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-900 dark:text-white">Case Study: Transportation Management System</h2>
+                <p class="mb-4 text-gray-700 dark:text-gray-300">
+                  At NFI Industries, I applied these principles to redesign a Transportation Management System (TMS) used by logistics professionals. The system needed to handle everything from route planning to compliance documentation, making it inherently complex.
+                </p>
+
+                <p class="mb-2 text-gray-700 dark:text-gray-300">
+                  The key improvements included:
+                </p>
+
+                <ul class="list-disc pl-8 mb-6 text-gray-700 dark:text-gray-300">
+                  <li class="mb-1"><span class="font-medium">Role-based interfaces</span> that presented only relevant tools to each type of user</li>
+                  <li class="mb-1"><span class="font-medium">A task-oriented dashboard</span> that prioritized current work and common actions</li>
+                  <li class="mb-1"><span class="font-medium">Progressive complexity</span> in forms and configuration screens</li>
+                  <li class="mb-1"><span class="font-medium">Consistent patterns</span> for data tables, filters, and actions</li>
+                  <li><span class="font-medium">Contextual guidance</span> embedded throughout the interface</li>
+                </ul>
+
+                <p class="mb-6 text-gray-700 dark:text-gray-300">
+                  The result was a significant reduction in training time, fewer support requests, and higher user satisfaction despite the inherent complexity of the system.
+                </p>
+
+                <div class="my-8 shadow-sm">
+                  <img 
+                    src="/images/blog/before-after.jpg" 
+                    alt="Before and after screenshots of the Transportation Management System" 
+                    class="w-full h-auto rounded-sm"
+                  />
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mt-2 text-center">
+                    Before and after redesign of the Transportation Management System interface
+                  </p>
+                </div>
+
+                <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-900 dark:text-white">Balance is Key</h2>
+                <p class="mb-4 text-gray-700 dark:text-gray-300">
+                  The art of designing complex systems lies in finding the right balance between power and simplicity. Each decision involves tradeoffs, and there's no one-size-fits-all approach. The best designs emerge from a deep understanding of users' goals and mental models, combined with a willingness to iterate based on feedback.
+                </p>
+
+                <p class="mb-6 text-gray-700 dark:text-gray-300">
+                  While we can't eliminate complexity entirely (nor should we), we can create interfaces that help users manage it more effectively - revealing complexity progressively, maintaining consistency, and providing the right information at the right time.
+                </p>
+
+                <hr class="my-8 border-gray-200 dark:border-gray-700" />
+
+                <div class="flex items-center space-x-4 mt-8 mb-8 p-6 bg-gray-50 dark:bg-gray-800 rounded-sm shadow-sm">
+                  <img 
+                    src="/images/profile.jpg" 
+                    alt="Brian Hall" 
+                    class="w-16 h-16 rounded-full object-cover"
+                  />
+                  <div>
+                    <p class="font-medium text-gray-900 dark:text-white">Brian Hall</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">UX Designer and Frontend Developer specializing in creating intuitive interfaces for complex systems.</p>
+                    <div class="mt-2">
+                      <a href="https://linkedin.com/in/hlbdg/" target="_blank" class="text-sm text-gray-600 dark:text-gray-400 hover:text-[rgb(211,84,0)] transition-colors mr-4">LinkedIn</a>
+                      <a href="mailto:brian.HLBDG@outlook.com" class="text-sm text-gray-600 dark:text-gray-400 hover:text-[rgb(211,84,0)] transition-colors">Email</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Article Footer -->
+              <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+                <h3 class="text-xl font-medium mb-6 text-gray-900 dark:text-white">Related Articles</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <a href="/blog/design-systems.html" class="group block bg-white dark:bg-gray-800 rounded-sm shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                    <div class="p-6">
+                      <div class="flex items-start">
+                        <div class="w-20 h-20 overflow-hidden rounded-sm mr-4 flex-shrink-0">
+                          <img src="/images/blog/design-systems.jpg" alt="Building Design Systems" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        </div>
+                        <div>
+                          <h4 class="text-base font-medium group-hover:text-[rgb(211,84,0)] transition-colors">Building Design Systems: Component Libraries vs. Style Guides</h4>
+                          <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">March 22, 2025</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  
+                  <a href="/blog/design-to-development.html" class="group block bg-white dark:bg-gray-800 rounded-sm shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                    <div class="p-6">
+                      <div class="flex items-start">
+                        <div class="w-20 h-20 overflow-hidden rounded-sm mr-4 flex-shrink-0">
+                          <img src="/images/blog/design-to-development.jpg" alt="From Design to Development" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        </div>
+                        <div>
+                          <h4 class="text-base font-medium group-hover:text-[rgb(211,84,0)] transition-colors">Bridging the Gap: From Design to Development</h4>
+                          <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">February 15, 2025</p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- JavaScript for Theme Toggle -->
+    <script>
+      // Theme toggle
+      document.getElementById('theme-toggle').addEventListener('click', function() {
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          localStorage.theme = 'light';
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.theme = 'dark';
+        }
+      });
+    </script>
+  </body>
+</html>
