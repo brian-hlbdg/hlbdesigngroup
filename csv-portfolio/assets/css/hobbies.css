@@ -1,0 +1,115 @@
+/* =============================================================================
+   HOBBIES PAGE ADDITIONS - EXTENDS YOUR EXISTING CSS
+   Add these minimal additions to your existing styles.css
+   ============================================================================= */
+
+/* Recipe-specific additions to your existing .work-info */
+.recipe-stats,
+.article-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #eee;
+}
+
+/* Section intro styling (extends your existing patterns) */
+.section-intro {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.section-intro h2 {
+    margin-bottom: 1rem;
+}
+
+.section-intro p {
+    margin-bottom: 1.5rem;
+}
+
+/* Modal content styling for recipes and articles */
+.modal-content h2 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.modal-content h3 {
+    margin: 1.5rem 0 0.75rem 0;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.modal-content .recipe-meta {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin: 1rem 0 2rem 0;
+    padding: 1rem;
+    background: #f8f8f8;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.modal-content ul,
+.modal-content ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+.modal-content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.modal-content p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+    .recipe-stats,
+    .article-stats {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .modal-content .recipe-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .section-intro {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Print styles for recipes */
+@media print {
+    .work-categories,
+    .project-filters,
+    .work-grid,
+    .close {
+        display: none !important;
+    }
+    
+    .modal {
+        position: static !important;
+        display: block !important;
+        background: white !important;
+    }
+    
+    .modal-content {
+        box-shadow: none !important;
+        max-width: none !important;
+    }
+    
+    .modal-content .recipe-meta {
+        border: 1px solid #333 !important;
+        background: white !important;
+    }
+}

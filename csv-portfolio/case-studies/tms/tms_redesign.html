@@ -125,12 +125,12 @@
   </script>
   
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="/csv-portfolio/assets/css/app.css"/>
+  <link rel="stylesheet" href="csv-portfolio/assets/css/app.css"/>
   
   <!-- Preload JS (for performance) -->
-  <link rel="preload" href="/csv-portfolio/assets/js/structured-data.js" as="script" />
-  <link rel="preload" href="/csv-portfolio/assets/js/dark-mode.js" as="script" />
-  <link rel="preload" href="/csv-portfolio/assets/js/app.js" as="script" />
+  <link rel="preload" href="csv-portfolio/assets/js/structured-data.js" as="script" />
+  <link rel="preload" href="csv-portfolio/assets/js/dark-mode.js" as="script" />
+  <link rel="preload" href="csv-portfolio/assets/js/app.js" as="script" />
   
   <!-- Additional Performance & Accessibility -->
   <meta name="color-scheme" content="light dark" />
@@ -170,13 +170,13 @@
           </div>
           
           <h1 class="text-4xl md:text-5xl font-bold mb-6 dark:text-white">
-            Transportation Management System Redesign
+            Transportation Management System from Ground Up
           </h1>
           
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div class="md:col-span-2">
               <p class="text-xl text-gray-600 dark:text-gray-300 mb-6">
-                Redesigning a complex logistics interface to improve efficiency, reduce errors, and decrease onboarding time for transportation professionals.
+                Designing and building a next-generation TMS from scratch using Phoenix LiveView and Elixir. Our MVP quickly revolutionized employee productivity, replacing industry-standard legacy systems with an intuitive, real-time interface.
               </p>
             </div>
             
@@ -187,18 +187,18 @@
               </div>
               <div>
                 <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">MY ROLE</h3>
-                <p class="text-gray-800 dark:text-white">Lead UX Designer & Frontend Developer</p>
+                <p class="text-gray-800 dark:text-white">UX Designer & Frontend Developer</p>
               </div>
               <div>
                 <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">TIMELINE</h3>
-                <p class="text-gray-800 dark:text-white">8 months (2023)</p>
+                <p class="text-gray-800 dark:text-white">Continual</p>
               </div>
             </div>
           </div>
           
           <div class="rounded-lg overflow-hidden mb-12 shadow-lg">
             <img 
-              src="/images/case-studies/tms-hero.jpg" 
+              src="/csv-portfolio/images/relay-tms.jpg" 
               alt="Transportation Management System interface" 
               class="w-full h-auto"
             >
@@ -220,7 +220,7 @@
                   <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span>High onboarding times of 8+ weeks for new dispatchers</span>
+                  <span>High onboarding times of weeks for new employees</span>
                 </li>
                 <li class="flex items-start">
                   <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -232,7 +232,7 @@
                   <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span>Inconsistent user interface across different system modules</span>
+                  <span>Anitquated work flows which lead to slow interactions</span>
                 </li>
                 <li class="flex items-start">
                   <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -246,7 +246,7 @@
             <div>
               <h3 class="text-xl font-medium mb-4 dark:text-white">Project Goals</h3>
               <p class="text-gray-700 dark:text-gray-300 mb-4">
-                I was tasked with leading a comprehensive UX redesign of the TMS interface with the following goals:
+                I was tasked with creating a comprehensive UX design of a TMS interface with the following goals:
               </p>
               <ul class="space-y-2 text-gray-700 dark:text-gray-300">
                 <li class="flex items-start">
@@ -271,7 +271,7 @@
                   <svg class="h-5 w-5 text-primary dark:text-orange-400 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span>Improve overall dispatcher efficiency and satisfaction</span>
+                  <span>Improve overall user efficiency and satisfaction</span>
                 </li>
               </ul>
             </div>
@@ -1388,7 +1388,7 @@
                           <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded-full border border-gray-200 dark:border-gray-600">Time Zones</span>
                           <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded-full border border-gray-200 dark:border-gray-600">Real-time</span>
                       </div>
-                      <a href="tms-time-component.html" class="inline-flex items-center text-[rgb(211,84,0)] dark:text-orange-500 hover:text-[rgb(180,70,0)] dark:hover:text-orange-400 transition-colors text-sm font-medium">
+                      <a href="tms/time_component.html" class="inline-flex items-center text-[rgb(211,84,0)] dark:text-orange-500 hover:text-[rgb(180,70,0)] dark:hover:text-orange-400 transition-colors text-sm font-medium">
                           View Component
                           <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 18l6-6-6-6"/>
@@ -1482,10 +1482,10 @@
     </footer>
   </div>
 
-  <script src="/csv-portfolio/assets/js/structured-data.js"></script>
-  <script src="/csv-portfolio/assets/js/animations.js"></script>
-  <script src="/csv-portfolio/assets/js/dark-mode.js"></script>
-  <script src="/csv-portfolio/assets/js/app.js"></script>
+  <script src="csv-portfolio/assets/js/structured-data.js"></script>
+  <script src="csv-portfolio/assets/js/animations.js"></script>
+  <script src="csv-portfolio/assets/js/dark-mode.js"></script>
+  <script src="csv-portfolio/assets/js/app.js"></script>
   <!-- Theme Toggle Button -->
   <div class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
     <button 

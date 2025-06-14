@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en" class="[scrollbar-gutter:stable]">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self';" />
+
+  <!-- Prevent FOUC for Dark Mode - Only critical script kept in head -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- SEO Meta Tags -->
+  <title>Time Component - TMS Case Study | Brian H.</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Brian H. - UX Designer & Frontend Developer" />
+  <meta name="description"
+    content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth. Chicago-based design professional." />
+  <meta name="keywords"
+    content="UX Design, UI Design, Frontend Development, Phoenix LiveView, Elixir, User Experience, User Interface, Product Design, Chicago Designer" />
+  <link rel="canonical" href="https://hlbdesigngroup.com/" />
+
+  <!-- Open Graph Meta Tags (Facebook/LinkedIn/Instagram) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+  <meta property="og:description"
+    content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+  <meta property="og:image" content="https://hlbdesigngroup.com/images/og-image.jpg" />
+  <meta property="og:url" content="https://hlbdesigngroup.com/" />
+  <meta property="og:site_name" content="HLB Design Group" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- BlueSky/Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+  <meta name="twitter:description"
+    content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+  <meta name="twitter:image" content="https://hlbdesigngroup.com/images/bluesky-image.jpg" />
+  <meta name="twitter:site" content="@hlbdg" />
+  <meta name="twitter:creator" content="@hlbdg" />
+
+  <!-- Favicon and Icons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#D35400" />
+  <meta name="msapplication-TileColor" content="#D35400" />
+
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Font Loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- DNS Prefetch for External Resources -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+
+  <!-- Critical CSS Inlined (for performance) -->
+  <style>
+    /* Critical styles to prevent FOUC */
+    html {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      transition: color-scheme 0.3s ease;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .loading {
+      opacity: 0;
+    }
+
+    /* Dark mode base styles */
+    .dark {
+      color-scheme: dark;
+    }
+
+    /* Hide/show theme toggle icons */
+    .light-icon,
+    .dark-icon {
+      transition: opacity 0.2s ease;
+    }
+  </style>
+
+  <!-- Tailwind CSS CDN with inline config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: 'rgb(211,84,0)',
+            'primary-dark': 'rgb(180,70,0)',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out forwards',
+            'slide-up': 'slideUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: 0 },
+              '100%': { transform: 'translateY(0)', opacity: 1 },
+            },
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/csv-portfolio/assets/css/app.css" />
+
+  <!-- Preload JS (for performance) -->
+  <link rel="preload" href="/csv-portfolio/assets/js/structured-data.js" as="script" />
+  <link rel="preload" href="/csv-portfolio/assets/js/dark-mode.js" as="script" />
+  <link rel="preload" href="/csv-portfolio/assets/js/app.js" as="script" />
+
+  <!-- Additional Performance & Accessibility -->
+  <meta name="color-scheme" content="light dark" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <!-- iOS Safari Specific -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="HLB Design Group" />
+</head>
+
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased">
+  <div class="min-h-screen flex flex-col">
+    <!-- Header/Navigation -->
+    <header
+      class="w-full px-8 md:px-12 pt-4 pb-2 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 fixed top-0 z-40 backdrop-blur-sm">
+      <div class="flex justify-between items-center">
+        <a href="/"
+          class="text-sm text-gray-600 dark:text-gray-400 hover:text-[rgb(211,84,0)] transition-colors flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back to Case Study
+        </a>
+        <div class="flex items-center">
+          <span class="text-sm text-gray-600 dark:text-gray-400 mr-6">Brian H.</span>
+
+        </div>
+      </div>
+    </header>
+    <div id="page-container" class="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <main>
+        <div
+          class="w-full max-w-5xl mx-auto px-8 md:px-12 pt-16 bg-white dark:bg-gray-900 transition-colors duration-300">
+          <!-- Header -->
+          <div class="mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+              Time & Schedule Component
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mb-8">
+              A Phoenix LiveView component that handles complex time zone calculations and real-time schedule
+              management for transportation operations across multiple geographic regions.
+            </p>
+
+            <!-- Meta Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div>
+                <h4 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Technology</h4>
+                <p class="font-medium text-gray-900 dark:text-white">Phoenix LiveView</p>
+              </div>
+              <div>
+                <h4 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Language</h4>
+                <p class="font-medium text-gray-900 dark:text-white">Elixir</p>
+              </div>
+              <div>
+                <h4 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Development Time</h4>
+                <p class="font-medium text-gray-900 dark:text-white">3 weeks</p>
+              </div>
+              <div>
+                <h4 class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Status</h4>
+                <p class="font-medium text-gray-900 dark:text-white">Production</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Demo Section -->
+          <section class="mb-16 p-8 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <h2 class="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">Live Component Demo</h2>
+            <div class="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Driver Time Zone -->
+                <div
+                  class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg text-center border-2 border-primary dark:border-orange-500">
+                  <div class="text-sm text-gray-600 dark:text-gray-400 mb-2 font-medium">Driver Local Time</div>
+                  <div class="text-2xl font-bold text-gray-900 dark:text-white mb-1" id="driver-time">2:30 PM</div>
+                  <div class="text-sm text-gray-500 dark:text-gray-400" id="driver-date">Friday, May 23</div>
+                </div>
+
+                <!-- Dispatch Time Zone -->
+                <div
+                  class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg text-center border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors">
+                  <div class="text-sm text-gray-600 dark:text-gray-400 mb-2 font-medium">Dispatch (Chicago)</div>
+                  <div class="text-2xl font-bold text-gray-900 dark:text-white mb-1" id="dispatch-time">3:30 PM</div>
+                  <div class="text-sm text-gray-500 dark:text-gray-400" id="dispatch-date">Friday, May 23</div>
+                </div>
+
+                <!-- Delivery Time Zone -->
+                <div
+                  class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg text-center border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors">
+                  <div class="text-sm text-gray-600 dark:text-gray-400 mb-2 font-medium">Delivery Location</div>
+                  <div class="text-2xl font-bold text-gray-900 dark:text-white mb-1" id="delivery-time">4:30 PM</div>
+                  <div class="text-sm text-gray-500 dark:text-gray-400" id="delivery-date">Friday, May 23</div>
+                </div>
+              </div>
+
+              <!-- Controls -->
+              <div class="flex flex-col md:flex-row gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <input type="datetime-local"
+                  class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary dark:focus:ring-orange-500 focus:border-transparent"
+                  placeholder="Schedule pickup time">
+                <button
+                  class="px-6 py-3 bg-primary hover:bg-primary-dark text-white font-medium rounded-lg transition-colors">
+                  Update Schedule
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Content Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
+            <!-- Main Content -->
+            <div class="lg:col-span-3">
+              <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">The Problem</h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                  Transportation operations span multiple time zones, with drivers, dispatchers, and customers
+                  all operating in different geographic locations. The original system displayed all times in
+                  a single time zone, leading to confusion, missed pickups, and scheduling errors.
+                </p>
+
+                <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">Key challenges included:</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
+                  <li>Drivers seeing appointment times in the wrong time zone</li>
+                  <li>Dispatchers manually calculating time differences</li>
+                  <li>Customers receiving confusing delivery estimates</li>
+                  <li>Daylight saving time transitions causing system errors</li>
+                  <li>No real-time updates when schedules changed</li>
+                </ul>
+              </section>
+
+              <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">Design Solution</h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                  I designed a contextual time component that automatically detects and displays relevant
+                  time zones based on the user's role and the specific operation. The component shows
+                  multiple time zones simultaneously when needed, with clear labeling and visual hierarchy.
+                </p>
+
+                <!-- Design Process Images -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  <div class="bg-gray-100 dark:bg-gray-800 aspect-video rounded-lg flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="text-blue-400 text-4xl mb-2">📝</div>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">Wireframe mockups</p>
+                    </div>
+                  </div>
+                  <div class="bg-gray-100 dark:bg-gray-800 aspect-video rounded-lg flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="text-blue-400 text-4xl mb-2">🎯</div>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">User flow mapping</p>
+                    </div>
+                  </div>
+                </div>
+
+                <h3 class="text-xl font-medium mb-4 text-gray-900 dark:text-white">User Testing & Iterations</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                  I conducted testing sessions with drivers, dispatchers, and customer service representatives
+                  to validate the design approach. Key insights from testing:
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
+                  <li>Users needed to see "their" time zone prominently displayed</li>
+                  <li>Color coding helped distinguish between different time zones</li>
+                  <li>Relative time indicators ("in 2 hours") were more useful than absolute times</li>
+                  <li>Mobile users needed larger touch targets and simplified layouts</li>
+                </ul>
+              </section>
+
+              <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">Technical Implementation</h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                  The component is built as a Phoenix LiveView module that handles real-time time zone
+                  calculations server-side, ensuring accuracy and consistency across all clients.
+                </p>
+
+                <!-- Code Block -->
+                <div class="bg-gray-900 rounded-lg overflow-hidden mb-8">
+                  <div class="flex justify-between items-center px-6 py-4 bg-gray-800">
+                    <span class="text-gray-300 text-sm font-medium">lib/tms_web/live/components/time_component.ex</span>
+                    <button
+                      class="px-3 py-1 bg-gray-700 text-gray-300 text-xs rounded hover:bg-gray-600 transition-colors"
+                      onclick="copyCode('elixir-code')">
+                      Copy
+                    </button>
+                  </div>
+                  <pre class="p-6 text-sm overflow-x-auto"><code id="elixir-code"><span class="keyword">defmodule</span> <span class="function">TMSWeb.Components.TimeComponent</span> <span class="keyword">do</span>
+                    <span class="keyword">use</span> <span class="function">TMSWeb</span>, <span class="variable">:live_component</span>
+
+                    <span class="keyword">def</span> <span class="function">render</span>(<span class="variable">assigns</span>) <span class="keyword">do</span>
+                      <span class="string">~H"""
+                      &lt;div class="time-zone-display"&gt;
+                        &lt;%= for {zone, label} <- @time_zones do %&gt;
+                          &lt;div class={["time-zone-card", @active_zone == zone && "active"]}&gt;
+                            &lt;div class="time-zone-label"&gt;&lt;%= label %&gt;&lt;/div&gt;
+                            &lt;div class="time-value"&gt;
+                              &lt;%= format_time(@current_time, zone) %&gt;
+                            &lt;/div&gt;
+                            &lt;div class="date-value"&gt;
+                              &lt;%= format_date(@current_time, zone) %&gt;
+                            &lt;/div&gt;
+                          &lt;/div&gt;
+                        &lt;% end %&gt;
+                      &lt;/div&gt;
+                      """</span>
+                    <span class="keyword">end</span>
+
+                    <span class="keyword">def</span> <span class="function">mount</span>(<span class="variable">socket</span>) <span class="keyword">do</span>
+                      <span class="comment"># Update time every second for real-time display</span>
+                      <span class="keyword">if</span> <span class="function">connected?</span>(<span class="variable">socket</span>) <span class="keyword">do</span>
+                        <span class="variable">:timer.send_interval</span>(<span class="number">1000</span>, <span class="variable">self()</span>, <span class="variable">:tick</span>)
+                      <span class="keyword">end</span>
+
+                      <span class="variable">socket</span> = <span class="function">assign</span>(<span class="variable">socket</span>, <span class="variable">current_time:</span> <span class="function">DateTime.utc_now</span>())
+                      
+                      {<span class="variable">:ok</span>, <span class="variable">socket</span>}
+                    <span class="keyword">end</span>
+
+                    <span class="keyword">def</span> <span class="function">handle_info</span>(<span class="variable">:tick</span>, <span class="variable">socket</span>) <span class="keyword">do</span>
+                      <span class="variable">socket</span> = <span class="function">assign</span>(<span class="variable">socket</span>, <span class="variable">current_time:</span> <span class="function">DateTime.utc_now</span>())
+                      {<span class="variable">:noreply</span>, <span class="variable">socket</span>}
+                    <span class="keyword">end</span>
+
+                    <span class="keyword">defp</span> <span class="function">format_time</span>(<span class="variable">datetime</span>, <span class="variable">timezone</span>) <span class="keyword">do</span>
+                      <span class="variable">datetime</span>
+                      |&gt; <span class="function">DateTime.shift_zone!</span>(<span class="variable">timezone</span>)
+                      |&gt; <span class="function">Calendar.strftime</span>(<span class="string">"%I:%M %p"</span>)
+                    <span class="keyword">end</span>
+
+                    <span class="keyword">defp</span> <span class="function">format_date</span>(<span class="variable">datetime</span>, <span class="variable">timezone</span>) <span class="keyword">do</span>
+                      <span class="variable">datetime</span>
+                      |&gt; <span class="function">DateTime.shift_zone!</span>(<span class="variable">timezone</span>)
+                      |&gt; <span class="function">Calendar.strftime</span>(<span class="string">"%A, %B %d"</span>)
+                    <span class="keyword">end</span>
+                  <span class="keyword">end</span></code></pre>
+                </div>
+
+                <h3 class="text-xl font-medium mb-4 text-gray-900 dark:text-white">Integration Example</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                  Here's how the time component is integrated into the main TMS interface:
+                </p>
+
+                <!-- Integration Code -->
+                <div class="bg-gray-900 rounded-lg overflow-hidden mb-8">
+                  <div class="flex justify-between items-center px-6 py-4 bg-gray-800">
+                    <span class="text-gray-300 text-sm font-medium">Integration in TMS LiveView</span>
+                    <button
+                      class="px-3 py-1 bg-gray-700 text-gray-300 text-xs rounded hover:bg-gray-600 transition-colors"
+                      onclick="copyCode('integration-code')">
+                      Copy
+                    </button>
+                  </div>
+                  <pre class="p-6 text-sm overflow-x-auto"><code id="integration-code"><span class="comment"># In the main TMS dispatch view</span>
+                    <span class="keyword">def</span> <span class="function">render</span>(<span class="variable">assigns</span>) <span class="keyword">do</span>
+                      <span class="string">~H"""
+                      &lt;div class="dispatch-dashboard"&gt;
+                        &lt;.live_component 
+                          module={TMSWeb.Components.TimeComponent}
+                          id="route-times"
+                          time_zones={@route_time_zones}
+                          active_zone={@user_timezone}
+                          current_time={@current_time} /&gt;
+                          
+                        &lt;div class="route-details"&gt;
+                          &lt;!-- Route information displayed here --&gt;
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                      """</span>
+                    <span class="keyword">end</span>
+
+                    <span class="comment"># Automatically determine relevant time zones</span>
+                    <span class="keyword">defp</span> <span class="function">get_route_time_zones</span>(<span class="variable">route</span>) <span class="keyword">do</span>
+                      [
+                        {<span class="variable">route.pickup_timezone</span>, <span class="string">"Pickup Location"</span>},
+                        {<span class="string">"America/Chicago"</span>, <span class="string">"Dispatch"</span>},
+                        {<span class="variable">route.delivery_timezone</span>, <span class="string">"Delivery Location"</span>}
+                      ]
+                      |&gt; <span class="function">Enum.uniq_by</span>(<span class="keyword">fn</span> {<span class="variable">tz</span>, <span class="variable">_label</span>} <span class="keyword">-></span> <span class="variable">tz</span> <span class="keyword">end</span>)
+                    <span class="keyword">end</span></code></pre>
+                </div>
+              </section>
+
+              <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">Results & Impact</h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                  Since implementing the time component, we've seen significant improvements in operational efficiency:
+                </p>
+
+                <!-- Metrics Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                  <div class="text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <div class="text-3xl font-bold text-primary dark:text-orange-500 mb-2">73%</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Reduction in time-related dispatch errors
+                    </div>
+                  </div>
+                  <div class="text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <div class="text-3xl font-bold text-primary dark:text-orange-500 mb-2">45%</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Fewer customer service calls about delivery
+                      times</div>
+                  </div>
+                  <div class="text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <div class="text-3xl font-bold text-primary dark:text-orange-500 mb-2">100%</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Real-time accuracy across all time zones</div>
+                  </div>
+                </div>
+
+                <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
+                  <li><strong>Real-time updates</strong> eliminate stale time information</li>
+                  <li><strong>Improved driver satisfaction</strong> with clearer schedule information</li>
+                  <li><strong>Reduced cognitive load</strong> for dispatchers and customer service</li>
+                  <li><strong>Better customer experience</strong> with accurate delivery estimates</li>
+                </ul>
+              </section>
+
+              <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">Lessons Learned</h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                  This component taught me the importance of understanding real-world user contexts.
+                  Time zones seem simple until you're dealing with drivers crossing multiple zones,
+                  daylight saving time transitions, and the cognitive load of constant mental calculations.
+                </p>
+
+                <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  The Phoenix LiveView approach proved ideal for this use case—the server-side time
+                  calculations ensure accuracy, while the real-time updates keep everyone synchronized
+                  without complex client-side JavaScript.
+                </p>
+              </section>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1">
+              <div class="sticky top-24 space-y-8">
+                <!-- Technical Stack -->
+                <div>
+                  <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Technical Stack</h3>
+                  <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                    <li>Phoenix LiveView</li>
+                    <li>Elixir DateTime</li>
+                    <li>Tailwind CSS</li>
+                    <li>Real-time WebSockets</li>
+                  </ul>
+                </div>
+
+                <!-- Features -->
+                <div>
+                  <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Features</h3>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs rounded-full">Real-time
+                      Updates</span>
+                    <span
+                      class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs rounded-full">Multi-timezone</span>
+                    <span
+                      class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs rounded-full">Responsive
+                      Design</span>
+                    <span
+                      class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs rounded-full">Context
+                      Aware</span>
+                    <span
+                      class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs rounded-full">Accessible</span>
+                  </div>
+                </div>
+
+                <!-- Related Components -->
+                <div>
+                  <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Related Components</h3>
+                  <ul class="space-y-3">
+                    <li>
+                      <a href="tms-route-planning.html"
+                        class="group flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-orange-500">
+                        Route Planning Interface
+                        <svg
+                          class="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"
+                          fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 18l6-6-6-6" />
+                        </svg>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="tms-driver-dashboard.html"
+                        class="group flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-orange-500">
+                        Driver Dashboard
+                        <svg
+                          class="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"
+                          fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 18l6-6-6-6" />
+                        </svg>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="tms-load-tracking.html"
+                        class="group flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-orange-500">
+                        Load Tracking System
+                        <svg
+                          class="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"
+                          fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 18l6-6-6-6" />
+                        </svg>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!-- Footer -->
+      <footer class="py-8 border-t border-gray-100 dark:border-gray-800">
+        <div class="container mx-auto px-6 text-center">
+          <p class="text-gray-500 dark:text-gray-400 text-sm">© 2025 Brian L. Hall. All rights reserved.</p>
+          <p class="text-gray-400 dark:text-gray-500 text-xs mt-2">Designed and developed by B. Hall</p>
+        </div>
+      </footer>
+    </div>
+
+    <script src="/csv-portfolio/assets/js/structured-data.js"></script>
+    <script src="/csv-portfolio/assets/js/animations.js"></script>
+    <script src="/csv-portfolio/assets/js/dark-mode.js"></script>
+    <script src="/csv-portfolio/assets/js/app.js"></script>
+    <script src="/csv-portfolio/assets/js/tms-time-component.js"></script>
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+      <button data-theme-toggle class="p-2 rounded-md transition-colors" aria-label="Toggle dark mode">
+        <span class="light-icon"><i class="fas fa-moon" id="theme-toggle-icon"></i></span>
+        <span class="dark-icon" style="display: none;"><i class="fas fa-sun" id="theme-toggle-icon"></i></span>
+      </button>
+    </div>
+</body>
+
+</html>

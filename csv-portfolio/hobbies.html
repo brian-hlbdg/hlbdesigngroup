@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self';" />
+    
+    <!-- Prevent FOUC for Dark Mode - Only critical script kept in head -->
+    <script>
+        (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+        }
+        })();
+    </script>
+    <title>Hobbies & Interests - Brian Hall - UX Designer & Frontend Developer</title>
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Brian H. - UX Designer & Frontend Developer" />
+    <meta name="description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth. Chicago-based design professional." />
+    <meta name="keywords" content="UX Design, UI Design, Frontend Development, Phoenix LiveView, Elixir, User Experience, User Interface, Product Design, Chicago Designer" />
+    <link rel="canonical" href="https://hlbdesigngroup.com/" />
+    
+    <!-- Open Graph Meta Tags (Facebook/LinkedIn/Instagram) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+    <meta property="og:description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+    <meta property="og:image" content="https://hlbdesigngroup.com/images/og-image.jpg" />
+    <meta property="og:url" content="https://hlbdesigngroup.com/" />
+    <meta property="og:site_name" content="HLB Design Group" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- BlueSky/Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+    <meta name="twitter:description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+    <meta name="twitter:image" content="https://hlbdesigngroup.com/images/bluesky-image.jpg" />
+    <meta name="twitter:site" content="@hlbdg" />
+    <meta name="twitter:creator" content="@hlbdg" />
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#D35400" />
+    <meta name="msapplication-TileColor" content="#D35400" />
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Font Loading -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- DNS Prefetch for External Resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+    
+    <!-- Critical CSS Inlined (for performance) -->
+    <style>
+        /* Critical styles to prevent FOUC */
+        html { 
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        transition: color-scheme 0.3s ease;
+        }
+        body { 
+        margin: 0; 
+        padding: 0; 
+        transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .loading { opacity: 0; }
+        
+        /* Dark mode base styles */
+        .dark {
+        color-scheme: dark;
+        }
+        
+        /* Hide/show theme toggle icons */
+        .light-icon, .dark-icon {
+        transition: opacity 0.2s ease;
+        }
+    </style>
+    
+    <!-- Tailwind CSS CDN with inline config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+            colors: {
+                primary: 'rgb(211,84,0)',
+                'primary-dark': 'rgb(180,70,0)',
+            },
+            fontFamily: {
+                sans: ['Inter', 'system-ui', 'sans-serif'],
+            },
+            animation: {
+                'fade-in': 'fadeIn 0.8s ease-out forwards',
+                'slide-up': 'slideUp 0.8s ease-out forwards',
+            },
+            keyframes: {
+                fadeIn: {
+                '0%': { opacity: 0 },
+                '100%': { opacity: 1 },
+                },
+                slideUp: {
+                '0%': { transform: 'translateY(20px)', opacity: 0 },
+                '100%': { transform: 'translateY(0)', opacity: 1 },
+                },
+            },
+            },
+        },
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/app.css" />
+    <link rel="stylesheet" href="assets/css/hobbies.css" />
+    
+    <!-- Preload JS (for performance) -->
+    <link rel="preload" href="assets/js/structured-data.js" as="script" />
+    <link rel="preload" href="assets/js/dark-mode.js" as="script" />
+    <link rel="preload" href="assets/js/app.js" as="script" />
+    
+    <!-- Additional Performance & Accessibility -->
+    <meta name="color-scheme" content="light dark" />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- iOS Safari Specific -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="HLB Design Group" />
+</head>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+  <header class="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100 dark:bg-gray-900/90 dark:border-gray-800">
+    <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center">
+        <a href="/" class="text-gray-800 dark:text-gray-200 font-medium hover:text-primary dark:hover:text-orange-400 transition-colors">
+          ← Back to Home
+        </a>
+      </div>
+      <div class="text-sm dark:text-gray-200">Brian L. Hall</div>
+    </div>
+  </header>
+
+  <main class="flex-grow pt-24 pb-16">
+    <section class="py-2 experience-section" id="hero">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 dark:text-white">Hobbies & Interests</h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl">Beyond design and development, these are some of the things that inspire me and bring balance to my life.</p>
+        </div>
+    </section>
+
+    <section class="py-2 section-fade scroll-mt-24">
+        <div class="container mx-auto px-2 max-w-4xl">
+            <!-- Using your existing work section patterns -->
+            <div class="flex flex-wrap gap-3 mb-12">
+                <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors active" data-category="food-blog">Food Blog</button>
+                <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors" data-category="ux-insights">UX Insights</button>
+                <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors" data-category="photography">Photography</button>
+                <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors" data-category="travel">Travel</button>
+            </div>
+
+            <!-- Food Blog Section -->
+            <div id="food-blog" class="work-content hobby-section">
+                <div class="section-intro">
+                    <h2 class="text-2xl font-light mb-8 border-b border-gray-200 dark:border-gray-700 pb-2">Food Blog</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl">My culinary adventures and recipe experiments in the kitchen.</p>
+                    
+                    <!-- Food filters using your existing filter pattern -->
+                    <div class="project-filters">
+                        <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors active" data-food="all">All Recipes</button>
+                        <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors" data-food="beef">Beef</button>
+                        <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors" data-food="chicken">Chicken</button>
+                        <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors" data-food="pork">Pork</button>
+                        <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors" data-food="seafood">Seafood</button>
+                        <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors" data-food="vegetarian">Vegetarian</button>
+                        <button class="skill-tag px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-primary hover:text-white transition-colors" data-food="dessert">Dessert</button>
+                    </div>
+                </div>
+
+                <div class="work-grid">
+                    <!-- Korean Beef Recipe -->
+                    <div class="work-item recipe-post" data-food="beef" data-recipe="korean-beef">
+                        <div class="work-image">
+                            <img src="images/hobbies/food/korean-beef-bowl.jpg" alt="Korean-Style Beef Bowls">
+                            <div class="work-overlay">
+                                <h3>Korean-Style Beef Bowls</h3>
+                                <p>Quick weeknight dinner with Korean flavors</p>
+                                <span class="view-work">View Recipe</span>
+                            </div>
+                        </div>
+                        <div class="work-info">
+                            <div class="work-meta">
+                                <span class="work-category">Beef</span>
+                                <span class="work-date">Jan 2025</span>
+                            </div>
+                            <div class="recipe-stats">
+                                <span>15 min prep</span>
+                                <span>20 min cook</span>
+                                <span>4 servings</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lemon Chicken Recipe -->
+                    <div class="work-item recipe-post" data-food="chicken" data-recipe="lemon-chicken">
+                        <div class="work-image">
+                            <img src="images/hobbies/food/lemon-herb-chicken.jpg" alt="Mediterranean Lemon Herb Chicken">
+                            <div class="work-overlay">
+                                <h3>Mediterranean Lemon Herb Chicken</h3>
+                                <p>Juicy roasted chicken with Mediterranean herbs</p>
+                                <span class="view-work">View Recipe</span>
+                            </div>
+                        </div>
+                        <div class="work-info">
+                            <div class="work-meta">
+                                <span class="work-category">Chicken</span>
+                                <span class="work-date">Dec 2024</span>
+                            </div>
+                            <div class="recipe-stats">
+                                <span>10 min prep</span>
+                                <span>45 min cook</span>
+                                <span>6 servings</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mushroom Risotto Recipe -->
+                    <div class="work-item recipe-post" data-food="vegetarian" data-recipe="mushroom-risotto">
+                        <div class="work-image">
+                            <img src="images/hobbies/food/mushroom-risotto.jpg" alt="Creamy Mushroom Risotto">
+                            <div class="work-overlay">
+                                <h3>Creamy Mushroom Risotto</h3>
+                                <p>Rich and creamy vegetarian risotto</p>
+                                <span class="view-work">View Recipe</span>
+                            </div>
+                        </div>
+                        <div class="work-info">
+                            <div class="work-meta">
+                                <span class="work-category">Vegetarian</span>
+                                <span class="work-date">Dec 2024</span>
+                            </div>
+                            <div class="recipe-stats">
+                                <span>20 min prep</span>
+                                <span>35 min cook</span>
+                                <span>4 servings</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UX Insights Section -->
+            <div id="ux-insights" class="work-content hobby-section" style="display: none;">
+                <div class="section-intro">
+                    <h2>UX Insights</h2>
+                    <p>Thoughts, learnings, and observations from my design practice.</p>
+                </div>
+
+                <div class="work-grid">
+                    <!-- Design Systems Article -->
+                    <div class="work-item article-post" data-article="design-systems">
+                        <div class="work-image">
+                            <img src="images/hobbies/ux/design-systems.jpg" alt="Design Systems">
+                            <div class="work-overlay">
+                                <h3>Design Systems: Starting Small, Thinking Big</h3>
+                                <p>Building scalable design systems</p>
+                                <span class="view-work">Read Article</span>
+                            </div>
+                        </div>
+                        <div class="work-info">
+                            <div class="work-meta">
+                                <span class="work-category">Design Systems</span>
+                                <span class="work-date">Jan 2025</span>
+                            </div>
+                            <div class="article-stats">
+                                <span>8 min read</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accessibility Article -->
+                    <div class="work-item article-post" data-article="accessibility">
+                        <div class="work-image">
+                            <img src="images/hobbies/ux/accessibility.jpg" alt="Accessibility Design">
+                            <div class="work-overlay">
+                                <h3>Accessibility-First Design</h3>
+                                <p>Beyond compliance to better experiences</p>
+                                <span class="view-work">Read Article</span>
+                            </div>
+                        </div>
+                        <div class="work-info">
+                            <div class="work-meta">
+                                <span class="work-category">Accessibility</span>
+                                <span class="work-date">Jan 2025</span>
+                            </div>
+                            <div class="article-stats">
+                                <span>6 min read</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LiveView Article -->
+                    <div class="work-item article-post" data-article="liveview">
+                        <div class="work-image">
+                            <img src="images/hobbies/ux/liveview-prototyping.jpg" alt="Phoenix LiveView">
+                            <div class="work-overlay">
+                                <h3>Phoenix LiveView for Prototyping</h3>
+                                <p>Interactive prototypes with LiveView</p>
+                                <span class="view-work">Read Article</span>
+                            </div>
+                        </div>
+                        <div class="work-info">
+                            <div class="work-meta">
+                                <span class="work-category">Prototyping</span>
+                                <span class="work-date">Dec 2024</span>
+                            </div>
+                            <div class="article-stats">
+                                <span>7 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photography Section -->
+            <div id="photography" class="work-content hobby-section" style="display: none;">
+                <div class="section-intro">
+                    <h2>Photography</h2>
+                    <p>Capturing moments and perspectives through the lens.</p>
+                </div>
+
+                <div class="work-grid">
+                    <div class="work-item">
+                        <div class="work-image">
+                            <img src="images/hobbies/photography/photo1.jpg" alt="Chicago skyline">
+                            <div class="work-overlay">
+                                <h3>Chicago Skyline</h3>
+                                <p>Sunset from Adler Planetarium</p>
+                                <span class="view-work">View Image</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-item">
+                        <div class="work-image">
+                            <img src="images/hobbies/photography/photo2.jpg" alt="Autumn colors">
+                            <div class="work-overlay">
+                                <h3>Autumn Colors</h3>
+                                <p>Starved Rock State Park</p>
+                                <span class="view-work">View Image</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-item">
+                        <div class="work-image">
+                            <img src="images/hobbies/photography/photo3.jpg" alt="Lake Michigan">
+                            <div class="work-overlay">
+                                <h3>Winter Waves</h3>
+                                <p>Lake Michigan in winter</p>
+                                <span class="view-work">View Image</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-item">
+                        <div class="work-image">
+                            <img src="images/hobbies/photography/photo4.jpg" alt="Architecture">
+                            <div class="work-overlay">
+                                <h3>Architecture</h3>
+                                <p>Chicago Loop details</p>
+                                <span class="view-work">View Image</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Travel Section -->
+            <div id="travel" class="work-content hobby-section" style="display: none;">
+                <div class="section-intro">
+                    <h2>Travel</h2>
+                    <p>Exploring new places, cultures, and experiences around the world.</p>
+                </div>
+
+                <div class="work-grid">
+                    <div class="work-item">
+                        <div class="work-image">
+                            <img src="images/hobbies/travel/travel1.jpg" alt="Tokyo street">
+                            <div class="work-overlay">
+                                <h3>Shibuya Night</h3>
+                                <p>Tokyo street scene</p>
+                                <span class="view-work">View Image</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-item">
+                        <div class="work-image">
+                            <img src="images/hobbies/travel/travel2.jpg" alt="Italian coast">
+                            <div class="work-overlay">
+                                <h3>Cinque Terre</h3>
+                                <p>Italian coastal village</p>
+                                <span class="view-work">View Image</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-item">
+                        <div class="work-image">
+                            <img src="images/hobbies/travel/travel3.jpg" alt="Swiss Alps">
+                            <div class="work-overlay">
+                                <h3>Swiss Alps</h3>
+                                <p>Hiking near Interlaken</p>
+                                <span class="view-work">View Image</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-item">
+                        <div class="work-image">
+                            <img src="images/hobbies/travel/travel4.jpg" alt="Joshua Tree">
+                            <div class="work-overlay">
+                                <h3>Joshua Tree</h3>
+                                <p>Desert sunrise</p>
+                                <span class="view-work">View Image</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <section class="cta-section">
+          <div class="container">
+              <h3>Creative Inspiration</h3>
+              <p>These hobbies fuel my creativity and provide fresh perspectives that I bring to my design work. Whether it's the precision of a recipe, the composition of a photograph, or the problem-solving approach learned while traveling, each experience contributes to my design thinking.</p>
+          </div>
+      </section>
+  </main>
+
+  <!-- Recipe/Article Modal -->
+  <div id="contentModal" class="modal" style="display: none;">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <div id="modalBody"></div>
+      </div>
+  </div>
+
+  <footer>
+      <div class="container">
+          <div class="footer-content">
+              <div class="footer-info">
+                  <p>&copy; 2025 Brian Hall. All rights reserved.</p>
+              </div>
+              <div class="footer-links">
+                  <a href="https://linkedin.com/in/hlbdg/" target="_blank">LinkedIn</a>
+                  <a href="mailto:brian.HLBDG@outlook.com">Email</a>
+                  <a href="resume.pdf" target="_blank">Resume</a>
+              </div>
+          </div>
+      </div>
+  </footer>
+
+  <script>
+      // Mobile navigation toggle
+      document.querySelector('.mobile-nav-toggle').addEventListener('click', function() {
+          document.querySelector('nav').classList.toggle('active');
+          this.classList.toggle('active');
+      });
+
+      // Work category switching (using your existing pattern)
+      document.querySelectorAll('.work-filter').forEach(filter => {
+          filter.addEventListener('click', function() {
+              // Remove active from all filters
+              document.querySelectorAll('.work-filter').forEach(f => f.classList.remove('active'));
+              // Add active to clicked filter
+              this.classList.add('active');
+              
+              // Hide all sections
+              document.querySelectorAll('.hobby-section').forEach(section => {
+                  section.style.display = 'none';
+              });
+              
+              // Show selected section
+              const category = this.getAttribute('data-category');
+              document.getElementById(category).style.display = 'block';
+          });
+      });
+
+      // Food filtering (using your existing filter pattern)
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+              // Remove active from all filter buttons
+              document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+              // Add active to clicked button
+              this.classList.add('active');
+              
+              const foodType = this.getAttribute('data-food');
+              
+              // Show/hide recipe posts
+              document.querySelectorAll('.recipe-post').forEach(post => {
+                  if (foodType === 'all' || post.getAttribute('data-food') === foodType) {
+                      post.style.display = 'block';
+                  } else {
+                      post.style.display = 'none';
+                  }
+              });
+          });
+      });
+
+      // Recipe data
+      const recipes = {
+          'korean-beef': {
+              title: 'Korean-Style Beef Bowls',
+              content: `
+                  <h2>Korean-Style Beef Bowls</h2>
+                  <div class="recipe-meta">
+                      <span>Prep: 15 min</span>
+                      <span>Cook: 20 min</span>
+                      <span>Serves: 4</span>
+                  </div>
+                  <h3>Ingredients</h3>
+                  <ul>
+                      <li>1 lb ground beef (80/20)</li>
+                      <li>3 tbsp soy sauce</li>
+                      <li>2 tbsp brown sugar</li>
+                      <li>1 tbsp sesame oil</li>
+                      <li>2 cloves garlic, minced</li>
+                      <li>1 tsp fresh ginger, grated</li>
+                      <li>4 cups cooked rice</li>
+                      <li>Green onions and sesame seeds for garnish</li>
+                  </ul>
+                  <h3>Instructions</h3>
+                  <ol>
+                      <li>Brown the ground beef in a large skillet over medium-high heat.</li>
+                      <li>Mix soy sauce, brown sugar, sesame oil, garlic, and ginger.</li>
+                      <li>Pour sauce over beef and simmer 3-4 minutes.</li>
+                      <li>Serve over rice with green onions and sesame seeds.</li>
+                  </ol>
+              `
+          },
+          'lemon-chicken': {
+              title: 'Mediterranean Lemon Herb Chicken',
+              content: `
+                  <h2>Mediterranean Lemon Herb Chicken</h2>
+                  <div class="recipe-meta">
+                      <span>Prep: 10 min</span>
+                      <span>Cook: 45 min</span>
+                      <span>Serves: 6</span>
+                  </div>
+                  <h3>Ingredients</h3>
+                  <ul>
+                      <li>1 whole chicken (3-4 lbs)</li>
+                      <li>2 lemons (zested and juiced)</li>
+                      <li>2 tbsp olive oil</li>
+                      <li>2 tsp dried oregano</li>
+                      <li>1 tsp dried thyme</li>
+                      <li>Salt and pepper to taste</li>
+                      <li>Fresh rosemary sprigs</li>
+                  </ul>
+                  <h3>Instructions</h3>
+                  <ol>
+                      <li>Preheat oven to 425°F.</li>
+                      <li>Mix lemon zest, olive oil, and herbs.</li>
+                      <li>Rub mixture all over chicken.</li>
+                      <li>Roast 45-60 minutes until 165°F internal temperature.</li>
+                      <li>Let rest 10 minutes before carving.</li>
+                  </ol>
+              `
+          },
+          'mushroom-risotto': {
+              title: 'Creamy Mushroom Risotto',
+              content: `
+                  <h2>Creamy Mushroom Risotto</h2>
+                  <div class="recipe-meta">
+                      <span>Prep: 20 min</span>
+                      <span>Cook: 35 min</span>
+                      <span>Serves: 4</span>
+                  </div>
+                  <h3>Ingredients</h3>
+                  <ul>
+                      <li>1 lb mixed mushrooms, sliced</li>
+                      <li>1 1/2 cups Arborio rice</li>
+                      <li>6 cups warm vegetable broth</li>
+                      <li>1 cup white wine</li>
+                      <li>1/2 cup grated Parmesan</li>
+                      <li>3 tbsp butter</li>
+                      <li>Fresh herbs</li>
+                  </ul>
+                  <h3>Instructions</h3>
+                  <ol>
+                      <li>Sauté mushrooms until golden, set aside.</li>
+                      <li>Toast rice in the same pan.</li>
+                      <li>Add wine, stirring until absorbed.</li>
+                      <li>Add broth one ladle at a time, stirring constantly.</li>
+                      <li>Stir in mushrooms, butter, and Parmesan.</li>
+                  </ol>
+              `
+          }
+      };
+
+      const articles = {
+          'design-systems': {
+              title: 'Design Systems: Starting Small, Thinking Big',
+              content: `
+                  <h2>Design Systems: Starting Small, Thinking Big</h2>
+                  <p>After working on several design systems, I've learned that the most successful ones start small and grow organically.</p>
+                  <h3>Start with the Basics</h3>
+                  <p>Focus on foundational elements first: color palette, typography, spacing, and basic components.</p>
+                  <h3>Document Everything</h3>
+                  <p>Build documentation into your process from day one. Include usage guidelines and accessibility considerations.</p>
+                  <h3>Governance Matters</h3>
+                  <p>Establish clear processes for contributions, changes, and regular reviews to maintain consistency.</p>
+              `
+          },
+          'accessibility': {
+              title: 'Accessibility-First Design',
+              content: `
+                  <h2>Accessibility-First Design: Beyond Compliance</h2>
+                  <p>Designing with accessibility in mind from the beginning creates better experiences for everyone.</p>
+                  <h3>Universal Design Benefits</h3>
+                  <p>High contrast helps in bright sunlight. Large touch targets help everyone. Clear language reduces cognitive load.</p>
+                  <h3>Start with Structure</h3>
+                  <p>Good accessibility begins with clear heading hierarchy, logical page flow, and meaningful form labels.</p>
+              `
+          },
+          'liveview': {
+              title: 'Phoenix LiveView for UX Prototyping',
+              content: `
+                  <h2>Phoenix LiveView for UX Prototyping</h2>
+                  <p>LiveView enables creating interactive prototypes that feel much closer to the final product.</p>
+                  <h3>Beyond Static Prototypes</h3>
+                  <p>Handle real user input, show actual loading states, and demonstrate responsive behavior across devices.</p>
+                  <h3>My Workflow</h3>
+                  <p>Start with wireframes in Figma, build basic LiveView structure, implement interactions, test with users, iterate.</p>
+              `
+          }
+      };
+
+      // Modal functionality (using your existing pattern)
+      const modal = document.getElementById('contentModal');
+      const modalBody = document.getElementById('modalBody');
+      const closeBtn = document.querySelector('.close');
+
+      // Recipe clicks
+      document.querySelectorAll('.recipe-post').forEach(item => {
+          item.addEventListener('click', function() {
+              const recipeId = this.getAttribute('data-recipe');
+              if (recipes[recipeId]) {
+                  modalBody.innerHTML = recipes[recipeId].content;
+                  modal.style.display = 'block';
+              }
+          });
+      });
+
+      // Article clicks
+      document.querySelectorAll('.article-post').forEach(item => {
+          item.addEventListener('click', function() {
+              const articleId = this.getAttribute('data-article');
+              if (articles[articleId]) {
+                  modalBody.innerHTML = articles[articleId].content;
+                  modal.style.display = 'block';
+              }
+          });
+      });
+
+      // Close modal
+      closeBtn.addEventListener('click', function() {
+          modal.style.display = 'none';
+      });
+
+      window.addEventListener('click', function(event) {
+          if (event.target == modal) {
+              modal.style.display = 'none';
+          }
+      });
+  </script>
+</body>
+</html>
