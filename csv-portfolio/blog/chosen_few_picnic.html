@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self';" />
+  
+  <!-- Prevent FOUC for Dark Mode - Only critical script kept in head -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <!-- SEO Meta Tags -->
+    <title>My First Chosen Few Picnic: A Chicago Rite of Passage - Brian Hall</title>
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Brian H. - UX Designer & Frontend Developer" />
+    <meta name="description" content="How Phoenix LiveView bridges the gap between design intent and technical implementation, enabling seamless user experiences without traditional SPA complexity.">
+    <meta name="keywords" content="UX Design, UI Design, Frontend Development, Phoenix LiveView, Elixir, User Experience, User Interface, Product Design, Chicago Designer" />
+    <link rel="canonical" href="https://hlbdesigngroup.com/" />
+    <!-- Open Graph Meta Tags (Facebook/LinkedIn/Instagram) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+    <meta property="og:description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+    <meta property="og:image" content="https://hlbdesigngroup.com/images/og-image.jpg" />
+    <meta property="og:url" content="https://hlbdesigngroup.com/" />
+    <meta property="og:site_name" content="HLB Design Group" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- BlueSky/Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+    <meta name="twitter:description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+    <meta name="twitter:image" content="https://hlbdesigngroup.com/images/bluesky-image.jpg" />
+    <meta name="twitter:site" content="@hlbdg" />
+    <meta name="twitter:creator" content="@hlbdg" />
+    
+      <!-- Fonts and Icons -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+      <link rel="icon" type="image/x-icon" href="favicon.ico" />
+      <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+      <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+      <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+      <link rel="manifest" href="manifest.json" />
+      <meta name="theme-color" content="#D35400" />
+      <meta name="msapplication-TileColor" content="#D35400" />
+  
+      <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Font Loading -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- DNS Prefetch for External Resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+  
+      <!-- Critical CSS Inlined (for performance) -->
+    <style>
+      /* Critical styles to prevent FOUC */
+      html { 
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        transition: color-scheme 0.3s ease;
+      }
+      body { 
+        margin: 0; 
+        padding: 0; 
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      .loading { opacity: 0; }
+      
+      /* Dark mode base styles */
+      .dark {
+        color-scheme: dark;
+      }
+      
+      /* Hide/show theme toggle icons */
+      .light-icon, .dark-icon {
+        transition: opacity 0.2s ease;
+      }
+    </style>
+    
+    <!-- Tailwind CSS CDN with inline config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: 'rgb(211,84,0)',
+              'primary-dark': 'rgb(180,70,0)',
+            },
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.8s ease-out forwards',
+              'slide-up': 'slideUp 0.8s ease-out forwards',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: 0 },
+                '100%': { opacity: 1 },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(20px)', opacity: 0 },
+                '100%': { transform: 'translateY(0)', opacity: 1 },
+              },
+            },
+          },
+        },
+      }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/app.css"/>
+    <link rel="stylesheet" href="../assets/css/blog.css" />
+  
+      <!-- Preload JS (for performance) -->
+    <link rel="preload" href="../assets/js/structured-data.js" as="script" />
+    <link rel="preload" href="../assets/js/dark-mode.js" as="script" />
+    <link rel="preload" href="../assets/js/app.js" as="script" />
+    
+    <!-- Additional Performance & Accessibility -->
+    <meta name="color-scheme" content="light dark" />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- iOS Safari Specific -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="HLB Design Group" />
+      
+      <!-- Dark mode script -->
+      <script>
+          if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark')
+          } else {
+              document.documentElement.classList.remove('dark')
+          }
+      </script>
+  </head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased h-full">
+    <header class="w-full px-8 md:px-12 pt-4 pb-2 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 fixed top-0 z-40 backdrop-blur-sm">
+		<div class="flex justify-between items-center">
+			<a href="/" class="text-sm text-gray-600 dark:text-gray-400 hover:text-[rgb(211,84,0)] transition-colors flex items-center">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+				</svg>
+				Back to Blog
+			</a>
+			<div class="flex items-center">
+				<span class="text-sm text-gray-600 dark:text-gray-400 mr-6">Brian H.</span>
+				<button
+					id="theme-toggle"
+					class="text-sm text-gray-600 dark:text-gray-400 hover:text-[rgb(211,84,0)] transition-colors">
+					<span class="dark-icon hidden dark:inline">☀️</span>
+					<span class="light-icon dark:hidden">🌙</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+    <main>
+        <article class="article-container">
+            <div class="post-header">
+                <div class="article-header">
+                    <span class="category">Personal</span>
+                    <span class="category">Culture</span>
+                    <span class="category">Chicago</span>
+                </div>
+                <h1 class="article-title">My First Chosen Few Picnic: A Chicago Rite of Passage</h1>
+                <div class="article-meta">
+                    <span class="post-date">July 14, 2025</span>
+                    <span class="separator"> • </span>
+                    <span class="read-time">8 min read</span>
+                    <span class="separator"> • </span>
+                    <span class="post-author">Brian Hall</span>
+                </div>
+            </div>
+
+            <div class="article-content">
+                <p>After eight years of living in Chicago, I finally made it to the Chosen Few Picnic this past Saturday. I know, I know—how could someone who considers themselves a proper Chicagoan have missed what's essentially the unofficial kickoff to summer in the city? Trust me, I've been asking myself the same question, especially after experiencing what can only be described as a perfect fusion of music, community, and pure Chicago soul.</p>
+
+                <div class="image-placeholder">
+                    [Photo: Jackson Park filled with thousands of people dancing, grills smoking, and the Chicago skyline in the background]
+                </div>
+
+                <h2>The History That Started in a Backyard</h2>
+
+                <p>Before diving into my experience, it's worth understanding what makes this event so special. The Chosen Few Picnic isn't just another music festival—it's a cultural institution that started with the most Chicago thing imaginable: a backyard party that grew too big for the backyard.</p>
+
+                <p>Founded by Wayne Williams in 1977, the Chosen Few DJs were part of the first wave of Chicago artists who created house music. What began as a small gathering of friends behind the Museum of Science & Industry in the late '80s has grown into the world's longest-running house music festival. This year marked the 35th anniversary, and the energy of those three and a half decades was palpable in every beat that pulsed through Jackson Park.</p>
+
+                <div class="quote-callout">
+                    "It's like a family reunion," one woman told me as she danced with a purple umbrella, perfectly capturing what I was witnessing around me.
+                </div>
+
+                <p>The Chosen Few DJs—Wayne Williams, Jesse Saunders, Tony Hatchett, Alan King, Andre Hatchett, Terry Hunter, and Mike Dunn—aren't just performers; they're cultural architects who helped build the foundation of a genre that Chicago gave to the world. This year, they even received a Congressional Proclamation honoring their contributions to music, culture, and community. When Congressman Jonathan L. Jackson presented that proclamation during the event, you could feel the historical weight of the moment.</p>
+
+                <h2>First Impressions: A City Dancing as One</h2>
+
+                <p>Walking into Jackson Park on Saturday, I was immediately struck by the sheer scale of joy. Forty thousand people had gathered, and somehow it didn't feel crowded—it felt communal. Families had set up elaborate tent cities with grills, coolers, and lawn chairs. Kids were running around while grandparents found shady spots to sway to the music. Young adults were dressed in everything from vintage "House Nation" gear to custom tees reading "Chicago Created House Music."</p>
+
+                <p>The setup itself was perfect Chicago pragmatism: one massive stage, acres of park space, and the understanding that people would bring their own good times. This wasn't a festival trying to curate an experience—this was a community celebration where the experience emerged organically from the people themselves.</p>
+
+                <div class="image-placeholder">
+                    [Photo: Diverse crowd of all ages dancing together, tents and grills in the background]
+                </div>
+
+                <h3>The Music: Twelve Hours of Pure Soul</h3>
+
+                <p>From noon until well after midnight, the music never stopped. The Chosen Few DJs took turns behind the decks, each bringing their own flavor while maintaining the continuous flow that house music demands. What struck me most wasn't just the technical skill—though watching these legends work was masterful—but the emotional connection between the DJs and the crowd.</p>
+
+                <p>This wasn't just playing music; it was communion. When Jesse Saunders dropped a classic deep house track, the crowd responded with a collective movement that felt choreographed by decades of shared cultural memory. When Terry Hunter teased upcoming tracks (including what sounded like some serious remixes), the anticipation was electric.</p>
+
+                <p>The music ranged from classic deep house to modern remixes, but it all carried that signature Chicago soul—the blend of gospel, R&B, and electronic innovation that makes house music so distinctly spiritual and physical at the same time.</p>
+
+                <h2>The Community: New Friends and Old Traditions</h2>
+
+                <p>What moved me most about the day was witnessing the power of music to create instant community. I arrived not knowing a soul and left with phone numbers, Instagram follows, and invitations to other events. House music culture has this incredible way of breaking down barriers—age, race, background—and creating space for pure human connection.</p>
+
+                <p>I met Maria, a Baltimore resident who travels to house festivals with eight friends every year. "This music takes you over," she told me between songs. "You feel like you can be free." I talked with George "Mikey" James, who's been attending since the early days and made the trip from Atlanta just for this event. I danced next to teenagers who were experiencing their first Chosen Few alongside folks who remember when it was held behind the museum.</p>
+
+                <div class="quote-callout">
+                    "We all don't know each other, but we look at each other's eyes, and we know each other." This perfectly captured the magic I was witnessing—instant recognition through shared rhythm.
+                </div>
+
+                <h3>Beyond the Music: Culture in Action</h3>
+
+                <p>What sets the Chosen Few Picnic apart from other festivals is its deep rootedness in Chicago's Black culture and community. This isn't cultural tourism—this is culture in action, created by and for the community that gave birth to house music. From the local vendors selling everything from custom t-shirts to soul food, to the intergenerational mixing that happened naturally throughout the day, the event felt like a celebration of Chicago's South Side in all its complexity and beauty.</p>
+
+                <p>The fashion alone was worth the price of admission. People came prepared to be seen: metallic outfits that caught the afternoon sun, vintage jerseys paired with fresh sneakers, and accessories that moved with the music. Everyone understood the assignment—this was as much about style and self-expression as it was about the beats.</p>
+
+                <div class="image-placeholder">
+                    [Photo: People grilling, families sharing food, kids playing while adults dance nearby]
+                </div>
+
+                <h2>What I Learned About Chicago (and Myself)</h2>
+
+                <p>As someone who designs digital experiences for a living, I'm always thinking about how communities form and how shared experiences create belonging. The Chosen Few Picnic was a masterclass in organic community building that no algorithm could replicate.</p>
+
+                <p>The event works because it doesn't try to be anything other than what it is: Chicago people celebrating Chicago culture in a Chicago way. There's no artifice, no attempt to package the experience for outside consumption. It's authentic in the way that only comes from 35 years of consistency and community ownership.</p>
+
+                <p>I also learned something about myself. Growing up in different places, I sometimes feel like an observer of local culture rather than a participant. But something about house music's inclusivity and the genuine warmth of the people I met made me feel not just welcomed, but like I belonged. By the end of the day, covered in sunscreen and hoarse from singing along to songs I'd never heard before, I felt more connected to Chicago than I had in years of living here.</p>
+
+                <h3>The Ripple Effects</h3>
+
+                <p>In the days since the picnic, I've found myself seeking out more house music, planning to hit some of the smaller venues the DJs mentioned, and looking forward to next year's event like it's already marked on my calendar in permanent ink. That's the power of authentic cultural experiences—they don't just entertain you for a day; they change how you move through your city.</p>
+
+                <p>I've also been thinking about how the principles I witnessed at the picnic—radical inclusivity, respect for history, and the power of collective joy—apply to my work as a designer. How do we create digital spaces that feel as welcoming and authentic as Jackson Park felt on Saturday? How do we design experiences that honor the communities they serve rather than extracting from them?</p>
+
+                <h2>Already Planning for Next Year</h2>
+
+                <p>As the sun set on Saturday and the music continued into the night, I understood why people plan their entire summer around this event. The Chosen Few Picnic isn't just a festival—it's a reminder of what's possible when communities come together to celebrate what they've created and shared.</p>
+
+                <p>Next year, I'll be better prepared. I'll bring a better chair, more sunscreen, and I'll convince more friends to join me. I'll understand the rhythm of the day better—when to dance close to the stage, when to wander and meet people, when to just sit and take in the incredible human symphony happening around me.</p>
+
+                <div class="quote-callout">
+                    "Chosen Few is like a huge family reunion, tents, grills, laughter, and music. You'll run into people you haven't seen in years and make new friends too." - DJ Mike Dunn
+                </div>
+
+                <p>But mostly, I'll carry with me the feeling of being part of something larger than myself—a musical tradition, a community celebration, and a Chicago summer day that reminded me why this city captures hearts and keeps them.</p>
+
+                <p>If you've never been to the Chosen Few Picnic, put it on your calendar for next year. Trust me on this one. And if you're a longtime attendee reading this, thank you for creating space for newcomers like me to experience the magic. See you on the dance floor next July.</p>
+
+                <div class="image-placeholder">
+                    [Photo: Sunset over Jackson Park with the crowd still dancing, Chicago skyline silhouetted in the background]
+                </div>
+
+                <p><em>The 36th Annual Chosen Few Picnic & Festival will take place on July 11, 2026, in Jackson Park. For updates and information, visit <a href="https://chosenfewdjs.com" target="_blank">chosenfewdjs.com</a>.</em></p>
+            </div>
+
+            <div class="back-to-blog">
+                <a href="blog.html">← Back to all blog posts</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 Brian Hall. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://linkedin.com/in/hlbdg/" target="_blank">LinkedIn</a>
+                    <a href="mailto:brian.HLBDG@outlook.com">Email</a>
+                    <a href="resume.pdf" target="_blank">Resume</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

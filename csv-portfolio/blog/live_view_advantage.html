@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" class="[scrollbar-gutter:stable]">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self';" />
+  
+  <!-- Prevent FOUC for Dark Mode - Only critical script kept in head -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <!-- SEO Meta Tags -->
+  
+  <title>The LiveView Advantage: When Real-Time UX Meets Developer Productivity - Brian's Portfolio</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Brian H. - UX Designer & Frontend Developer" />
+  <meta name="description" content="How Phoenix LiveView bridges the gap between design intent and technical implementation, enabling seamless user experiences without traditional SPA complexity.">
+  <meta name="keywords" content="UX Design, UI Design, Frontend Development, Phoenix LiveView, Elixir, User Experience, User Interface, Product Design, Chicago Designer" />
+  <link rel="canonical" href="https://hlbdesigngroup.com/" />
+  <!-- Open Graph Meta Tags (Facebook/LinkedIn/Instagram) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+  <meta property="og:description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+  <meta property="og:image" content="https://hlbdesigngroup.com/images/og-image.jpg" />
+  <meta property="og:url" content="https://hlbdesigngroup.com/" />
+  <meta property="og:site_name" content="HLB Design Group" />
+  <meta property="og:locale" content="en_US" />
+  
+  <!-- BlueSky/Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Brian H. - UX Designer & Frontend Developer | HLB Design Group" />
+  <meta name="twitter:description" content="UX Designer and Frontend Developer specializing in LiveView, Phoenix, and Elixir. Creating intuitive interfaces that drive business growth." />
+  <meta name="twitter:image" content="https://hlbdesigngroup.com/images/bluesky-image.jpg" />
+  <meta name="twitter:site" content="@hlbdg" />
+  <meta name="twitter:creator" content="@hlbdg" />
+  
+	<!-- Fonts and Icons -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	<link rel="icon" type="image/x-icon" href="favicon.ico" />
+	<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+	<link rel="manifest" href="manifest.json" />
+	<meta name="theme-color" content="#D35400" />
+	<meta name="msapplication-TileColor" content="#D35400" />
+
+	<!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <!-- Font Loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- DNS Prefetch for External Resources -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+
+	<!-- Critical CSS Inlined (for performance) -->
+  <style>
+    /* Critical styles to prevent FOUC */
+    html { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      transition: color-scheme 0.3s ease;
+    }
+    body { 
+      margin: 0; 
+      padding: 0; 
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .loading { opacity: 0; }
+    
+    /* Dark mode base styles */
+    .dark {
+      color-scheme: dark;
+    }
+    
+    /* Hide/show theme toggle icons */
+    .light-icon, .dark-icon {
+      transition: opacity 0.2s ease;
+    }
+  </style>
+  
+  <!-- Tailwind CSS CDN with inline config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: 'rgb(211,84,0)',
+            'primary-dark': 'rgb(180,70,0)',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out forwards',
+            'slide-up': 'slideUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: 0 },
+              '100%': { transform: 'translateY(0)', opacity: 1 },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../assets/css/app.css"/>
+  <link rel="stylesheet" href="../assets/css/blog.css" />
+
+	<!-- Preload JS (for performance) -->
+  <link rel="preload" href="assets/js/structured-data.js" as="script" />
+  <link rel="preload" href="assets/js/dark-mode.js" as="script" />
+  <link rel="preload" href="assets/js/app.js" as="script" />
+  
+  <!-- Additional Performance & Accessibility -->
+  <meta name="color-scheme" content="light dark" />
+  <meta name="format-detection" content="telephone=no" />
+  
+  <!-- iOS Safari Specific -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="HLB Design Group" />
+    
+    <!-- Dark mode script -->
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased h-full">
+	<!-- Status Bar Header -->
+	<!-- Simple header with back button and theme toggle -->
+	<header class="w-full px-8 md:px-12 pt-4 pb-2 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 fixed top-0 z-40 backdrop-blur-sm">
+		<div class="flex justify-between items-center">
+			<a href="/" class="text-sm text-gray-600 dark:text-gray-400 hover:text-[rgb(211,84,0)] transition-colors flex items-center">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+				</svg>
+				Back to Blog
+			</a>
+			<div class="flex items-center">
+				<span class="text-sm text-gray-600 dark:text-gray-400 mr-6">Brian H.</span>
+				<button
+					id="theme-toggle"
+					class="text-sm text-gray-600 dark:text-gray-400 hover:text-[rgb(211,84,0)] transition-colors">
+					<span class="dark-icon hidden dark:inline">☀️</span>
+					<span class="light-icon dark:hidden">🌙</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+        <!-- Main Content -->
+        <div id="page-container" class="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+            <main>
+							<div class="w-full max-w-5xl mx-auto px-8 md:px-12 pt-16">
+                    <!-- Article Content -->
+                    <div class="flex-1 md:pr-8 lg:pr-12 pt-12 md:max-w-[75%] lg:max-w-[100%]">
+                        <article class="article-container">
+                            <header class="article-header">
+                                <h1 class="article-title">The LiveView Advantage: When Real-Time UX Meets Developer Productivity</h1>
+                                
+                                <div class="article-meta">
+                                    <span>Published May 1, 2025</span>
+                                    <span>•</span>
+                                    <span>8 min read</span>
+                                    <span>•</span>
+                                    <span>Brian Hall</span>
+                                </div>
+                            </header>
+
+                            <div class="article-content">
+                                <p>After eight years at NFI Industries building Transportation Management Software, I've learned that the gap between design intent and technical implementation can make or break user experience. Enter Phoenix LiveView—a technology that's fundamentally changing how we think about interactive web applications.</p>
+
+                                <h2>The Problem with Traditional SPA Architecture</h2>
+                                
+                                <p>Most designers are familiar with the friction of designing for Single Page Applications. You create beautiful, interactive prototypes in Figma, but by the time they reach production, something always gets lost in translation.</p>
+
+                                <div class="code-block">
+                                    <span class="code-language">JavaScript - Traditional React Approach</span>
+                                    <pre><code>// Traditional React approach - multiple round trips
+const [loading, setLoading] = useState(false);
+const [data, setData] = useState(null);
+const [error, setError] = useState(null);
+
+useEffect(() => {
+  setLoading(true);
+  setError(null);
+  
+  fetchShipmentData()
+    .then(response => {
+      setData(response.data);
+      setError(null);
+    })
+    .catch(err => {
+      setError('Failed to load shipment data');
+      setData(null);
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+}, [filters, currentPage]);
+
+if (loading) return &lt;LoadingSpinner /&gt;;
+if (error) return &lt;ErrorMessage message={error} /&gt;;
+if (!data) return &lt;EmptyState /&gt;;</code></pre>
+                                </div>
+
+                                <p>The user sees loading states, error boundaries, and the inevitable flash of unstyled content. As a UX designer, you're constantly compromising on the seamless experience you originally envisioned.</p>
+
+                                <h2>LiveView: Design Intent Preserved</h2>
+
+                                <p>With LiveView, what you design is much closer to what users actually experience. The magic happens server-side, and DOM updates feel instantaneous:</p>
+
+                                <div class="code-block">
+                                    <span class="code-language">Elixir - Phoenix LiveView Approach</span>
+                                    <pre><code>def handle_event("update_filter", %{"filter" => filter}, socket) do
+  # No loading states needed - update happens instantly
+  filtered_shipments = ShipmentService.filter_by_status(
+    socket.assigns.shipments, 
+    filter
+  )
+  
+  {:noreply, 
+   socket
+   |> assign(filtered_shipments: filtered_shipments)
+   |> assign(current_filter: filter)}
+end
+
+def handle_event("search_shipments", %{"query" => query}, socket) do
+  # Real-time search with server-side logic
+  results = ShipmentService.search(query, socket.assigns.current_user)
+  
+  {:noreply, 
+   socket
+   |> assign(search_results: results)
+   |> assign(search_query: query)
+   |> push_event("highlight_results", %{count: length(results)})}
+end</code></pre>
+                                </div>
+
+                                <p>No spinners, no empty states, no broken user flows. The server maintains the canonical state, and the client stays perfectly synchronized.</p>
+
+																<h3>The UX Designer's Perspective</h3>
+
+                                <p>From a design standpoint, LiveView enables experiences that were previously too complex or expensive to implement:</p>
+
+                                <ul>
+                                    <li><strong>Real-time collaboration</strong> without building complex WebSocket infrastructure</li>
+                                    <li><strong>Progressive enhancement</strong> that actually works</li>
+                                    <li><strong>Server-side validation</strong> with immediate feedback</li>
+                                    <li><strong>Consistent state management</strong> across all client connections</li>
+                                </ul>
+
+                                <p>When I'm designing complex workflows for logistics software, I can focus on the user journey instead of worrying about technical constraints. The "what if the network fails?" question becomes much simpler to answer.</p>
+
+                                <h2>Real-World Example: Live Shipment Tracking</h2>
+
+                                <p>Here's how we handle real-time shipment tracking updates in our TMS. This pattern demonstrates the power of LiveView for creating truly reactive interfaces:</p>
+
+                                <div class="code-block">
+                                    <span class="code-language">Elixir - Real-time Updates</span>
+                                    <pre><code>defmodule NFIWeb.ShipmentDashboardLive do
+  use NFIWeb, :live_view
+  
+  def mount(_params, _session, socket) do
+    # Subscribe to real-time updates when socket connects
+    if connected?(socket) do
+      ShipmentTracker.subscribe_to_updates()
+      LocationService.subscribe_to_gps_updates()
+    end
+    
+    shipments = ShipmentService.get_active_shipments()
+    
+    {:ok, 
+     socket
+     |> assign(shipments: shipments)
+     |> assign(selected_shipment: nil)
+     |> assign(map_view: "overview")}
+  end
+
+  # Handle real-time shipment status changes
+  def handle_info({:shipment_updated, updated_shipment}, socket) do
+    updated_shipments = update_shipment_in_list(
+      socket.assigns.shipments, 
+      updated_shipment
+    )
+    
+    {:noreply, 
+     socket
+     |> assign(shipments: updated_shipments)
+     |> push_event("highlight_updated", %{id: updated_shipment.id})
+     |> maybe_notify_user(updated_shipment)}
+  end
+
+  # Handle GPS location updates
+  def handle_info({:location_update, truck_id, coordinates}, socket) do
+    if truck_selected?(socket, truck_id) do
+      {:noreply, 
+       socket
+       |> push_event("update_map_marker", %{
+         truck_id: truck_id,
+         lat: coordinates.latitude,
+         lng: coordinates.longitude,
+         timestamp: DateTime.utc_now()
+       })}
+    else
+      {:noreply, socket}
+    end
+  end
+
+  # User interactions remain simple
+  def handle_event("select_shipment", %{"id" => shipment_id}, socket) do
+    shipment = ShipmentService.get_shipment_details(shipment_id)
+    
+    {:noreply, 
+     socket
+     |> assign(selected_shipment: shipment)
+     |> assign(map_view: "detail")
+     |> push_event("focus_map", %{shipment_id: shipment_id})}
+  end
+end</code></pre>
+                                </div>
+
+                                <h3>The Template Side</h3>
+
+                                <p>The LiveView template remains remarkably simple despite the complex real-time behavior:</p>
+
+                                <div class="code-block">
+                                    <span class="code-language">HEEx Template</span>
+                                    <pre><code>&lt;div class="dashboard-container"&gt;
+  &lt;div class="shipment-list"&gt;
+    &lt;%= for shipment &lt;- @shipments do %&gt;
+      &lt;div class="shipment-card" 
+           phx-click="select_shipment" 
+           phx-value-id={shipment.id}&gt;
+        &lt;h3&gt;&lt;%= shipment.destination %&gt;&lt;/h3&gt;
+        &lt;.status_badge status={shipment.status} /&gt;
+        &lt;.live_component 
+          module={ETAComponent}
+          id={"eta-#{shipment.id}"}
+          shipment={shipment} /&gt;
+      &lt;/div&gt;
+    &lt;% end %&gt;
+  &lt;/div&gt;
+  
+  &lt;div class="map-container" id="shipment-map" phx-hook="MapHandler"&gt;
+    &lt;!-- Map updates automatically via push_events --&gt;
+  &lt;/div&gt;
+  
+  &lt;%= if @selected_shipment do %&gt;
+    &lt;.live_component 
+      module={ShipmentDetailComponent}
+      id="shipment-detail"
+      shipment={@selected_shipment} /&gt;
+  &lt;% end %&gt;
+&lt;/div&gt;</code></pre>
+                                </div>
+
+                                <h2>The Development Efficiency Angle</h2>
+
+                                <p>What excites me most about LiveView is how it removes the artificial barrier between "design thinking" and "development constraints." When prototyping is this fast, iteration becomes natural.</p>
+
+                                <p>Consider the traditional development cycle:</p>
+
+                                <ul>
+                                    <li>Design creates mockup in Figma</li>
+                                    <li>Developer estimates complexity based on state management needs</li>
+                                    <li>Design compromises on interactions to fit technical constraints</li>
+                                    <li>Implementation differs from original design anyway</li>
+                                    <li>Bug fixing and state synchronization issues emerge</li>
+                                </ul>
+
+                                <p>With LiveView, the cycle becomes:</p>
+
+                                <ul>
+                                    <li>Design explores interactions freely</li>
+                                    <li>Developer implements with confidence that behavior will match design</li>
+                                    <li>Real-time iteration during development</li>
+                                    <li>Production behavior matches development behavior</li>
+                                </ul>
+																
+																
+																
+																
+																
+																<div class="article-preview">
+                                    <h3>Coming Up in Part 2</h3>
+                                    <p>Next time, I'll dive into specific design patterns that work exceptionally well with LiveView, including progressive disclosure patterns, optimistic UI updates, and mobile-first responsive patterns.</p>
+                                </div>
+
+                                <h2>The Bottom Line</h2>
+
+                                <p>Phoenix LiveView represents a fundamental shift in how we approach web application architecture. For UX designers, it means our designs can finally be implemented as intended. For developers, it means faster iteration and fewer bugs.</p>
+
+                                <p>Most importantly, for users, it means interfaces that just work—no loading states, no broken flows, no compromises.</p>
+                            </div>
+
+                            <div class="share-buttons">
+                                <a href="https://twitter.com/intent/tweet?text=The%20LiveView%20Advantage" target="_blank" class="share-btn">Share on Twitter</a>
+                                <a href="https://www.linkedin.com/sharing/share-offsite/?url=" target="_blank" class="share-btn">Share on LinkedIn</a>
+                                <a href="mailto:?subject=The%20LiveView%20Advantage" class="share-btn">Share via Email</a>
+                            </div>
+
+                            <nav class="article-navigation">
+                                <a href="blog.html" class="nav-link">← Back to Blog</a>
+                                <a href="blog-post-accessibility-industrial.html" class="nav-link">Next Article →</a>
+                            </nav>
+                        </article>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed inset-0 bg-white dark:bg-gray-900 z-50 mt-12 flex items-center justify-center transition-opacity duration-300 opacity-0 pointer-events-none">
+            <button id="mobile-menu-close" class="absolute top-8 right-8 text-gray-600 dark:text-gray-400 text-sm">Close</button>
+            <nav class="flex flex-col items-center space-y-6">
+                <a href="index.html" class="text-gray-600 dark:text-gray-400 text-xl hover:text-primary transition-colors">Home</a>
+                <a href="work.html" class="text-gray-600 dark:text-gray-400 text-xl hover:text-primary transition-colors">Work</a>
+                <a href="process.html" class="text-gray-600 dark:text-gray-400 text-xl hover:text-primary transition-colors">Process</a>
+                <a href="about.html" class="text-gray-600 dark:text-gray-400 text-xl hover:text-primary transition-colors">About</a>
+                <a href="hobbies.html" class="text-gray-600 dark:text-gray-400 text-xl hover:text-primary transition-colors">Hobbies</a>
+                <a href="contact.html" class="text-gray-600 dark:text-gray-400 text-xl hover:text-primary transition-colors">Contact</a>
+                <a href="blog.html" class="text-primary dark:text-primary text-xl font-medium">Blog</a>
+            </nav>
+        </div>
+
+        <!-- Bottom Mobile Navigation -->
+        <div class="w-full fixed bottom-0 md:hidden">
+            <nav class="flex justify-around py-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 z-40">
+                <a href="index.html" class="text-xs flex flex-col items-center text-gray-500 dark:text-gray-400">
+                    <span class="material-icons text-lg">home</span>
+                    <span>Home</span>
+                </a>
+                <a href="work.html" class="text-xs flex flex-col items-center text-gray-500 dark:text-gray-400">
+                    <span class="material-icons text-lg">work</span>
+                    <span>Work</span>
+                </a>
+                <a href="process.html" class="text-xs flex flex-col items-center text-gray-500 dark:text-gray-400">
+                    <span class="material-icons text-lg">insights</span>
+                    <span>Process</span>
+                </a>
+                <a href="about.html" class="text-xs flex flex-col items-center text-gray-500 dark:text-gray-400">
+                    <span class="material-icons text-lg">person</span>
+                    <span>About</span>
+                </a>
+                <a href="contact.html" class="text-xs flex flex-col items-center text-gray-500 dark:text-gray-400">
+                    <span class="material-icons text-lg">mail</span>
+                    <span>Contact</span>
+                </a>
+            </nav>
+        </div>
+    
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-8 md:px-12 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-gray-600 dark:text-gray-400">&copy; 2025 Brian Hall. All rights reserved.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://linkedin.com/in/hlbdg/" target="_blank" class="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">LinkedIn</a>
+                    <a href="mailto:brian.HLBDG@outlook.com" class="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">Email</a>
+                    <a href="resume.pdf" target="_blank" class="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors">Resume</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Time update functionality
+        function updateTime() {
+            const now = new Date();
+            const options = {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+            };
+            const timeElement = document.getElementById('datetime');
+            if (timeElement) {
+                timeElement.textContent = now.toLocaleDateString('en-US', options);
+            }
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.theme = 'light';
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.theme = 'dark';
+                }
+            });
+        }
+
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+        function showMobileMenu() {
+            mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+            mobileMenu.classList.add('opacity-100');
+        }
+
+        function hideMobileMenu() {
+            mobileMenu.classList.remove('opacity-100');
+            mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        if (mobileMenuToggle) mobileMenuToggle.addEventListener('click', showMobileMenu);
+        if (mobileMenuClose) mobileMenuClose.addEventListener('click', hideMobileMenu);
+
+        // Close mobile menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') hideMobileMenu();
+        });
+
+        // Code block copy functionality
+        document.querySelectorAll('.code-block').forEach(block => {
+            const button = document.createElement('button');
+            button.className = 'copy-button';
+            button.textContent = 'Copy';
+            block.appendChild(button);
+            
+            button.addEventListener('click', () => {
+                const code = block.querySelector('code').textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => button.textContent = 'Copy', 2000);
+                });
+            });
+        });
+
+        // Reading progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'reading-progress';
+        document.body.appendChild(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>
