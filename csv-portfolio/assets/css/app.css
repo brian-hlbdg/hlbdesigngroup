@@ -505,5 +505,57 @@ input:focus-visible {
     }
 }
 
+/* Dark mode support for Core Expertise section */
+@media (prefers-color-scheme: dark) {
+    .core-expertise-section {
+        --bg-color: #1f2937;
+        --card-bg: #374151;
+        --border-color: #4b5563;
+        --text-primary: #f9fafb;
+        --text-secondary: #d1d5db;
+        --progress-bg: #4b5563;
+        --accent-color: #f97316;
+    }
+  }
+  
+  /* Light mode (default) */
+  .core-expertise-section {
+    --bg-color: #ffffff;
+    --card-bg: #ffffff;
+    --border-color: #e5e7eb;
+    --text-primary: #1f2937;
+    --text-secondary: #64748b;
+    --progress-bg: #f1f5f9;
+    --accent-color: #f97316;
+  }
+  
+  /* Hover effects */
+  .skill-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .skill-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .skills-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+    
+    .skill-card {
+        padding: 20px !important;
+    }
+    
+    .core-expertise-section {
+        padding: 40px 0 !important;
+    }
+  }
+
 
 
