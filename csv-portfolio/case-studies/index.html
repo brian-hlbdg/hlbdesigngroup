@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en" class="[scrollbar-gutter:stable]">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self';" />
+  
+  <!-- Prevent FOUC for Dark Mode -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  
+  <!-- SEO Meta Tags -->
+  <title>Case Studies - Brian H. | UX Design & Frontend Development Projects</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Brian H. - UX Designer & Frontend Developer" />
+  <meta name="description" content="Explore detailed case studies showcasing UX design and frontend development projects. Learn about my process, challenges solved, and measurable results achieved." />
+  <meta name="keywords" content="UX Case Studies, Design Process, Frontend Development Projects, User Experience Portfolio, Chicago Designer" />
+  <link rel="canonical" href="https://hlbdesigngroup.com/case-studies/" />
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Case Studies - Brian H. | UX Design & Frontend Development" />
+  <meta property="og:description" content="Explore detailed case studies showcasing UX design and frontend development projects with measurable results." />
+  <meta property="og:image" content="https://hlbdesigngroup.com/images/case-studies-og.jpg" />
+  <meta property="og:url" content="https://hlbdesigngroup.com/case-studies/" />
+  
+  <!-- Favicon and Icons -->
+  <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png" />
+  <meta name="theme-color" content="#D35400" />
+  
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <!-- Font Loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Critical CSS -->
+  <style>
+    html { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      transition: color-scheme 0.3s ease;
+    }
+    body { 
+      margin: 0; 
+      padding: 0; 
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .loading { opacity: 0; }
+    .dark { color-scheme: dark; }
+    .light-icon, .dark-icon { transition: opacity 0.2s ease; }
+  </style>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: 'rgb(211,84,0)',
+            'primary-dark': 'rgb(180,70,0)',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out forwards',
+            'slide-up': 'slideUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: 0 },
+              '100%': { transform: 'translateY(0)', opacity: 1 },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../assets/css/app.css"/>
+  
+  <!-- Additional Performance -->
+  <meta name="color-scheme" content="light dark" />
+  <meta name="format-detection" content="telephone=no" />
+</head>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+  <div class="min-h-screen flex flex-col">
+    <!-- Header/Navigation -->
+    <header class="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100 dark:bg-gray-900/90 dark:border-gray-800">
+      <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center">
+          <span id="datetime" class="text-sm text-gray-500 dark:text-gray-400 hidden md:inline">
+            <script>
+              function updateDateTime() {
+                const now = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+                document.getElementById('datetime').textContent = now.toLocaleDateString('en-US', options);
+              }
+              setInterval(updateDateTime, 1000);
+              updateDateTime();
+            </script>
+          </span>
+          <span class="text-sm text-gray-500 dark:text-gray-400 ml-2 hidden md:inline">Chicago, IL</span>
+        </div>
+        <div class="flex items-center space-x-6">
+          <nav class="hidden md:flex space-x-6">
+            <a href="../index.html" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-orange-400 transition-colors">Home</a>
+            <a href="../professional_experience.html" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-orange-400 transition-colors">Experience</a>
+            <a href="index.html" class="text-primary dark:text-orange-400 font-medium">Case Studies</a>
+            <a href="../blog/index.html" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-orange-400 transition-colors">Blog</a>
+          </nav>
+          <div class="text-sm dark:text-gray-200">Brian L. Hall</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-24 pb-16">
+      <div class="container mx-auto px-6">
+        <!-- Hero Section -->
+        <section class="py-12 md:py-20">
+          <div class="max-w-4xl mx-auto">
+            <div class="mb-6">
+              <a href="../index.html" class="inline-flex items-center text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-orange-400 transition-colors group">
+                <i class="fas fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i>
+                Back to Home
+              </a>
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-fade-in dark:text-white">
+              Case Studies
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl animate-fade-in">
+              Deep dives into real projects where design meets measurable business impact. Each case study explores the challenges, process, and quantifiable results.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 animate-fade-in">
+              <div class="stat-card bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                <div class="text-2xl font-bold text-primary dark:text-orange-400 mb-2">20+</div>
+                <div class="text-gray-600 dark:text-gray-300">Years in Web Design</div>
+              </div>
+              <div class="stat-card bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                <div class="text-2xl font-bold text-primary dark:text-orange-400 mb-2">5+</div>
+                <div class="text-gray-600 dark:text-gray-300">Industries Served</div>
+              </div>
+              <div class="stat-card bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                <div class="text-2xl font-bold text-primary dark:text-orange-400 mb-2">9+</div>
+                <div class="text-gray-600 dark:text-gray-300">Years Remote Experience</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Featured Case Studies -->
+        <section id="featured-studies" class="py-12 section-fade">
+          <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl font-light mb-8 border-b border-gray-200 dark:border-gray-700 pb-2">Featured Case Studies</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+              <!-- TMS Build Case Study -->
+              <article class="case-study-card group bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <a href="tms/time_component.html" class="block">
+                  <div class="aspect-video bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-gray-600 relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+                        <i class="fas fa-truck text-4xl text-primary dark:text-orange-400"></i>
+                      </div>
+                    </div>
+                    <div class="absolute top-4 right-4">
+                      <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded-full text-xs font-medium">
+                        Featured
+                      </span>
+                    </div>
+                  </div>
+                  <div class="p-6">
+                    <div class="flex items-center justify-between mb-3">
+                      <h3 class="text-xl font-medium group-hover:text-primary dark:group-hover:text-orange-400 transition-colors dark:text-white">
+                        Transportation Management System Development
+                      </h3>
+                      <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary dark:group-hover:text-orange-400 group-hover:translate-x-1 transition-all"></i>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                      Ground-up development of enterprise logistics platform using Phoenix LiveView and Elixir. Created logical user workflows for complex transportation operations while collaborating with cross-functional teams.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Phoenix LiveView</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Elixir</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Enterprise UX</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Cross-functional Collaboration</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                      <span>NFI Industries • 2017-Present</span>
+                      <span>12 min read</span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+
+              <!-- Financial Dashboard Case Study -->
+              <article class="case-study-card group bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <a href="financial_dashboard.html" class="block">
+                  <div class="aspect-video bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-700 dark:to-gray-600 relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+                        <i class="fas fa-chart-line text-4xl text-primary dark:text-orange-400"></i>
+                      </div>
+                    </div>
+                    <div class="absolute top-4 right-4">
+                      <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full text-xs font-medium">
+                        Web Platform
+                      </span>
+                    </div>
+                  </div>
+                  <div class="p-6">
+                    <div class="flex items-center justify-between mb-3">
+                      <h3 class="text-xl font-medium group-hover:text-primary dark:group-hover:text-orange-400 transition-colors dark:text-white">
+                        Investment Platform Redesign
+                      </h3>
+                      <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary dark:group-hover:text-orange-400 group-hover:translate-x-1 transition-all"></i>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                      Frontend development and UX improvements for investment firm's client portal. Increased user engagement by 45% and reduced support tickets by 30%.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Financial Services</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Frontend Dev</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Data Visualization</span>
+                      <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Sitecore CMS</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                      <span>Calamos Investments • 2015-2017</span>
+                      <span>10 min read</span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- All Case Studies -->
+        <section id="all-studies" class="py-12 section-fade">
+          <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl font-light mb-8 border-b border-gray-200 dark:border-gray-700 pb-2">All Case Studies</h2>
+            
+            <div class="space-y-6">
+              <!-- E-commerce Platform -->
+              <article class="case-study-item group flex flex-col md:flex-row gap-6 p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
+                <div class="md:w-48 flex-shrink-0">
+                  <div class="aspect-video bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-shopping-cart text-2xl text-primary dark:text-orange-400"></i>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-start justify-between mb-3">
+                    <h3 class="text-xl font-medium group-hover:text-primary dark:group-hover:text-orange-400 transition-colors dark:text-white">
+                      E-commerce Platform Optimization
+                    </h3>
+                    <div class="flex items-center text-gray-400 group-hover:text-primary dark:group-hover:text-orange-400 transition-colors">
+                      <span class="text-sm mr-2">Read case study</span>
+                      <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                  </div>
+                  <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Complete redesign of checkout flow and product discovery for major retailer. Improved conversion rates by 28% and reduced cart abandonment by 40%.
+                  </p>
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">E-commerce</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Conversion Optimization</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">A/B Testing</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Mobile First</span>
+                  </div>
+                  <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                    <span>PMall • 2010-2012</span>
+                    <span>8 min read</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Marketing Website -->
+              <article class="case-study-item group flex flex-col md:flex-row gap-6 p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
+                <div class="md:w-48 flex-shrink-0">
+                  <div class="aspect-video bg-gradient-to-br from-orange-50 to-red-50 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-bullhorn text-2xl text-primary dark:text-orange-400"></i>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-start justify-between mb-3">
+                    <h3 class="text-xl font-medium group-hover:text-primary dark:group-hover:text-orange-400 transition-colors dark:text-white">
+                      Marketing Platform Redesign
+                    </h3>
+                    <div class="flex items-center text-gray-400 group-hover:text-primary dark:group-hover:text-orange-400 transition-colors">
+                      <span class="text-sm mr-2">Read case study</span>
+                      <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                  </div>
+                  <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Complete redesign of GKIC's marketing website and resource hub. Increased lead generation by 50% and improved content engagement metrics.
+                  </p>
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Marketing</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Lead Generation</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Content Strategy</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Information Architecture</span>
+                  </div>
+                  <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                    <span>GKIC • 2012-2014</span>
+                    <span>6 min read</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Design System -->
+              <article class="case-study-item group flex flex-col md:flex-row gap-6 p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-all duration-300">
+                <div class="md:w-48 flex-shrink-0">
+                  <div class="aspect-video bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-gray-700 dark:to-gray-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-layer-group text-2xl text-primary dark:text-orange-400"></i>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-start justify-between mb-3">
+                    <h3 class="text-xl font-medium group-hover:text-primary dark:group-hover:text-orange-400 transition-colors dark:text-white">
+                      Design System Implementation
+                    </h3>
+                    <div class="flex items-center text-gray-400 group-hover:text-primary dark:group-hover:text-orange-400 transition-colors">
+                      <span class="text-sm mr-2">Read case study</span>
+                      <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                  </div>
+                  <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Built scalable design system for logistics platform. Reduced development time by 40% and ensured consistent user experience across multiple applications.
+                  </p>
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Design Systems</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Component Library</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Scalability</span>
+                    <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 rounded-full text-xs">Documentation</span>
+                  </div>
+                  <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                    <span>NFI Industries • 2022-2023</span>
+                    <span>9 min read</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- Process Overview -->
+        <section id="process-overview" class="py-12 section-fade">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-light mb-8 border-b border-gray-200 dark:border-gray-700 pb-2">My Case Study Approach</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div class="process-step text-center">
+                <div class="w-16 h-16 bg-primary/10 dark:bg-orange-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-search text-2xl text-primary dark:text-orange-400"></i>
+                </div>
+                <h3 class="text-lg font-medium mb-3 dark:text-white">Research & Discovery</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                  Understanding user needs, business goals, and technical constraints through research and stakeholder interviews.
+                </p>
+              </div>
+              
+              <div class="process-step text-center">
+                <div class="w-16 h-16 bg-primary/10 dark:bg-orange-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-pencil-ruler text-2xl text-primary dark:text-orange-400"></i>
+                </div>
+                <h3 class="text-lg font-medium mb-3 dark:text-white">Design & Development</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                  Creating user-centered solutions through iterative design and implementation with modern technologies.
+                </p>
+              </div>
+              
+              <div class="process-step text-center">
+                <div class="w-16 h-16 bg-primary/10 dark:bg-orange-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-chart-bar text-2xl text-primary dark:text-orange-400"></i>
+                </div>
+                <h3 class="text-lg font-medium mb-3 dark:text-white">Measure & Iterate</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                  Tracking success metrics, gathering user feedback, and continuously improving the solution.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="cta" class="py-12 section-fade">
+          <div class="max-w-4xl mx-auto text-center">
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-8">
+              <h2 class="text-2xl font-light mb-4 dark:text-white">Want to discuss a project?</h2>
+              <p class="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
+                I'm currently accepting new projects for Q3 2025. Let's talk about how I can help solve your design and development challenges.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="mailto:brian.HLBDG@outlook.com?subject=Project Discussion" class="inline-flex items-center justify-center px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors">
+                  <i class="fas fa-envelope mr-2"></i>
+                  Start a Conversation
+                </a>
+                <a href="../professional_experience.html" class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary dark:hover:border-orange-400 hover:text-primary dark:hover:text-orange-400 rounded-lg transition-colors">
+                  View Experience
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-100 dark:border-gray-800">
+      <div class="container mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="text-center md:text-left mb-4 md:mb-0">
+            <p class="text-gray-500 dark:text-gray-400 text-sm">© 2025 Brian L. Hall. All rights reserved.</p>
+            <p class="text-gray-400 dark:text-gray-500 text-xs mt-1">Designed and developed by B. Hall</p>
+          </div>
+          <div class="flex items-center space-x-6">
+            <a href="https://www.linkedin.com/in/hlbdg/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary dark:hover:text-orange-400 transition-colors">
+              <i class="fab fa-linkedin fa-lg"></i>
+            </a>
+            <a href="https://www.instagram.com/hlbdg" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary dark:hover:text-orange-400 transition-colors">
+              <i class="fab fa-instagram fa-lg"></i>
+            </a>
+            <a href="https://bsky.app/profile/hlbdg.bsky.social" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primary dark:hover:text-orange-400 transition-colors">
+              <i class="fas fa-cloud fa-lg"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Theme Toggle Button -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <button 
+      id="theme-toggle"
+      class="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300"
+      aria-label="Toggle dark mode">
+      <i class="fas fa-moon dark:hidden text-gray-600"></i>
+      <i class="fas fa-sun hidden dark:inline text-orange-400"></i>
+    </button>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Theme Toggle Functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    
+    themeToggle.addEventListener('click', function() {
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // Smooth scrolling and animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Intersection Observer for fade-in animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      // Apply to section-fade elements
+      document.querySelectorAll('.section-fade').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        observer.observe(el);
+      });
+
+      // Card hover effects
+      document.querySelectorAll('.case-study-card, .case-study-item').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-4px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+        });
+      });
+
+      // Stats animation
+      const statCards = document.querySelectorAll('.stat-card');
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.transform = 'scale(1)';
+            entry.target.style.opacity = '1';
+          }
+        });
+      }, { threshold: 0.5 });
+
+      statCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.9)';
+        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        statsObserver.observe(card);
+      });
+
+      // Process steps animation
+      const processSteps = document.querySelectorAll('.process-step');
+      const processObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }, index * 150);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      processSteps.forEach(step => {
+        step.style.opacity = '0';
+        step.style.transform = 'translateY(30px)';
+        step.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        processObserver.observe(step);
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    });
+
+    // Mobile menu functionality (if needed in the future)
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+      }
+    }
+
+    // Performance optimization: Lazy load background images
+    const lazyBackgrounds = document.querySelectorAll('[data-bg]');
+    const backgroundObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bg = entry.target.dataset.bg;
+          entry.target.style.backgroundImage = `url(${bg})`;
+          backgroundObserver.unobserve(entry.target);
+        }
+      });
+    });
+
+    lazyBackgrounds.forEach(bg => {
+      backgroundObserver.observe(bg);
+    });
+  </script>
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Case Studies - Brian H.",
+    "description": "Detailed case studies showcasing UX design and frontend development projects with measurable results",
+    "url": "https://hlbdesigngroup.com/case-studies/",
+    "author": {
+      "@type": "Person",
+      "name": "Brian L. Hall",
+      "jobTitle": "Senior UX Designer & Frontend Developer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "HLB Design Group"
+      }
+    },
+    "hasPart": [
+      {
+        "@type": "Article",
+        "name": "Transportation Management System Redesign",
+        "description": "Complete UX overhaul of enterprise logistics software serving 500+ daily users",
+        "author": {
+          "@type": "Person",
+          "name": "Brian L. Hall"
+        }
+      },
+      {
+        "@type": "Article", 
+        "name": "Investment Platform Redesign",
+        "description": "Frontend development and UX improvements for investment firm's client portal",
+        "author": {
+          "@type": "Person",
+          "name": "Brian L. Hall"
+        }
+      }
+    ]
+  }
+  </script>
+</body>
+</html>
