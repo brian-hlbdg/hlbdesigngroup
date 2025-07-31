@@ -62,6 +62,16 @@
     .loading { opacity: 0; }
     .dark { color-scheme: dark; }
     .light-icon, .dark-icon { transition: opacity 0.2s ease; }
+    .coming-soon-badge {
+            background: #ff9800;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
   </style>
   
   <!-- Tailwind CSS CDN -->
@@ -180,7 +190,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
               <!-- TMS Build Case Study -->
               <article class="case-study-card group bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700">
-                <a href="tms/time_component.html" class="block">
+                <a href="tms/tms.html" class="block">
                   <div class="aspect-video bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-gray-600 relative overflow-hidden">
                     <div class="absolute inset-0 flex items-center justify-center">
                       <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
@@ -219,7 +229,7 @@
 
               <!-- Financial Dashboard Case Study -->
               <article class="case-study-card group bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700">
-                <a href="financial_dashboard.html" class="block">
+                <a  class="block">
                   <div class="aspect-video bg-gradient-to-br from-green-50 to-emerald-50 dark:from-gray-700 dark:to-gray-600 relative overflow-hidden">
                     <div class="absolute inset-0 flex items-center justify-center">
                       <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
@@ -237,7 +247,7 @@
                       <h3 class="text-xl font-medium group-hover:text-primary dark:group-hover:text-orange-400 transition-colors dark:text-white">
                         Investment Platform Redesign
                       </h3>
-                      <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary dark:group-hover:text-orange-400 group-hover:translate-x-1 transition-all"></i>
+                      <div class="coming-soon-badge">Coming Soon</div>
                     </div>
                     <p class="text-gray-600 dark:text-gray-300 mb-4">
                       Frontend development and UX improvements for investment firm's client portal. Increased user engagement by 45% and reduced support tickets by 30%.
@@ -278,8 +288,7 @@
                       E-commerce Platform Optimization
                     </h3>
                     <div class="flex items-center text-gray-400 group-hover:text-primary dark:group-hover:text-orange-400 transition-colors">
-                      <span class="text-sm mr-2">Read case study</span>
-                      <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        <div class="coming-soon-badge">Coming Soon</div>
                     </div>
                   </div>
                   <p class="text-gray-600 dark:text-gray-300 mb-4">
@@ -311,8 +320,7 @@
                       Marketing Platform Redesign
                     </h3>
                     <div class="flex items-center text-gray-400 group-hover:text-primary dark:group-hover:text-orange-400 transition-colors">
-                      <span class="text-sm mr-2">Read case study</span>
-                      <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        <div class="coming-soon-badge">Coming Soon</div>
                     </div>
                   </div>
                   <p class="text-gray-600 dark:text-gray-300 mb-4">
@@ -344,8 +352,7 @@
                       Design System Implementation
                     </h3>
                     <div class="flex items-center text-gray-400 group-hover:text-primary dark:group-hover:text-orange-400 transition-colors">
-                      <span class="text-sm mr-2">Read case study</span>
-                      <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                        <div class="coming-soon-badge">Coming Soon</div>
                     </div>
                   </div>
                   <p class="text-gray-600 dark:text-gray-300 mb-4">
