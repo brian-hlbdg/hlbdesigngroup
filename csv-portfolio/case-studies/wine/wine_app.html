@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine Tasting App Case Study - Brian Hall UX Designer</title>
+    <meta name="description" content="Case study for a wine tasting mobile app - UX design process, user research, and interface design by Brian Hall">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #D35400;
+            --primary-dark: #B4450C;
+            --text-dark: #2C3E50;
+            --text-medium: #5D6D7E;
+            --text-light: #85929E;
+            --bg-light: #F8F9FA;
+            --bg-white: #FFFFFF;
+            --border-light: #E5E8EC;
+            --wine-primary: #722F37;
+            --wine-secondary: #B91372;
+            --wine-accent: #8B4513;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-light);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-medium);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--wine-primary) 0%, var(--wine-secondary) 100%);
+            color: white;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 60px;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-alt {
+            background: var(--bg-light);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        /* Project Overview */
+        .project-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .meta-item h3 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .meta-item p {
+            font-size: 1.125rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        /* Challenge Section */
+        .challenge-text {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: var(--text-medium);
+            max-width: 800px;
+        }
+
+        /* App Preview */
+        .app-preview {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .phone-mockup {
+            display: inline-block;
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .app-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 20px;
+        }
+
+        .preview-links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-dark);
+            border: 2px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Research Section */
+        .research-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .research-insights {
+            display: grid;
+            gap: 20px;
+        }
+
+        .insight-card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .insight-quote {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .insight-description {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        .interview-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .check-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .check-icon::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Personas */
+        .personas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .persona-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .persona-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .persona-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+            margin-right: 20px;
+        }
+
+        .persona-avatar.blue {
+            background: #3498db;
+        }
+
+        .persona-avatar.purple {
+            background: #9b59b6;
+        }
+
+        .persona-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .persona-age {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .persona-quote {
+            font-style: italic;
+            color: var(--text-medium);
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 3px solid var(--border-light);
+        }
+
+        .persona-details {
+            font-size: 0.9rem;
+        }
+
+        .persona-details div {
+            margin-bottom: 8px;
+        }
+
+        .persona-details strong {
+            color: var(--text-dark);
+        }
+
+        /* Design Process */
+        .process-flow {
+            background: var(--bg-light);
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 60px;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .process-step {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: rgba(211, 84, 0, 0.1);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin: 0 auto 16px;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .step-description {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+        }
+
+        /* Wireframes */
+        .wireframes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .wireframe-item {
+            text-align: center;
+        }
+
+        .wireframe-placeholder {
+            background: var(--bg-light);
+            border: 2px dashed var(--border-light);
+            border-radius: 8px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .feature-icon.red {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+        }
+
+        .feature-icon.amber {
+            background: rgba(243, 156, 18, 0.1);
+            color: #f39c12;
+        }
+
+        .feature-icon.purple {
+            background: rgba(155, 89, 182, 0.1);
+            color: #9b59b6;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .feature-description {
+            color: var(--text-medium);
+            margin-bottom: 20px;
+        }
+
+        .feature-benefits {
+            list-style: none;
+        }
+
+        .feature-benefits li {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .feature-benefits li::before {
+            content: '•';
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Testing Results */
+        .testing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .testing-highlights {
+            display: grid;
+            gap: 20px;
+        }
+
+        .highlight-card {
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .highlight-card.success {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .highlight-card.warning {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        .highlight-card.info {
+            background: #d1ecf1;
+            border-color: #17a2b8;
+        }
+
+        .highlight-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .highlight-text {
+            font-size: 0.9rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .metric-item {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        /* Learnings */
+        .learnings-grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        .learning-card {
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .learning-card.blue {
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .learning-card.purple {
+            background: rgba(155, 89, 182, 0.1);
+        }
+
+        .learning-card.amber {
+            background: rgba(243, 156, 18, 0.1);
+        }
+
+        .learning-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .learning-text {
+            color: var(--text-medium);
+        }
+
+        /* Next Steps */
+        .next-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .next-step-item {
+            text-align: center;
+        }
+
+        .next-step-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+
+        .next-step-icon.red {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+        }
+
+        .next-step-icon.amber {
+            background: rgba(243, 156, 18, 0.1);
+            color: #f39c12;
+        }
+
+        .next-step-icon.purple {
+            background: rgba(155, 89, 182, 0.1);
+            color: #9b59b6;
+        }
+
+        .next-step-title {
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .next-step-description {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 60px 40px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .cta-text {
+            color: var(--text-medium);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 40px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .research-grid,
+            .testing-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .phone-mockup {
+                width: 250px;
+                height: 500px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="https://www.hlbdesigngroup.com/" class="logo">Brian H.</a>
+                <nav>
+                    <ul>
+                        <li><a href="https://www.hlbdesigngroup.com/">Home</a></li>
+                        <li><a href="https://www.hlbdesigngroup.com/case-studies/index.html" class="active">Case Studies</a></li>
+                        <li><a href="https://www.hlbdesigngroup.com/professional_experience.html">Professional Experience</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="breadcrumb">
+                    <a href="https://www.hlbdesigngroup.com/case-studies/index.html">
+                        ← Back to Case Studies
+                    </a>
+                </div>
+                <h1>Wine Tasting App</h1>
+                <p class="hero-subtitle">
+                    A mobile application designed to help wine enthusiasts discover, taste, and track their wine journey with expert guidance and community insights.
+                </p>
+                <div class="hero-tags">
+                    <span class="tag">Mobile App Design</span>
+                    <span class="tag">User Research</span>
+                    <span class="tag">Prototyping</span>
+                    <span class="tag">React Development</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <!-- Project Overview -->
+        <section class="section">
+            <div class="container">
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <h3>Client</h3>
+                        <p>Personal Project</p>
+                    </div>
+                    <div class="meta-item">
+                        <h3>Timeline</h3>
+                        <p>8 weeks</p>
+                    </div>
+                    <div class="meta-item">
+                        <h3>Role</h3>
+                        <p>UX Designer, Developer</p>
+                    </div>
+                    <div class="meta-item">
+                        <h3>Tools</h3>
+                        <p>Figma, React, CSS</p>
+                    </div>
+                </div>
+
+                <h2 class="section-title">The Challenge</h2>
+                <p class="challenge-text">
+                    Wine appreciation is often intimidating for newcomers and even experienced enthusiasts struggle to track their tasting journey effectively. Existing wine apps focus primarily on purchasing or basic rating systems, leaving a gap for an educational, community-driven platform that guides users through their wine discovery process while making wine education accessible and enjoyable.
+                </p>
+            </div>
+        </section>
+
+        <!-- App Preview -->
+        <section class="app-preview">
+            <div class="container">
+                <h2 class="section-title" style="color: var(--text-dark); margin-bottom: 40px;">Live Application</h2>
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <iframe 
+                            src="https://wine-tasting-app-rho.vercel.app/app_preview" 
+                            class="app-frame"
+                            title="Wine Tasting App Preview">
+                        </iframe>
+                    </div>
+                </div>
+                <div class="preview-links">
+                    <a href="https://wine-tasting-app-rho.vercel.app/" class="btn btn-primary" target="_blank">
+                        View Live App →
+                    </a>
+                    <a href="https://github.com/brian-hlbdg/wine-tasting-app" class="btn btn-secondary" target="_blank">
+                        View on GitHub →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research & Discovery -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title">Research & Discovery</h2>
+                
+                <div class="research-grid">
+                    <div>
+                        <h3 class="section-subtitle">User Interviews</h3>
+                        <p style="color: var(--text-medium); margin-bottom: 30px;">
+                            I conducted 12 in-depth interviews with wine enthusiasts ranging from beginners to sommeliers to understand their pain points and motivations.
+                        </p>
+                        <div class="interview-stats">
+                            <div class="stat-item">
+                                <div class="check-icon"></div>
+                                <span>8 casual wine drinkers</span>
+                            </div>
+                            <div class="stat-item">
+                                <div class="check-icon"></div>
+                                <span>3 wine enthusiasts</span>
+                            </div>
+                            <div class="stat-item">
+                                <div class="check-icon"></div>
+                                <span>1 certified sommelier</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="section-subtitle">Key Insights</h3>
+                        <div class="research-insights">
+                            <div class="insight-card">
+                                <div class="insight-quote">"I never remember what I liked"</div>
+                                <div class="insight-description">Users struggle to recall wines they enjoyed, leading to repeated disappointing purchases.</div>
+                            </div>
+                            <div class="insight-card">
+                                <div class="insight-quote">"Wine vocabulary is intimidating"</div>
+                                <div class="insight-description">Complex terminology creates barriers for beginners wanting to learn about wine.</div>
+                            </div>
+                            <div class="insight-card">
+                                <div class="insight-quote">"I want to discover, not just rate"</div>
+                                <div class="insight-description">Users desire guided discovery experiences rather than simple rating systems.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personas -->
+                <h3 class="section-subtitle" style="margin-top: 60px;">User Personas</h3>
+                <div class="personas-grid">
+                    <div class="persona-card">
+                        <div class="persona-header">
+                            <div class="persona-avatar blue">AS</div>
+                            <div>
+                                <div class="persona-name">Alex - The Curious Beginner</div>
+                                <div class="persona-age">Age 28, Marketing Professional</div>
+                            </div>
+                        </div>
+                        <div class="persona-quote">
+                            "I enjoy wine but feel overwhelmed by all the choices. I want to learn but don't know where to start."
+                        </div>
+                        <div class="persona-details">
+                            <div><strong>Goals:</strong> Learn wine basics, discover preferences</div>
+                            <div><strong>Frustrations:</strong> Intimidating terminology, analysis paralysis</div>
+                        </div>
+                    </div>
+                    
+                    <div class="persona-card">
+                        <div class="persona-header">
+                            <div class="persona-avatar purple">MR</div>
+                            <div>
+                                <div class="persona-name">Maria - The Explorer</div>
+                                <div class="persona-age">Age 35, Wine Enthusiast</div>
+                            </div>
+                        </div>
+                        <div class="persona-quote">
+                            "I love trying new wines but struggle to remember details about ones I've enjoyed."
+                        </div>
+                        <div class="persona-details">
+                            <div><strong>Goals:</strong> Track tastings, discover new wines</div>
+                            <div><strong>Frustrations:</strong> Poor memory for wine details, scattered notes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Process -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Design Process</h2>
+                
+                <!-- Information Architecture -->
+                <h3 class="section-subtitle">Information Architecture</h3>
+                <div class="process-flow">
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-title">Discover</div>
+                            <div class="step-description">Personalized recommendations</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-title">Taste</div>
+                            <div class="step-description">Guided tasting notes</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-title">Track</div>
+                            <div class="step-description">Personal wine journal</div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-title">Learn</div>
+                            <div class="step-description">Educational content</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wireframes -->
+                <h3 class="section-subtitle">Wireframes & User Flow</h3>
+                <div class="wireframes-grid">
+                    <div class="wireframe-item">
+                        <div class="wireframe-placeholder">
+                            Home Screen<br>Wireframe
+                        </div>
+                        <p style="color: var(--text-medium); font-size: 0.9rem;">Personalized recommendations and quick actions</p>
+                    </div>
+                    <div class="wireframe-item">
+                        <div class="wireframe-placeholder">
+                            Tasting Flow<br>Wireframe
+                        </div>
+                        <p style="color: var(--text-medium); font-size: 0.9rem;">Guided tasting experience with progressive disclosure</p>
+                    </div>
+                    <div class="wireframe-item">
+                        <div class="wireframe-placeholder">
+                            Wine Journal<br>Wireframe
+                        </div>
+                        <p style="color: var(--text-medium); font-size: 0.9rem;">Personal collection and tasting history</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title">Key Features</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon red">
+                            💡
+                        </div>
+                        <h3 class="feature-title">Guided Tasting Experience</h3>
+                        <p class="feature-description">
+                            Step-by-step tasting guidance that helps users develop their palate and learn wine terminology naturally.
+                        </p>
+                        <ul class="feature-benefits">
+                            <li>Visual and aromatic prompts</li>
+                            <li>Progressive skill building</li>
+                            <li>Personalized vocabulary</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon amber">
+                            📚
+                        </div>
+                        <h3 class="feature-title">Smart Wine Journal</h3>
+                        <p class="feature-description">
+                            Automatically organized tasting notes with photo recognition and intelligent tagging for easy wine discovery.
+                        </p>
+                        <ul class="feature-benefits">
+                            <li>Photo-based wine logging</li>
+                            <li>Automatic categorization</li>
+                            <li>Search and filter options</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon purple">
+                            👥
+                        </div>
+                        <h3 class="feature-title">Community Insights</h3>
+                        <p class="feature-description">
+                            Connect with other wine enthusiasts and access expert sommelier insights for enhanced learning.
+                        </p>
+                        <ul class="feature-benefits">
+                            <li>Expert recommendations</li>
+                            <li>Community reviews</li>
+                            <li>Virtual tasting events</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testing & Results -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Testing & Results</h2>
+                
+                <div class="testing-grid">
+                    <div>
+                        <h3 class="section-subtitle">Usability Testing</h3>
+                        <p style="color: var(--text-medium); margin-bottom: 30px;">
+                            I conducted moderated usability tests with 8 participants to validate the core user flows and identify areas for improvement.
+                        </p>
+                        <div class="testing-highlights">
+                            <div class="highlight-card success">
+                                <div class="highlight-title">✓ Successful</div>
+                                <div class="highlight-text">Users easily completed the guided tasting flow (100% success rate)</div>
+                            </div>
+                            <div class="highlight-card warning">
+                                <div class="highlight-title">⚠ Needs Improvement</div>
+                                <div class="highlight-text">Wine discovery flow caused confusion for 3/8 users</div>
+                            </div>
+                            <div class="highlight-card info">
+                                <div class="highlight-title">💡 Insight</div>
+                                <div class="highlight-text">Users wanted more context about why specific wines were recommended</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="section-subtitle">Key Metrics</h3>
+                        <div class="metrics-grid">
+                            <div class="metric-item">
+                                <div class="metric-value">87%</div>
+                                <div class="metric-label">Task completion rate</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">4.2/5</div>
+                                <div class="metric-label">Average usability score</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">2.3min</div>
+                                <div class="metric-label">Average tasting flow time</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">92%</div>
+                                <div class="metric-label">Would recommend to friends</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact & Learnings -->
+        <section class="section section-alt">
+            <div class="container">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;">
+                    <div>
+                        <h2 class="section-title">Impact & Outcomes</h2>
+                        <p style="color: var(--text-medium); margin-bottom: 40px; line-height: 1.7;">
+                            The wine tasting app successfully addresses the key pain points identified in user research, creating an approachable entry point for wine education while providing value for experienced enthusiasts.
+                        </p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 24px;">
+                            <div style="display: flex; align-items: flex-start; gap: 16px;">
+                                <div style="width: 32px; height: 32px; background: #d4edda; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 4px;">
+                                    <span style="color: #28a745; font-size: 16px; font-weight: bold;">✓</span>
+                                </div>
+                                <div>
+                                    <h3 style="font-weight: 600; margin-bottom: 8px; font-size: 1.1rem;">Reduced Learning Barriers</h3>
+                                    <p style="color: var(--text-medium); font-size: 0.9rem;">Guided tasting flows made wine education accessible for beginners</p>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; align-items: flex-start; gap: 16px;">
+                                <div style="width: 32px; height: 32px; background: #d4edda; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 4px;">
+                                    <span style="color: #28a745; font-size: 16px; font-weight: bold;">✓</span>
+                                </div>
+                                <div>
+                                    <h3 style="font-weight: 600; margin-bottom: 8px; font-size: 1.1rem;">Improved Wine Discovery</h3>
+                                    <p style="color: var(--text-medium); font-size: 0.9rem;">Contextual recommendations helped users explore new wines confidently</p>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; align-items: flex-start; gap: 16px;">
+                                <div style="width: 32px; height: 32px; background: #d4edda; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 4px;">
+                                    <span style="color: #28a745; font-size: 16px; font-weight: bold;">✓</span>
+                                </div>
+                                <div>
+                                    <h3 style="font-weight: 600; margin-bottom: 8px; font-size: 1.1rem;">Enhanced Memory & Tracking</h3>
+                                    <p style="color: var(--text-medium); font-size: 0.9rem;">Smart journal helped users remember and rediscover favorite wines</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h2 class="section-title">Key Learnings</h2>
+                        
+                        <div class="learnings-grid">
+                            <div class="learning-card blue">
+                                <h3 class="learning-title">Progressive Disclosure is Powerful</h3>
+                                <p class="learning-text">
+                                    Breaking complex wine knowledge into digestible steps made learning feel achievable rather than overwhelming.
+                                </p>
+                            </div>
+                            
+                            <div class="learning-card purple">
+                                <h3 class="learning-title">Context Drives Confidence</h3>
+                                <p class="learning-text">
+                                    Users needed to understand 'why' behind recommendations to trust the system and feel confident in their choices.
+                                </p>
+                            </div>
+                            
+                            <div class="learning-card amber">
+                                <h3 class="learning-title">Personal Connection Matters</h3>
+                                <p class="learning-text">
+                                    The most successful features were those that helped users connect their personal experiences to wine knowledge.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Implementation -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Technical Implementation</h2>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-bottom: 40px;">
+                    <div>
+                        <h3 class="section-subtitle">Technology Stack</h3>
+                        <div style="display: grid; gap: 16px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="check-icon"></div>
+                                <span><strong>React</strong> - Component-based UI framework</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="check-icon"></div>
+                                <span><strong>CSS Modules</strong> - Scoped styling approach</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="check-icon"></div>
+                                <span><strong>React Router</strong> - Client-side navigation</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="check-icon"></div>
+                                <span><strong>Local Storage</strong> - Data persistence</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="check-icon"></div>
+                                <span><strong>Vercel</strong> - Deployment platform</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="section-subtitle">Development Approach</h3>
+                        <p style="color: var(--text-medium); margin-bottom: 20px;">
+                            Built as a progressive web app with mobile-first responsive design. The application focuses on performance and accessibility while maintaining a clean, intuitive interface.
+                        </p>
+                        <div style="display: grid; gap: 16px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="check-icon"></div>
+                                <span>Mobile-first responsive design</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="check-icon"></div>
+                                <span>Accessible component patterns</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="check-icon"></div>
+                                <span>Performance optimized</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="section section-alt">
+            <div class="container">
+                <h2 class="section-title">Next Steps</h2>
+                <p style="text-align: center; color: var(--text-medium); margin-bottom: 60px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    While this project demonstrates core functionality, there are several opportunities for enhanced features and deeper user engagement.
+                </p>
+                
+                <div class="next-steps-grid">
+                    <div class="next-step-item">
+                        <div class="next-step-icon red">
+                            📱
+                        </div>
+                        <h3 class="next-step-title">AR Wine Labels</h3>
+                        <p class="next-step-description">Use camera to scan wine labels and access instant information and reviews</p>
+                    </div>
+                    
+                    <div class="next-step-item">
+                        <div class="next-step-icon amber">
+                            🔗
+                        </div>
+                        <h3 class="next-step-title">Social Features</h3>
+                        <p class="next-step-description">Share tasting notes with friends and organize virtual tasting groups</p>
+                    </div>
+                    
+                    <div class="next-step-item">
+                        <div class="next-step-icon purple">
+                            ⚡
+                        </div>
+                        <h3 class="next-step-title">AI Recommendations</h3>
+                        <p class="next-step-description">Machine learning algorithms to provide increasingly personalized wine suggestions</p>
+                    </div>
+                </div>
+                
+                <div class="cta-section">
+                    <p class="cta-text">
+                        Interested in learning more about this project or discussing similar challenges? Let's connect and explore how user-centered design can solve complex problems.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="https://www.hlbdesigngroup.com/contact.html" class="btn btn-primary">
+                            Get in Touch
+                        </a>
+                        <a href="https://www.hlbdesigngroup.com/work.html" class="btn btn-secondary">
+                            View More Work
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <p>&copy; 2025 Brian Hall. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://linkedin.com/in/hlbdg/" target="_blank">LinkedIn</a>
+                    <a href="mailto:brian.HLBDG@outlook.com">Email</a>
+                    <a href="https://www.hlbdesigngroup.com/resume.pdf" target="_blank">Resume</a>
+                    <a href="https://github.com/brian-hlbdg" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for animation
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Add loading animation to iframe
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframe = document.querySelector('.app-frame');
+            if (iframe) {
+                iframe.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+            }
+        });
+
+        // Mobile navigation toggle (if needed)
+        function toggleMobileNav() {
+            const nav = document.querySelector('nav ul');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Add mobile menu button if viewport is small
+        function checkViewport() {
+            const nav = document.querySelector('nav ul');
+            const header = document.querySelector('.header-content');
+            
+            if (window.innerWidth <= 768) {
+                if (!document.querySelector('.mobile-menu-btn')) {
+                    const mobileBtn = document.createElement('button');
+                    mobileBtn.className = 'mobile-menu-btn';
+                    mobileBtn.innerHTML = '☰';
+                    mobileBtn.style.cssText = `
+                        background: none;
+                        border: none;
+                        font-size: 24px;
+                        cursor: pointer;
+                        color: var(--text-dark);
+                    `;
+                    mobileBtn.addEventListener('click', toggleMobileNav);
+                    header.appendChild(mobileBtn);
+                }
+                nav.style.display = 'none';
+            } else {
+                const mobileBtn = document.querySelector('.mobile-menu-btn');
+                if (mobileBtn) {
+                    mobileBtn.remove();
+                }
+                nav.style.display = 'flex';
+            }
+        }
+
+        window.addEventListener('resize', checkViewport);
+        checkViewport();
+    </script>
+</body>
+</html>
